@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { Image, 
-        StyleSheet, 
-        Text, 
+import { Image,
+        StyleSheet,
+        Text,
         View,
         ScrollView,
         TextInput,
-        KeyboardAvoidingView
+        KeyboardAvoidingView,
+        AppRegistry,
       } from 'react-native';
 
 export default function Movie() {
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 19,
         fontStyle: "italic",
+        fontFamily: 'BebasNeue-Regular',
         color: "#fff"
     }
 })

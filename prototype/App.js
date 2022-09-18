@@ -1,8 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import Semester from './components/Semester';
-import { Image, 
-        StyleSheet, 
-        Text, 
+import wayfinder from './assets/wayfinder.png';
+import whiteLogo from './assets/whiteLogo.png';
+import { Image,
+        StyleSheet,
+        Text,
         View,
         ScrollView,
         TextInput,
@@ -13,11 +15,13 @@ import { Image,
 export default function App() {
   return (
     <View style={styles.container}>
+      {/* logo at top right of screen */}
       {/** search bar */}
       <View style={styles.searchBar}>
-        <TextInput 
+      <Image source={whiteLogo} style={styles.whiteLogo}/>
+        <TextInput
           style={styles.textInput}
-          placeholder="What are you looking for?"
+          placeholder="  What are you looking for?"
         ></TextInput>
       </View>
 
@@ -31,7 +35,7 @@ export default function App() {
           <Semester text="Fall 2020"></Semester>
         </ScrollView>
       </View>
-      
+
 
       {/** navigation */}
       <View style={styles.navigation}>
@@ -50,7 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#97252B",
     flex: 1.5,
     paddingTop: 10,
-    paddingBottom: 10,
+    paddingBottom: 20,
     paddingHorizontal: 15,
   },
   textInput: {
@@ -60,6 +64,7 @@ const styles = StyleSheet.create({
     height: "40%",
     borderRadius: 20,
     marginTop: 50,
+    marginLeft: 10,
   },
   verticalScroll: {
     backgroundColor: "#000",
@@ -74,4 +79,12 @@ const styles = StyleSheet.create({
     flex: 1.2,
     backgroundColor: "#97252B"
   },
+  whiteLogo: {
+    position: 'relative',
+    marginLeft: 15,
+    width: 75,
+    height: 20,
+    backgroundColor: "#97252B",
+
+  }
 });
