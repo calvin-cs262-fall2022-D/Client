@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import Movie from './Movie';
-import { Image, 
-        StyleSheet, 
-        Text, 
+// import fonts from './assets/fonts';
+import { Image,
+        StyleSheet,
+        Text,
         View,
         ScrollView,
         TextInput,
@@ -46,12 +47,13 @@ const styles = StyleSheet.create({
     sectionHeadingText: {
         fontSize: 25,
         fontWeight: "bold",
-        color: "#ECC409"
+        color: "#ECC409",
+        fontFamily: "Arial"
     },
     movieList: {
         flex: 6,
         backgroundColor: "#000",
-        flexDirection: "row", 
+        flexDirection: "row",
         alignItems: "center",
         paddingLeft: 15,
     }
