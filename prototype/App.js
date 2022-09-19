@@ -8,22 +8,24 @@ import { Image,
         View,
         ScrollView,
         TextInput,
-        KeyboardAvoidingView
       } from 'react-native';
 
 
 export default function App() {
   return (
     <View style={styles.container}>
-      {/* logo at top right of screen */}
-      {/** search bar */}
-      <View style={styles.searchBar}>
-      <Image source={whiteLogo} style={styles.whiteLogo}/>
-        <TextInput
-          style={styles.textInput}
-          placeholder="  What are you looking for?"
-        ></TextInput>
+      <View style={styles.header}>
+        {/** logo at the top */}
+        <Image source={whiteLogo} style={styles.whiteLogo}/>
+        {/** search bar */}
+        <View style={styles.searchBar}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="  What are you looking for?"
+          ></TextInput>
+        </View>
       </View>
+      
 
       {/** movie posters */}
       <View style={styles.verticalScroll}>
@@ -50,41 +52,39 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  header: {
+    backgroundColor: "#97252B",
+    alignItems: "center",
+    flex: 1.5,
+    paddingTop: 40,
+  },
   searchBar: {
     backgroundColor: "#97252B",
-    flex: 1.5,
-    paddingTop: 10,
-    paddingBottom: 20,
+    width: "100%",
+    paddingVertical: 10,
     paddingHorizontal: 15,
   },
   textInput: {
     backgroundColor: "#fff",
-    height: "30%",
-    alignContent: "center",
-    height: "40%",
+    height: "80%",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 20,
-    marginTop: 50,
     marginLeft: 10,
   },
   verticalScroll: {
     backgroundColor: "#000",
     flex: 10,
   },
-  horizontalScroll: {
-    flex: 1,
-    borderColor: "red",
-    borderWidth: 2,
-  },
   navigation: {
     flex: 1.2,
     backgroundColor: "#97252B"
   },
   whiteLogo: {
-    position: 'relative',
-    marginLeft: 15,
+    backgroundColor: "#97252B",
+    alignItems: "center",
     width: 75,
     height: 20,
-    backgroundColor: "#97252B",
+  },
 
-  }
 });
