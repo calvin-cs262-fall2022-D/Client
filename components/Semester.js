@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import Movie from './Movie';
-// import fonts from './assets/fonts';
+import {useFonts} from 'expo-font';
 import { Image,
         StyleSheet,
         Text,
@@ -11,6 +11,10 @@ import { Image,
       } from 'react-native';
 
 export default function Semester(prop) {
+    // const [fontsLoaded] = useFonts({
+    //     'BebasNeue': require('../assets/fonts/BebasNeue-Regular.ttf'),
+    //     'Fjalla' : require('../assets/fonts/FjallaOne-Regular.ttf')
+    // });
     return (
         <View style={styles.container}>
             <View style={styles.sectionHeading}>
@@ -42,13 +46,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#000",
         justifyContent: "center",
-        paddingLeft: 20,
+        paddingLeft: 30,
     },
     sectionHeadingText: {
         fontSize: 25,
         fontWeight: "bold",
         color: "#ECC409",
-        fontFamily: "Arial"
+        fontFamily: "Fjalla"
     },
     movieList: {
         flex: 6,

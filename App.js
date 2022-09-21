@@ -3,6 +3,8 @@ import Semester from './components/Semester';
 import wayfinder from './assets/wayfinder.png';
 import whiteLogo from './assets/whiteLogo.png';
 import {useFonts} from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+import {useCallback} from 'react';
 import { Image,
         StyleSheet,
         Text,
@@ -15,7 +17,20 @@ import { Image,
 export default function App() {
   const [fontsLoaded] = useFonts({
     'BebasNeue': require('./assets/fonts/BebasNeue-Regular.ttf'),
+    'Fjalla' : require('./assets/fonts/FjallaOne-Regular.ttf')
   });
+
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+      setAppIsReady(true);
+    }
+  }, [fontsLoaded]);
+  if (!fontsLoaded) {
+    return null;
+    setAppIsReady(true);
+  }
 
   return (
     <View style={styles.container}>
@@ -30,7 +45,7 @@ export default function App() {
           ></TextInput>
         </View>
       </View>
-      
+
 
       {/** movie posters */}
       <View style={styles.verticalScroll}>
