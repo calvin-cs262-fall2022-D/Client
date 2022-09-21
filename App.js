@@ -20,7 +20,7 @@ export default function App() {
     'Fjalla' : require('./assets/fonts/FjallaOne-Regular.ttf')
   });
 
-
+//setting up custom fonts
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded) {
       await SplashScreen.hideAsync();
@@ -41,7 +41,7 @@ export default function App() {
         <View style={styles.searchBar}>
           <TextInput
             style={styles.textInput}
-            placeholder="  What are you looking for?"
+            placeholder="What are you looking for?"
           ></TextInput>
         </View>
       </View>
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 20,
     marginLeft: 10,
+    paddingLeft: 10,
   },
   verticalScroll: {
     backgroundColor: "#000",
