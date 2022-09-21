@@ -1,4 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
+import {useFonts} from 'expo-font';
+import * as Font from 'expo-font';
 import { Image,
         StyleSheet,
         Text,
@@ -10,6 +12,12 @@ import { Image,
       } from 'react-native';
 
 export default function Movie() {
+    const [fontsLoaded] = useFonts({
+        'BebasNeue': require('../assets/fonts/BebasNeue-Regular.ttf'),
+        'Fjalla' : require('../assets/fonts/FjallaOne-Regular.ttf')
+    });
+
+
     return (
         <View style={styles.container}>
             <View style={styles.posterContainer}></View>
@@ -39,7 +47,7 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 19,
         fontStyle: "italic",
-        fontFamily: 'BebasNeue',
+        fontFamily: 'Fjalla',
         color: "#fff"
     }
 })
