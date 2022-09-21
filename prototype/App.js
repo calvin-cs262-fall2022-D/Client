@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import Semester from './components/Semester';
 import wayfinder from './assets/wayfinder.png';
 import whiteLogo from './assets/whiteLogo.png';
+import {useFonts} from 'expo-font';
 import { Image,
         StyleSheet,
         Text,
@@ -13,6 +14,10 @@ import { Image,
 
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    'BebasNeue': require('./assets/fonts/BebasNeue-Regular.ttf'),
+  });
+
   return (
     <View style={styles.container}>
       {/* logo at top right of screen */}

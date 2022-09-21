@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 19,
         fontStyle: "italic",
-        fontFamily: 'BebasNeue-Regular',
+        fontFamily: 'BebasNeue',
         color: "#fff"
     }
 })
