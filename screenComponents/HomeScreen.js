@@ -40,7 +40,7 @@ export default function HomeScreen({navigation}) {
           <TouchableOpacity>
             <Ionicons name="home" size={40} color="#f2cc00" />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Favorites")}>
             <Ionicons name="heart" size={40} color="#f2cc00" />
           </TouchableOpacity>
           <TouchableOpacity>

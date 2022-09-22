@@ -1,4 +1,5 @@
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function SearchScreen({ navigation }) {
     return (
@@ -46,18 +47,20 @@ export default function SearchScreen({ navigation }) {
                         </Text>
                     </View>
                 </View>
-                <View style={styles.suggestionBanner}>
-                    <View style={styles.imageContainer}>
-                        <Text>Image goes here</Text>
-                    </View>
-                    <View style={styles.textContainer}>
-                        <Text style={styles.titleText}>Title</Text>
-                        <Text style={styles.directorText}>Director</Text>
-                        <Text style={styles.descriptionText}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                        </Text>
-                    </View>
-                </View>
+            </View>
+            <View style={styles.navigation}>
+                <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+                  <Ionicons name="home" size={40} color="#f2cc00" />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Favorites")}>
+                  <Ionicons name="heart" size={40} color="#f2cc00" />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Ionicons name="download" size={40} color="#f2cc00" onPress={() => navigation.navigate("Downloads")}/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("Search")}>
+                  <Ionicons name="md-search" size={40} color="#f2cc00" />
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -71,7 +74,7 @@ const styles = StyleSheet.create({
     textInputContainer: {
         paddingVertical: 20,
         paddingHorizontal: 20,
-        marginVertical: 15,
+        marginTop: 15,
         borderRadius: 20,
         backgroundColor: "#97252B",
     },
@@ -83,24 +86,27 @@ const styles = StyleSheet.create({
     }, 
     suggestionContainer: {
         flex: 1,
+        marginVertical: 15,
     }, 
     suggestionBanner: {
-        backgroundColor: "skyblue",
         flex: 1,
         marginTop: 5,
+        marginHorizontal: 15,
         flexDirection: "row", 
     }, 
     imageContainer: {
-        backgroundColor: "skyblue",
+        backgroundColor: "rgba(255, 255, 255, .8)",
         flex: 1, 
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        borderRadius: 15,
     },
     textContainer: {
-        backgroundColor: "lightgreen",
+        backgroundColor: "#fff",
         flex: 2,
         paddingHorizontal: 15,
-        paddingVertical: 10
+        paddingVertical: 10,
+        borderRadius: 15,
     }, 
     titleText: {
         fontSize: 30,
@@ -110,4 +116,11 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: "600",
     },
+    navigation: {
+        flex: .12,
+        backgroundColor: "#97252B",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-around"
+      },
 })

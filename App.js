@@ -5,6 +5,8 @@ import HomeScreen from './screenComponents/HomeScreen';
 import SearchScreen from './screenComponents/SearchScreen';
 import whiteLogo from './assets/whiteLogo.png';
 import { StyleSheet, View, Image } from 'react-native';
+import FavoritesScreen from './screenComponents/FavoritesScreen';
+import DownloadsScreen from './screenComponents/DownloadsScreen';
 
 
 
@@ -20,10 +22,10 @@ export default function App({navigation}) {
 
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="Downloads" component={DownloadsScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="Favorites" component={FavoritesScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }}/>
       </Stack.Navigator>
-
-      
     </NavigationContainer>
     
   );

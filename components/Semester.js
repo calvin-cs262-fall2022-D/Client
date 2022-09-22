@@ -11,10 +11,6 @@ import { Image,
       } from 'react-native';
 
 export default function Semester(prop) {
-    // const [fontsLoaded] = useFonts({
-    //     'BebasNeue': require('../assets/fonts/BebasNeue-Regular.ttf'),
-    //     'Fjalla' : require('../assets/fonts/FjallaOne-Regular.ttf')
-    // });
     return (
         <View style={styles.container}>
             <View style={styles.sectionHeading}>
