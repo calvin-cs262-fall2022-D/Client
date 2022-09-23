@@ -1,14 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import {useFonts} from 'expo-font';
-import * as Font from 'expo-font';
-import { Image,
+import {
         StyleSheet,
         Text,
         View,
-        ScrollView,
-        TextInput,
-        KeyboardAvoidingView,
-        AppRegistry,
       } from 'react-native';
 
 export default function Movie() {

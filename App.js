@@ -1,69 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import Semester from './components/Semester';
-import wayfinder from './assets/wayfinder.png';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+
+import HomeScreen from './screenComponents/HomeScreen';
+import SearchScreen from './screenComponents/SearchScreen';
 import whiteLogo from './assets/whiteLogo.png';
-import {useFonts} from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import {useCallback} from 'react';
-import { Image,
-        StyleSheet,
-        Text,
-        View,
-        ScrollView,
-        TextInput,
-      } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
+import FavoritesScreen from './screenComponents/FavoritesScreen';
+import DownloadsScreen from './screenComponents/DownloadsScreen';
 
 
-export default function App() {
-  const [fontsLoaded] = useFonts({
-    'BebasNeue': require('./assets/fonts/BebasNeue-Regular.ttf'),
-    'Fjalla' : require('./assets/fonts/FjallaOne-Regular.ttf')
-  });
 
-//setting up custom fonts
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-      setAppIsReady(true);
-    }
-  }, [fontsLoaded]);
-  if (!fontsLoaded) {
-    return null;
-    setAppIsReady(true);
-  }
+const Stack = createNativeStackNavigator();
+
+export default function App({navigation}) {
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        {/** logo at the top */}
-        <Image source={whiteLogo} style={styles.whiteLogo}/>
-        {/** search bar */}
-        <View style={styles.searchBar}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="What are you looking for?"
-          ></TextInput>
+    <NavigationContainer style={styles.container}>
+        <View style={styles.header}>
+          <Image source={whiteLogo} style={styles.whiteLogo}/>
         </View>
-      </View>
 
-
-      {/** movie posters */}
-      <View style={styles.verticalScroll}>
-        <ScrollView>
-          <Semester text="Fall 2022"></Semester>
-          <Semester text="Spring 2022"></Semester>
-          <Semester text="Fall 2021"></Semester>
-          <Semester text="Spring 2021"></Semester>
-          <Semester text="Fall 2020"></Semester>
-        </ScrollView>
-      </View>
-
-
-      {/** navigation */}
-      <View style={styles.navigation}>
-
-      </View>
-    </View>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="Downloads" component={DownloadsScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="Favorites" component={FavoritesScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+    
   );
 }
 
@@ -72,40 +36,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  header: {
-    backgroundColor: "#97252B",
-    alignItems: "center",
-    flex: 1.5,
-    paddingTop: 40,
-  },
-  searchBar: {
-    backgroundColor: "#97252B",
-    width: "100%",
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-  },
-  textInput: {
-    backgroundColor: "#fff",
-    height: "80%",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 20,
-    marginLeft: 10,
-    paddingLeft: 10,
-  },
-  verticalScroll: {
-    backgroundColor: "#000",
-    flex: 10,
-  },
-  navigation: {
-    flex: 1.2,
-    backgroundColor: "#97252B"
-  },
   whiteLogo: {
     backgroundColor: "#97252B",
     alignItems: "center",
-    width: 75,
-    height: 20,
+    width: 112.5,
+    height: 30,
   },
-
+  header: {
+    backgroundColor: "#97252B",
+    alignItems: "center",
+    flex: .05,
+    paddingTop: 40,
+  },
 });
