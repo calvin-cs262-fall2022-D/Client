@@ -7,20 +7,6 @@ export default function DownloadsScreen({ navigation }) {
             <View style={styles.listContainer}>
                 <Text style={styles.content}>This is the Downloads page</Text>
             </View>
-            <View style={styles.navigationContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-                  <Ionicons name="home" size={40} color="#f2cc00" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Favorites")}>
-                  <Ionicons name="heart" size={40} color="#f2cc00" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Downloads")}>
-                  <Ionicons name="download" size={40} color="#f2cc00" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-                  <Ionicons name="md-search" size={40} color="#f2cc00" />
-                </TouchableOpacity>
-            </View>
         </View>
     )
 }

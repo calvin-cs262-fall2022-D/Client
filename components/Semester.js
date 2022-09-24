@@ -1,13 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
 import Movie from './Movie';
-import {useFonts} from 'expo-font';
-import { Image,
-        StyleSheet,
+import { StyleSheet,
         Text,
         View,
         ScrollView,
-        TextInput,
-        KeyboardAvoidingView
       } from 'react-native';
 
 export default function Semester(prop) {
