@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function SearchScreen({ navigation }) {
     return (
@@ -47,20 +46,6 @@ export default function SearchScreen({ navigation }) {
                         </Text>
                     </View>
                 </View>
-            </View>
-            <View style={styles.navigation}>
-                <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-                  <Ionicons name="home" size={40} color="#f2cc00" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Favorites")}>
-                  <Ionicons name="heart" size={40} color="#f2cc00" />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Ionicons name="download" size={40} color="#f2cc00" onPress={() => navigation.navigate("Downloads")}/>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-                  <Ionicons name="md-search" size={40} color="#f2cc00" />
-                </TouchableOpacity>
             </View>
         </View>
     )

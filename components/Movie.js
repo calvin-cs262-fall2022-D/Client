@@ -3,21 +3,26 @@ import {
         StyleSheet,
         Text,
         View,
+        Image,
+        TouchableOpacity
       } from 'react-native';
 
-export default function Movie() {
+export default function Movie(props) {
     const [fontsLoaded] = useFonts({
         'BebasNeue': require('../assets/fonts/BebasNeue-Regular.ttf'),
         'Fjalla' : require('../assets/fonts/FjallaOne-Regular.ttf')
     });
 
+    const imageURI = props.poster;
 
     return (
         <View style={styles.container}>
-            <View style={styles.posterContainer}></View>
-            <View style={styles.titleContainer}>
-                <Text style={styles.titleText}>Movie Title</Text>
-            </View>
+            <TouchableOpacity>
+                <Image style={styles.poster} source={{uri: imageURI}}></Image>
+                <View style={styles.titleContainer}>
+                    <Text style={styles.titleText}>{props.title}</Text>
+                </View>
+            </TouchableOpacity>
         </View>
     )
 }
@@ -27,7 +32,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginHorizontal: 15,
     },
-    posterContainer: {
+    poster: {
         backgroundColor: "#fff",
         height: 285,
         width: 225,
