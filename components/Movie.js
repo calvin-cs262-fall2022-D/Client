@@ -13,11 +13,14 @@ export default function Movie(props) {
         'Fjalla' : require('../assets/fonts/FjallaOne-Regular.ttf')
     });
 
-    const imageURI = props.poster;
+    const showMovieInfo = () => {
+        console.log(`${props.title} was clicked!`)
+    }
 
+    const imageURI = props.poster;
     return (
         <View style={styles.container}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={showMovieInfo}>
                 <Image style={styles.poster} source={{uri: imageURI}}></Image>
                 <View style={styles.titleContainer}>
                     <Text style={styles.titleText}>{props.title}</Text>
