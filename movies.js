@@ -1,5 +1,5 @@
 const movies = { 
-    Fall22 :  {
+    "Fall 2022" :  {
         m1 : {
             title: "Breakfast at Tiffany's",
             image: "https://i.pinimg.com/originals/47/79/45/47794561e0e38712ae1e8f75d879ff9e.jpg",
@@ -17,7 +17,7 @@ const movies = {
             image: "https://m.media-amazon.com/images/M/MV5BZDdiZTAwYzAtMDI3Ni00OTRjLTkzN2UtMGE3MDMyZmU4NTU4XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg",
         },
     },
-    Spring22 : {
+    "Spring 2022" : {
         m1 : {
             title: "Leon: The Professional",
             image: "https://dspncdn.com/a1/media/originals/7e/9b/f2/7e9bf2a28c89255180ca1dbb105ce548.jpg",
@@ -35,7 +35,7 @@ const movies = {
             image: "https://lwlies.com/wp-content/uploads/2021/12/images-w1400-1-900x0-c-default.jpg",
         },
     },
-    Fall21: {
+    "Fall 2021": {
         m1 : {
             title: "Breakfast at Tiffany's",
             image: "https://i.pinimg.com/originals/47/79/45/47794561e0e38712ae1e8f75d879ff9e.jpg",
@@ -53,7 +53,7 @@ const movies = {
             image: "https://mymodernmet.com/wp/wp-content/uploads/2020/10/minimalist-movie-posters-no240-my-inception-minimal-movie-poster-chungkong-art.jpg",
         },
     },
-    Spring21 : {
+    "Spring 2021" : {
         m1 : {
             title: "The Walk",
             image: "https://m.media-amazon.com/images/I/91CSnIKKJoL._SL1500_.jpg",
@@ -71,7 +71,7 @@ const movies = {
             image: "https://m.media-amazon.com/images/I/61MFmDpvljL._AC_SL1022_.jpg",
         },
     },
-    Fall20 : {
+    "Fall 2020" : {
         m1 : {
             title: "Back to the Future",
             image: "https://mymodernmet.com/wp/wp-content/uploads/2020/10/minimalist-movie-posters-no183-my-back-to-the-future-minimal-movie-poster-chungkong-art.jpg",
