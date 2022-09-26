@@ -22,7 +22,6 @@ export default function App({ navigation }) {
   const screenStyles = ({ route }) => ({
     tabBarIcon: ({ focused, color, size }) => {
       const iconName = focused ? iconObj[route.name][0] : iconObj[route.name][1];
-      // You can return any component that you like here!
       return <Ionicons name={iconName} size={size} color={color} />;
     },
     tabBarActiveTintColor: '#f2cc00',
@@ -40,6 +39,14 @@ export default function App({ navigation }) {
     }
   }
 
+  const homeHeaderStyles = {
+    headerTitle: "",
+    headerStyle: {
+      backgroundColor: "#97252B",
+    },
+    headerLeft: () => <Image source={whiteLogo} style={styles.whiteLogo}></Image>,
+  }
+
   return (
     <NavigationContainer style={styles.container}>
         {/**<View style={styles.header}>
@@ -47,7 +54,7 @@ export default function App({ navigation }) {
   </View>*/}
 
       <Tab.Navigator screenOptions={screenStyles} >
-        <Tab.Screen name="Home" component={HomeScreen} options={screenHeaderStyles}/>
+        <Tab.Screen name="Home" component={HomeScreen} options={homeHeaderStyles}/>
         <Tab.Screen name="Favorites" component={FavoritesScreen} options={screenHeaderStyles} />
         <Tab.Screen name="Downloads" component={DownloadsScreen} options={screenHeaderStyles} />
         <Tab.Screen name="Search" component={SearchScreen} options={screenHeaderStyles} />
@@ -63,15 +70,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   whiteLogo: {
-    backgroundColor: "#97252B",
     alignItems: "center",
-    width: 112.5,
-    height: 30,
-  },
-  header: {
-    backgroundColor: "#97252B",
-    alignItems: "center",
-    flex: .05,
-    paddingTop: 40,
+    width: 120,
+    height: 32,
+    marginHorizontal: 145,
   },
 });
