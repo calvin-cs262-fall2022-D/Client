@@ -1,16 +1,17 @@
 import Movie from './Movie';
-import { StyleSheet,
-        Text,
-        View,
-        ScrollView,
-      } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    ScrollView,
+} from 'react-native';
 
 export default function Semester(prop) {
     const movieData = {
-        m1 : {
+        m1: {
             title: "Breakfast at Tiffany's",
             image: "https://i.pinimg.com/originals/47/79/45/47794561e0e38712ae1e8f75d879ff9e.jpg",
-        }, 
+        },
         m2: {
             title: "Parasite",
             image: "https://parade.com/.image/t_share/MTkwNTgxMjk2NzkxODg5MDIx/parasite2.jpg",
@@ -31,7 +32,7 @@ export default function Semester(prop) {
             </View>
             <View style={styles.movieList}>
                 <ScrollView horizontal={true}>
-                    {Object.keys(movieData).map((item, idx) => 
+                    {Object.keys(movieData).map((item, idx) =>
                         <Movie key={idx} poster={movieData[item].image} title={movieData[item].title}></Movie>
                     )}
                 </ScrollView>
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
     },
     sectionHeading: {
         flex: 1,
-        backgroundColor: "#000",
+        backgroundColor: "#141414",
         justifyContent: "center",
         paddingLeft: 30,
     },
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     },
     movieList: {
         flex: 6,
-        backgroundColor: "#000",
+        backgroundColor: "#141414",
         flexDirection: "row",
         alignItems: "center",
         paddingLeft: 15,
