@@ -3,6 +3,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 import { StyleSheet, View, ScrollView, } from 'react-native';
+import { movies } from "../movies";
 
 export default function HomeScreen({ navigation }) {
   const [fontsLoaded] = useFonts({
@@ -17,20 +18,17 @@ export default function HomeScreen({ navigation }) {
       setAppIsReady(true);
     }
   }, [fontsLoaded]);
-  if (!fontsLoaded) {
-    return null;
-    setAppIsReady(true);
-  }
 
-  return (
+
+  return ( !fontsLoaded ? null :
     <View style={styles.container}>
       <View style={styles.verticalScroll}>
         <ScrollView>
-          <Semester text="Fall 2022"></Semester>
-          <Semester text="Spring 2022"></Semester>
-          <Semester text="Fall 2021"></Semester>
-          <Semester text="Spring 2021"></Semester>
-          <Semester text="Fall 2020"></Semester>
+            {
+              Object.keys(movies).map((item, idx) => 
+                <Semester key={idx} text={item} movieData={movies[item]} />
+              )
+            }
         </ScrollView>
       </View>
     </View>
@@ -45,12 +43,5 @@ const styles = StyleSheet.create({
   verticalScroll: {
     backgroundColor: "#141414",
     flex: 10,
-  },
-  navigation: {
-    flex: 1,
-    backgroundColor: "#97252B",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around"
   },
 });

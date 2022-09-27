@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, } from 'react-native';
 
 export default function SearchScreen({ navigation }) {
     return (
