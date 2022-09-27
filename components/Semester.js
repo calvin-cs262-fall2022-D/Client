@@ -1,5 +1,5 @@
 import Movie from './Movie';
-import { StyleSheet, Text, View, ScrollView, } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, SafeAreaView, FlatList, } from 'react-native';
 
 export default function Semester(props) {
     const movieData = props.movieData;
