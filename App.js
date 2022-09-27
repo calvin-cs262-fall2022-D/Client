@@ -26,7 +26,7 @@ export default function App({ navigation }) {
     },
     tabBarActiveTintColor: '#f2cc00',
     tabBarInactiveTintColor: '#f2cc00',
-    tabBarStyle: {backgroundColor: "#97252B"},
+    tabBarStyle: { backgroundColor: "#97252B" },
     headerStyle: {
       backgroundColor: "#97252B",
     }
@@ -35,32 +35,32 @@ export default function App({ navigation }) {
   const screenHeaderStyles = {
     headerTitleStyle: {
       color: "#f2cc00",
-      fontSize: "40",
+      fontSize: "35",
+      fontFamily: 'Fjalla',
     }
   }
 
   const homeHeaderStyles = {
-    headerTitle: "",
     headerStyle: {
       backgroundColor: "#97252B",
     },
-    headerLeft: () => <Image source={whiteLogo} style={styles.whiteLogo}></Image>,
+    headerTitle: () => <Image source={whiteLogo} style={styles.whiteLogo}></Image>,
   }
 
   return (
     <NavigationContainer style={styles.container}>
-        {/**<View style={styles.header}>
+      {/**<View style={styles.header}>
           <Image source={whiteLogo} style={styles.whiteLogo}/>
   </View>*/}
 
       <Tab.Navigator screenOptions={screenStyles} >
-        <Tab.Screen name="Home" component={HomeScreen} options={homeHeaderStyles}/>
+        <Tab.Screen name="Home" component={HomeScreen} options={homeHeaderStyles} />
         <Tab.Screen name="Favorites" component={FavoritesScreen} options={screenHeaderStyles} />
         <Tab.Screen name="Downloads" component={DownloadsScreen} options={screenHeaderStyles} />
         <Tab.Screen name="Search" component={SearchScreen} options={screenHeaderStyles} />
       </Tab.Navigator>
     </NavigationContainer>
-    
+
   );
 }
 
@@ -70,10 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   whiteLogo: {
-    alignItems: "center",
     width: 120,
     height: 32,
-    marginHorizontal: 145,
-    marginBottom: 10,
   },
 });

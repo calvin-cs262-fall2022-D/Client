@@ -1,9 +1,10 @@
 import Movie from './Movie';
-import { StyleSheet,
-        Text,
-        View,
-        ScrollView,
-      } from 'react-native';
+import {
+    StyleSheet,
+    Text,
+    View,
+    ScrollView,
+} from 'react-native';
 
 export default function Semester(props) {
     const movieData = props.movieData;
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     },
     sectionHeading: {
         flex: 1,
-        backgroundColor: "#000",
+        backgroundColor: "#141414",
         justifyContent: "center",
         paddingLeft: 30,
     },
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     },
     movieList: {
         flex: 6,
-        backgroundColor: "#000",
+        backgroundColor: "#141414",
         flexDirection: "row",
         alignItems: "center",
         paddingLeft: 15,

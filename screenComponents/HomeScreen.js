@@ -1,41 +1,41 @@
 import Semester from '../components/Semester';
-import {useFonts} from 'expo-font';
+import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import {useCallback} from 'react';
+import { useCallback } from 'react';
 import { StyleSheet, View, ScrollView, } from 'react-native';
 import { movies } from "../movies";
 
 export default function HomeScreen({ navigation }) {
-    const [fontsLoaded] = useFonts({
-      'BebasNeue': require('../assets/fonts/BebasNeue-Regular.ttf'),
-      'Fjalla' : require('../assets/fonts/FjallaOne-Regular.ttf')
-    });
-  
-    //setting up custom fonts
-    const onLayoutRootView = useCallback(async () => {
-      if (fontsLoaded) {
-        await SplashScreen.hideAsync();
-        setAppIsReady(true);
-      }
-    }, [fontsLoaded]);
-    if (!fontsLoaded) {
-      return null;
+  const [fontsLoaded] = useFonts({
+    'BebasNeue': require('../assets/fonts/BebasNeue-Regular.ttf'),
+    'Fjalla': require('../assets/fonts/FjallaOne-Regular.ttf')
+  });
+
+  //setting up custom fonts
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
       setAppIsReady(true);
     }
-  
-    return (
-      <View style={styles.container}>
-        <View style={styles.verticalScroll}>
-          <ScrollView>
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.verticalScroll}>
+        <ScrollView>
             {
               Object.keys(movies).map((item, idx) => 
                 <Semester key={idx} text={item} movieData={movies[item]} />
               )
             }
-          </ScrollView>
-        </View>
+        </ScrollView>
       </View>
-    );
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   verticalScroll: {
-    backgroundColor: "#000",
+    backgroundColor: "#141414",
     flex: 10,
   },
   navigation: {
@@ -55,4 +55,3 @@ const styles = StyleSheet.create({
     justifyContent: "space-around"
   },
 });
-  
