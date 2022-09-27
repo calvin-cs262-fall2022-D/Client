@@ -19,11 +19,8 @@ export default function HomeScreen({ navigation }) {
     }
   }, [fontsLoaded]);
 
-  if (!fontsLoaded) {
-    return null;
-  }
 
-  return (
+  return ( !fontsLoaded ? null :
     <View style={styles.container}>
       <View style={styles.verticalScroll}>
         <ScrollView>
@@ -46,12 +43,5 @@ const styles = StyleSheet.create({
   verticalScroll: {
     backgroundColor: "#141414",
     flex: 10,
-  },
-  navigation: {
-    flex: 1,
-    backgroundColor: "#97252B",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around"
   },
 });

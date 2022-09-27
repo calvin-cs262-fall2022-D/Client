@@ -1,10 +1,5 @@
 import Movie from './Movie';
-import {
-    StyleSheet,
-    Text,
-    View,
-    ScrollView,
-} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, } from 'react-native';
 
 export default function Semester(props) {
     const movieData = props.movieData;
@@ -18,13 +13,7 @@ export default function Semester(props) {
                 <ScrollView horizontal={true}>
                     {   
                         Object.keys(movieData).map((item, idx) => {
-                            console.log("error?");
-                            console.log("get the fricken item", typeof movieData[item].image);
-                            const titleTitle = movieData[item].title;
-                            console.log(titleTitle);
-                            const imageImage = movieData[item].image;
-                            console.log(imageImage);
-                            return (<Movie key={idx} poster={imageImage} title={titleTitle}></Movie>)
+                            return (<Movie key={idx} poster={movieData[item].image} title={movieData[item].title}></Movie>)
                         })  
                     }               
                 </ScrollView>
