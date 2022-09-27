@@ -1,5 +1,7 @@
 import {useFonts} from 'expo-font';
+//import megamind from '../assets/posters/megamind.jpg';
 import {
+    Image,
         StyleSheet,
         Text,
         View,
@@ -14,7 +16,8 @@ export default function Movie() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.posterContainer}></View>
+            <View style={styles.posterContainer}>
+            </View>
             <View style={styles.titleContainer}>
                 <Text style={styles.titleText}>Movie Title</Text>
             </View>
@@ -43,5 +46,9 @@ const styles = StyleSheet.create({
         fontStyle: "italic",
         fontFamily: 'Fjalla',
         color: "#fff"
+    },
+    posters: {
+        width: 225,
+        height: 285,
     }
 })
