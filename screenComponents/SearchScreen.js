@@ -1,12 +1,11 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function SearchScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.textInputContainer}>
-                <TextInput 
-                    style={styles.textInputStyles} 
+                <TextInput
+                    style={styles.textInputStyles}
                     placeholder="What are you looking for?"
                     placeholderTextColor={"#000000"}></TextInput>
             </View>
@@ -19,7 +18,7 @@ export default function SearchScreen({ navigation }) {
                         <Text style={styles.titleText}>Title</Text>
                         <Text style={styles.directorText}>Director</Text>
                         <Text style={styles.descriptionText}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         </Text>
                     </View>
                 </View>
@@ -31,7 +30,7 @@ export default function SearchScreen({ navigation }) {
                         <Text style={styles.titleText}>Title</Text>
                         <Text style={styles.directorText}>Director</Text>
                         <Text style={styles.descriptionText}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         </Text>
                     </View>
                 </View>
@@ -43,24 +42,10 @@ export default function SearchScreen({ navigation }) {
                         <Text style={styles.titleText}>Title</Text>
                         <Text style={styles.directorText}>Director</Text>
                         <Text style={styles.descriptionText}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                         </Text>
                     </View>
                 </View>
-            </View>
-            <View style={styles.navigation}>
-                <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-                  <Ionicons name="home" size={40} color="#f2cc00" />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Favorites")}>
-                  <Ionicons name="heart" size={40} color="#f2cc00" />
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Ionicons name="download" size={40} color="#f2cc00" onPress={() => navigation.navigate("Downloads")}/>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-                  <Ionicons name="md-search" size={40} color="#f2cc00" />
-                </TouchableOpacity>
             </View>
         </View>
     )
@@ -69,7 +54,7 @@ export default function SearchScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#000000"
+        backgroundColor: "#141414"
     },
     textInputContainer: {
         paddingVertical: 20,
@@ -83,20 +68,20 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(255, 255, 255, 0.5)",
         opacity: .5,
         borderRadius: 10,
-    }, 
+    },
     suggestionContainer: {
         flex: 1,
         marginVertical: 15,
-    }, 
+    },
     suggestionBanner: {
         flex: 1,
         marginTop: 5,
         marginHorizontal: 15,
-        flexDirection: "row", 
-    }, 
+        flexDirection: "row",
+    },
     imageContainer: {
         backgroundColor: "rgba(255, 255, 255, .8)",
-        flex: 1, 
+        flex: 1,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 15,
@@ -107,11 +92,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 10,
         borderRadius: 15,
-    }, 
+    },
     titleText: {
         fontSize: 30,
         fontWeight: "700"
-    }, 
+    },
     directorText: {
         fontSize: 22,
         fontWeight: "600",
@@ -122,5 +107,5 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-around"
-      },
+    },
 })
