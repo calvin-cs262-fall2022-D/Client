@@ -1,7 +1,6 @@
 import {useFonts} from 'expo-font';
 //import megamind from '../assets/posters/megamind.jpg';
 import {
-    Image,
         StyleSheet,
         Text,
         View,
