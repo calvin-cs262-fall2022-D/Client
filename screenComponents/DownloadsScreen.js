@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     content: {
         color: "#f2cc00",
         fontSize: 30,
-        textAlign: "center"
+        textAlign: "center",
+        fontFamily: "Fjalla",
     }
 })
