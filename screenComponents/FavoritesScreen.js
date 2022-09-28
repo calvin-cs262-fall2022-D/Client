@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet, } from 'react-native';
-
 export default function FavoritesScreen({ navigation }) {
     return (
         <View style={styles.container}>
@@ -30,6 +29,7 @@ const styles = StyleSheet.create({
     content: {
         color: "#f2cc00",
         fontSize: 30,
-        textAlign: "center"
+        textAlign: "center",
+        fontFamily: "Fjalla",
     }
 })

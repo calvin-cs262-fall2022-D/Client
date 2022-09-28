@@ -34,9 +34,9 @@ export default function App({ navigation }) {
 
   const screenHeaderStyles = {
     headerTitleStyle: {
-      color: "#f2cc00",
+      color: "white",
       fontSize: "35",
-      fontFamily: 'Fjalla',
+      fontFamily: 'BebasNeue',
     }
   }
 
