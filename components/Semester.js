@@ -2,22 +2,26 @@ import Movie from './Movie';
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, FlatList, } from 'react-native';
 
 export default function Semester(props) {
+    // array of objects 
     const movieData = props.movieData;
+
+    const renderMovies = ({ item }) => (
+        <Movie poster={item.image} title={item.title} />
+    )
 
     return (
         <View style={styles.container}>
             <View style={styles.sectionHeading}>
                 <Text style={styles.sectionHeadingText}>{props.text}</Text>
             </View>
-            <View style={styles.movieList}>
-                <ScrollView horizontal={true}>
-                    {   
-                        Object.keys(movieData).map((item, idx) => {
-                            return (<Movie key={idx} poster={movieData[item].image} title={movieData[item].title}></Movie>)
-                        })  
-                    }               
-                </ScrollView>
-            </View>
+            <SafeAreaView style={styles.movieList}>
+                <FlatList 
+                    data={movieData}
+                    renderItem={renderMovies}
+                    keyExtractor={item => item.id}
+                    horizontal={true}
+                />
+            </SafeAreaView>
         </View>
     )
 }
