@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, } from 'react-native';
 
 export default function DownloadsScreen({ navigation }) {
     return (
@@ -19,13 +19,6 @@ const styles = StyleSheet.create({
         backgroundColor: "#141414",
         justifyContent: "center",
         alignItems: "center",
-    },
-    navigationContainer: {
-        flex: 1,
-        backgroundColor: "#97252B",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-around"
     },
     content: {
         color: "#f2cc00",
