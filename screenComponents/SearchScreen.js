@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TextInput, } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity} from 'react-native';
 
 export default function SearchScreen({ navigation }) {
     return (
@@ -9,7 +9,10 @@ export default function SearchScreen({ navigation }) {
                     placeholder="What are you looking for?"
                     placeholderTextColor={"#000000"}></TextInput>
             </View>
-            <View style={styles.suggestionContainer}>
+            {/* allows user to scroll through the search page*/}
+            <ScrollView style={styles.suggestionContainer}>
+              {/* allows user to click search items*/}
+            <TouchableOpacity onPress={showSearchInfo}>
                 <View style={styles.suggestionBanner}>
                     <View style={styles.imageContainer}>
                         <Text>Image goes here</Text>
@@ -22,6 +25,9 @@ export default function SearchScreen({ navigation }) {
                         </Text>
                     </View>
                 </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={showSearchInfo}>
                 <View style={styles.suggestionBanner}>
                     <View style={styles.imageContainer}>
                         <Text>Image goes here</Text>
@@ -34,6 +40,9 @@ export default function SearchScreen({ navigation }) {
                         </Text>
                     </View>
                 </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={showSearchInfo}>
                 <View style={styles.suggestionBanner}>
                     <View style={styles.imageContainer}>
                         <Text>Image goes here</Text>
@@ -46,10 +55,15 @@ export default function SearchScreen({ navigation }) {
                         </Text>
                     </View>
                 </View>
-            </View>
+                </TouchableOpacity>
+            </ScrollView>
         </View>
     )
 }
+const showSearchInfo = () => {
+    console.log('Search was clicked!');
+}
+
 
 const styles = StyleSheet.create({
     container: {
