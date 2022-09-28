@@ -12,8 +12,8 @@ export default function Semester(props) {
             <View style={styles.movieList}>
                 <ScrollView horizontal={true}>
                     {   
-                        Object.keys(movieData).map((item, idx) => {
-                            return (<Movie key={idx} poster={movieData[item].image} title={movieData[item].title}></Movie>)
+                        movieData.map((item, idx) => {
+                            return (<Movie key={idx} poster={item.image} title={item.title}></Movie>)
                         })  
                     }               
                 </ScrollView>
