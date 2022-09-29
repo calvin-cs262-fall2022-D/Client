@@ -3,6 +3,7 @@ import whiteLogo from './assets/whiteLogo.png';
 import { StyleSheet, View, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import HomeScreenStack from './screenComponents/HomeScreenStack';
 import HomeScreen from './screenComponents/HomeScreen';
 import SearchScreen from './screenComponents/SearchScreen';
 import FavoritesScreen from './screenComponents/FavoritesScreen';
@@ -11,7 +12,7 @@ import DownloadsScreen from './screenComponents/DownloadsScreen';
 const Tab = createBottomTabNavigator();
 
 const iconObj = {
-  'Home': ['home', 'home-outline'],
+  'HomeStack': ['home', 'home-outline'],
   'Favorites': ['heart', 'heart-outline'],
   'Downloads': ['download', 'download-outline'],
   'Search': ['ios-search', 'ios-search-outline'],
@@ -54,7 +55,7 @@ export default function App({ navigation }) {
   </View>*/}
 
       <Tab.Navigator screenOptions={screenStyles} >
-        <Tab.Screen name="Home" component={HomeScreen} options={homeHeaderStyles} />
+        <Tab.Screen name="HomeStack" component={HomeScreenStack} options={homeHeaderStyles} />
         <Tab.Screen name="Favorites" component={FavoritesScreen} options={screenHeaderStyles} />
         <Tab.Screen name="Downloads" component={DownloadsScreen} options={screenHeaderStyles} />
         <Tab.Screen name="Search" component={SearchScreen} options={screenHeaderStyles} />
