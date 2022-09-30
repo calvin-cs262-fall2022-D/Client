@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity} from 'react-native';
+import MovieBanner from '../components/MovieBanner';
 
 export default function SearchScreen() {
     return (
@@ -12,50 +13,9 @@ export default function SearchScreen() {
             {/* allows user to scroll through the search page*/}
             <ScrollView style={styles.suggestionContainer}>
               {/* allows user to click search items*/}
-            <TouchableOpacity onPress={showSearchInfo}>
-                <View style={styles.suggestionBanner}>
-                    <View style={styles.imageContainer}>
-                        <Text>Image goes here</Text>
-                    </View>
-                    <View style={styles.textContainer}>
-                        <Text style={styles.titleText}>Title</Text>
-                        <Text style={styles.directorText}>Director</Text>
-                        <Text style={styles.descriptionText}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </Text>
-                    </View>
-                </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={showSearchInfo}>
-                <View style={styles.suggestionBanner}>
-                    <View style={styles.imageContainer}>
-                        <Text>Image goes here</Text>
-                    </View>
-                    <View style={styles.textContainer}>
-                        <Text style={styles.titleText}>Title</Text>
-                        <Text style={styles.directorText}>Director</Text>
-                        <Text style={styles.descriptionText}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </Text>
-                    </View>
-                </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={showSearchInfo}>
-                <View style={styles.suggestionBanner}>
-                    <View style={styles.imageContainer}>
-                        <Text>Image goes here</Text>
-                    </View>
-                    <View style={styles.textContainer}>
-                        <Text style={styles.titleText}>Title</Text>
-                        <Text style={styles.directorText}>Director</Text>
-                        <Text style={styles.descriptionText}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </Text>
-                    </View>
-                </View>
-                </TouchableOpacity>
+                <MovieBanner />
+                <MovieBanner />
+                <MovieBanner />
             </ScrollView>
         </View>
     )

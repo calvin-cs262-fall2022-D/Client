@@ -15,9 +15,17 @@ export default function AboutScreen({ route }) {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </Text>
             <View style={styles.buttonsWrapper}>
-                <TouchableOpacity style={styles.buttonContainer}>
+                <TouchableOpacity 
+                    style={styles.buttonContainer}
+                    onPress={() => console.log(title)}>
                     <Text style={styles.buttonText}>Favorites</Text>
                     <Ionicons name="heart" size={24} color="#fff" />
+                </TouchableOpacity>
+                <TouchableOpacity 
+                    style={styles.buttonContainer}
+                    onPress={() => console.log(`${title} added to watch history`)}>
+                    <Text style={styles.buttonText}>Play</Text>
+                    <Ionicons name="play" size={24} color="#fff" />
                 </TouchableOpacity>
             </View>
         </View>
