@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import { StyleSheet, View, ScrollView, Button } from 'react-native';
 import { movies } from "../data/movies";
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
   const [fontsLoaded] = useFonts({
     'BebasNeue': require('../assets/fonts/BebasNeue-Regular.ttf'),
     'Fjalla': require('../assets/fonts/FjallaOne-Regular.ttf')
