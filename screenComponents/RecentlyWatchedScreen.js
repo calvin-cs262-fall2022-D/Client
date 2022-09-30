@@ -1,10 +1,10 @@
 import { View, Text, StyleSheet, } from 'react-native';
 
-export default function DownloadsScreen() {
+export default function RecentlyWatchedScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.listContainer}>
-                <Text style={styles.content}>This is the Downloads page</Text>
+                <Text style={styles.content}>This is the Recently Watched page</Text>
             </View>
         </View>
     )

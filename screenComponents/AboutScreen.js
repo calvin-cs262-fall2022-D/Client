@@ -19,10 +19,6 @@ export default function AboutScreen({ route }) {
                     <Text style={styles.buttonText}>Favorites</Text>
                     <Ionicons name="heart" size={24} color="#fff" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonContainer}>
-                    <Text style={styles.buttonText}>Download</Text>
-                    <Ionicons name="download" size={24} color="#fff" />
-                </TouchableOpacity>
             </View>
         </View>
     )
