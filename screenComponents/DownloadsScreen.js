@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, } from 'react-native';
 
-export default function DownloadsScreen({ navigation }) {
+export default function DownloadsScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.listContainer}>

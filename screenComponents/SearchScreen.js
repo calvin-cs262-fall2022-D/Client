@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity} from 'react-native';
 
-export default function SearchScreen({ navigation }) {
+export default function SearchScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.textInputContainer}>
