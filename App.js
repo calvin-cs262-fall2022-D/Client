@@ -4,7 +4,6 @@ import { StyleSheet, View, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import HomeScreenStack from './screenComponents/HomeScreenStack';
-import HomeScreen from './screenComponents/HomeScreen';
 import SearchScreen from './screenComponents/SearchScreen';
 import FavoritesScreen from './screenComponents/FavoritesScreen';
 import DownloadsScreen from './screenComponents/DownloadsScreen';
@@ -18,7 +17,7 @@ const iconObj = {
   'Search': ['ios-search', 'ios-search-outline'],
 }
 
-export default function App({ navigation }) {
+export default function App() {
 
   const screenStyles = ({ route }) => ({
     tabBarIcon: ({ focused, color, size }) => {
@@ -46,6 +45,7 @@ export default function App({ navigation }) {
       backgroundColor: "#97252B",
     },
     headerTitle: () => <Image source={whiteLogo} style={styles.whiteLogo}></Image>,
+    title: "Home",
   }
 
   return (

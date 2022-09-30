@@ -20,7 +20,7 @@ export default function Movie(props) {
     const imageURI = props.poster;
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => navigation.navigate("About")}>
+            <TouchableOpacity onPress={() => navigation.navigate("About", {title: props.title, poster: imageURI})}>
                 <Image style={styles.poster} source={{uri: imageURI}}></Image>
                 <View style={styles.titleContainer}>
                     <Text style={styles.titleText}>{props.title}</Text>
