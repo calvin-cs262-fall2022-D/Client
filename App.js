@@ -7,6 +7,7 @@ import HomeScreenStack from './screenComponents/HomeScreenStack';
 import SearchScreen from './screenComponents/SearchScreen';
 import FavoritesScreen from './screenComponents/FavoritesScreen';
 import DownloadsScreen from './screenComponents/DownloadsScreen';
+import DisplayScreen from './screenComponents/DisplayScreen';
 
 const Tab = createBottomTabNavigator();
 
