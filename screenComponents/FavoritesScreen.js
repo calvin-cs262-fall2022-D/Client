@@ -1,10 +1,15 @@
-import { View, Text, StyleSheet, } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, } from 'react-native';
+import MovieBanner from '../components/MovieBanner';
+
 export default function FavoritesScreen({ navigation }) {
     return (
         <View style={styles.container}>
-            <View style={styles.listContainer}>
-                <Text style={styles.content}>This is the Favorites page</Text>
-            </View>
+            <ScrollView>
+                <MovieBanner />
+                <MovieBanner />
+                <MovieBanner />
+                <MovieBanner />
+            </ScrollView>
         </View>
     )
 }
@@ -12,24 +17,6 @@ export default function FavoritesScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    listContainer: {
-        flex: 10,
         backgroundColor: "#141414",
-        justifyContent: "center",
-        alignItems: "center",
     },
-    navigationContainer: {
-        flex: 1,
-        backgroundColor: "#97252B",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-around"
-    },
-    content: {
-        color: "#f2cc00",
-        fontSize: 30,
-        textAlign: "center",
-        fontFamily: "Fjalla",
-    }
 })

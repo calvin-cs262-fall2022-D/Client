@@ -1,9 +1,27 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
 
 export default function AboutScreen({ route }) {
+    const [favorites, setFavorites] = useState({})
 
     const { title, poster } = route.params;
+
+    const saveFavorites = async (movieObj) => {
+        try {
+            const jsonValue = JSON.stringify(movieObj);
+            await AsyncStorage.setItem('@storage_Key', jsonValue);
+          } catch (e) {
+            alert(`${title}: ${e}`);
+          }
+    }
+
+    const addFavorites = async () => {
+        setFavorites({title: title, poster: poster});
+        await saveFavorites(favorites);
+        console.log(`${title} stored in AsyncStorage`);
+    }
 
     return (
         <View style={styles.container}>
@@ -17,7 +35,7 @@ export default function AboutScreen({ route }) {
             <View style={styles.buttonsWrapper}>
                 <TouchableOpacity 
                     style={styles.buttonContainer}
-                    onPress={() => console.log(title)}>
+                    onPress={addFavorites}>
                     <Text style={styles.buttonText}>Favorites</Text>
                     <Ionicons name="heart" size={24} color="#fff" />
                 </TouchableOpacity>
