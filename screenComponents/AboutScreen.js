@@ -7,20 +7,32 @@ export default function AboutScreen({ route }) {
     const [favorites, setFavorites] = useState({})
 
     const { title, poster } = route.params;
+    const MOVIE_KEY = "@movie_Key"
+
+    const getFavorites = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem(MOVIE_KEY);
+            return jsonValue != null ? JSON.parse(jsonValue) : null;
+        } catch(e) {
+            alert(`${e}`);
+        }
+    }
 
     const saveFavorites = async (movieObj) => {
         try {
             const jsonValue = JSON.stringify(movieObj);
-            await AsyncStorage.setItem('@storage_Key', jsonValue);
+            await AsyncStorage.setItem(MOVIE_KEY, jsonValue);
           } catch (e) {
             alert(`${title}: ${e}`);
           }
     }
 
     const addFavorites = async () => {
-        setFavorites({title: title, poster: poster});
-        await saveFavorites(favorites);
-        console.log(`${title} stored in AsyncStorage`);
+        const prevFavs = await getFavorites()
+        const favMovie = {title: title, poster: poster};
+
+        const newFavs = !prevFavs ? {[Date.now()]: favMovie} : {...prevFavs, [Date.now()]: favMovie};
+        await saveFavorites(newFavs);
     }
 
     return (

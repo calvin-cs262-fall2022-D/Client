@@ -14,14 +14,15 @@ export default function MovieBanner(props) {
         'Fjalla' : require('../assets/fonts/FjallaOne-Regular.ttf')
     });
 
+
     return (
         <TouchableOpacity style={styles.container}>
             <View style={styles.flexWrapper}>
                 <View style={styles.imageContainer}>
-                    <Text>Image goes here</Text>
+                    <Image style={styles.imageContent} source={{uri: props.poster}}/>
                 </View>
                 <View style={styles.textContainer}>
-                    <Text style={styles.titleText}>Title</Text>
+                    <Text style={styles.titleText}>{props.title}</Text>
                     <Text style={styles.directorText}>Director</Text>
                     <Text style={styles.descriptionText}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -34,7 +35,7 @@ export default function MovieBanner(props) {
 
 const styles = StyleSheet.create({
     container: {
-        height: "43%",
+        height: 200,
         marginHorizontal: 15,
         marginVertical: 5,
     },
@@ -43,7 +44,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     imageContainer: {
-        backgroundColor: "rgba(255, 255, 255, .8)",
+        flex: 1.3,
+    },
+    imageContent: {
         borderRadius: 20,
         flex: 1,
         padding: 15,
@@ -53,5 +56,14 @@ const styles = StyleSheet.create({
         backgroundColor: "#ffffff",
         flex: 2,
         padding: 15,
-    }
+        justifyContent: 'space-around',
+    },
+    titleText: {
+        fontSize: 24,
+        fontWeight: "700",
+    },
+    directorText: {
+        fontSize: 18, 
+        fontWeight: "600",
+    },
 })
