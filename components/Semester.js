@@ -2,7 +2,7 @@ import Movie from './Movie';
 import { StyleSheet, Text, View, SafeAreaView, FlatList, } from 'react-native';
 
 export default function Semester(props) {
-    // array of objects 
+    // array of objects
     const movieData = props.movieData;
 
     const renderMovies = ({ item }) => (
@@ -15,7 +15,7 @@ export default function Semester(props) {
                 <Text style={styles.sectionHeadingText}>{props.text}</Text>
             </View>
             <SafeAreaView style={styles.movieList}>
-                <FlatList 
+                <FlatList
                     data={movieData}
                     renderItem={renderMovies}
                     keyExtractor={item => item.id}
@@ -50,4 +50,5 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingLeft: 15,
     }
+
 })
