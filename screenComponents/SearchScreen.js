@@ -11,12 +11,6 @@ export default function SearchScreen() {
                     placeholderTextColor={"#000000"}></TextInput>
             </View>
             {/* allows user to scroll through the search page*/}
-            <ScrollView style={styles.suggestionContainer}>
-              {/* allows user to click search items*/}
-                <MovieBanner />
-                <MovieBanner />
-                <MovieBanner />
-            </ScrollView>
         </View>
     )
 }

@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import whiteLogo from './assets/whiteLogo.png';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import HomeScreenStack from './screenComponents/HomeScreenStack';

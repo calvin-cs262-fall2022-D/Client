@@ -16,7 +16,7 @@ export default function MovieBanner(props) {
 
 
     return (
-        <TouchableOpacity style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.flexWrapper}>
                 <View style={styles.imageContainer}>
                     <Image style={styles.imageContent} source={{uri: props.poster}}/>
@@ -29,7 +29,7 @@ export default function MovieBanner(props) {
                     </Text>
                 </View>
             </View>
-        </TouchableOpacity>
+        </View>
     )
 }
 

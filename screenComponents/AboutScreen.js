@@ -4,8 +4,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 
 export default function AboutScreen({ route }) {
-    const [favorites, setFavorites] = useState({})
-
     const { title, poster } = route.params;
     const MOVIE_KEY = "@movie_Key"
 
@@ -28,11 +26,18 @@ export default function AboutScreen({ route }) {
     }
 
     const addFavorites = async () => {
-        const prevFavs = await getFavorites()
+        const prevFavs = await getFavorites();
         const favMovie = {title: title, poster: poster};
 
-        const newFavs = !prevFavs ? {[Date.now()]: favMovie} : {...prevFavs, [Date.now()]: favMovie};
-        await saveFavorites(newFavs);
+        // prevent duplicate favorites
+        // aellxx: ternary operator didn't work
+        if (Object.values(prevFavs).includes(favMovie)) {
+            alert(`"${title}" already exists in favorites`);
+            return;
+        } else {
+            const newFavs = {...prevFavs, [Date.now()]: favMovie};
+            await saveFavorites(newFavs);
+        }
     }
 
     return (
