@@ -1,22 +1,14 @@
-import { View, Text, StyleSheet, ScrollView, Pressable, Alert, } from 'react-native';
+import { View, StyleSheet, ScrollView, Pressable, Alert, ActivityIndicator } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 import MovieBanner from '../components/MovieBanner';
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 
-export default function FavoritesScreen({ navigation }) {
+export default function FavoritesScreen(props) {
     const [loading, setLoading] = useState(true); 
     const [favMovies, setFavMovies] = useState({});
 
     const MOVIE_KEY = "@movie_Key";
-
-    const getFavorites = async () => {
-        try {
-            const jsonValue = await AsyncStorage.getItem(MOVIE_KEY);
-            setFavMovies(jsonValue != null ? JSON.parse(jsonValue) : null);
-        } catch(e) {
-            alert(`${e}`);
-        }
-    }
 
     const saveFavorites = async (movieObj) => {
         try {
@@ -51,10 +43,32 @@ export default function FavoritesScreen({ navigation }) {
         await saveFavorites(newFavs);
     }
 
-    const renderFavorites = () => {
-        return (loading ? 
-            (<View><Text>Loading...</Text></View>) :
-            (<View style={styles.container}>
+    useFocusEffect(
+        // WHENEVER Favorites screen is focused, load Favorite movies from AsyncStorage
+        useCallback(() => {
+            const getFavorites = async () => {
+                try {
+                    const jsonValue = await AsyncStorage.getItem(MOVIE_KEY);
+                    setFavMovies(jsonValue != null ? JSON.parse(jsonValue) : null);
+                } catch(e) {
+                    alert(`${e}`);
+                }
+            }
+            
+            getFavorites();
+            setLoading(false);
+            // Not focused on Favorites -> do nothing
+            return () => {/*console.log("not in favs anymore :(")*/};
+        }, [])
+      );
+
+    return (loading ? 
+        (
+            <View style={styles.loadingPage}>
+                <ActivityIndicator size="large" color="#ffffff" />
+            </View>
+        ) : (
+            <View style={styles.container}>
                 <ScrollView>
                     {
                         Object.keys(favMovies).map((movieKey) =>
@@ -66,24 +80,9 @@ export default function FavoritesScreen({ navigation }) {
                         )
                     }
                 </ScrollView>
-            </View>)
+            </View>
         )
-    }
-
-    useEffect(
-        () => {
-            getFavorites();
-            setLoading(false);
-        }, []
     )
-
-    useEffect(
-        () => {
-            renderFavorites()
-        }, [favMovies]
-    )
-
-    return renderFavorites();
 }
 
 const styles = StyleSheet.create({
@@ -91,4 +90,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#141414",
     },
+    loadingPage: {
+        flex: 1,
+        backgroundColor: "#141414",
+        justifyContent: "center",
+    }
 })

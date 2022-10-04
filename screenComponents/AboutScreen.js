@@ -1,20 +1,13 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function AboutScreen({ route }) {
-    const { title, poster } = route.params;
-    const MOVIE_KEY = "@movie_Key"
+    const [favorites, setFavorites] = useState({});
 
-    const getFavorites = async () => {
-        try {
-            const jsonValue = await AsyncStorage.getItem(MOVIE_KEY);
-            return jsonValue != null ? JSON.parse(jsonValue) : null;
-        } catch(e) {
-            alert(`${e}`);
-        }
-    }
+    const { title, poster } = route.params;
+    const MOVIE_KEY = "@movie_Key";
 
     const saveFavorites = async (movieObj) => {
         try {
@@ -26,19 +19,33 @@ export default function AboutScreen({ route }) {
     }
 
     const addFavorites = async () => {
-        const prevFavs = await getFavorites();
         const favMovie = {title: title, poster: poster};
 
         // prevent duplicate favorites
         // aellxx: ternary operator didn't work
-        if (Object.values(prevFavs).includes(favMovie)) {
+        if (Object.values(favorites).find(item => item.title === title)) {
             alert(`"${title}" already exists in favorites`);
             return;
         } else {
-            const newFavs = {...prevFavs, [Date.now()]: favMovie};
+            const newFavs = {...favorites, [Date.now()]: favMovie};
+            setFavorites(newFavs);
             await saveFavorites(newFavs);
         }
     }
+
+    useEffect(
+        () => {
+            const loadFavorites = async () => {
+                try {
+                    const jsonValue = await AsyncStorage.getItem(MOVIE_KEY);
+                    setFavorites(jsonValue != null ? JSON.parse(jsonValue) : null);
+                } catch(e) {
+                    alert(`${e}`);
+                }
+            }
+            loadFavorites();
+        }, []
+    )
 
     return (
         <View style={styles.container}>

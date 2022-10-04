@@ -11,15 +11,6 @@ export default function HomeScreen() {
     'Fjalla': require('../assets/fonts/FjallaOne-Regular.ttf')
   });
 
-  //setting up custom fonts
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-      setAppIsReady(true);
-    }
-  }, [fontsLoaded]);
-
-
   return ( !fontsLoaded ? null :
     <View style={styles.container}>
       <View style={styles.verticalScroll}>
