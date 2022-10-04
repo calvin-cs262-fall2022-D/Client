@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity} from 'react-native';
-import MovieBanner from '../components/MovieBanner';
 
 export default function SearchScreen() {
     return (
