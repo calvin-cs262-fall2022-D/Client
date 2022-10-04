@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import whiteLogo from './assets/whiteLogo.png';
-import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, Image, Button } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import HomeScreenStack from './screenComponents/HomeScreenStack';
@@ -38,6 +38,10 @@ export default function App() {
       fontSize: "35",
       fontFamily: 'BebasNeue',
     }
+  }
+
+  const favHeaderStyles = {
+    headerRight: () => <Button title="hi"></Button>
   }
 
   const homeHeaderStyles = {
