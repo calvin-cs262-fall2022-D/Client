@@ -23,6 +23,7 @@ export default function AboutScreen({ route }) {
 
         // prevent duplicate favorites
         // aellxx: ternary operator didn't work
+        console.log(favorites);
         if (Object.values(favorites).find(item => item.title === title)) {
             alert(`"${title}" already exists in favorites`);
             return;
@@ -38,7 +39,7 @@ export default function AboutScreen({ route }) {
             const loadFavorites = async () => {
                 try {
                     const jsonValue = await AsyncStorage.getItem(MOVIE_KEY);
-                    setFavorites(jsonValue != null ? JSON.parse(jsonValue) : null);
+                    setFavorites(jsonValue != null ? JSON.parse(jsonValue) : {});
                 } catch(e) {
                     alert(`${e}`);
                 }
