@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
     },
     buttonContainer: {
-        backgroundColor: "#97252B", 
+        backgroundColor: "#97252B",
         padding: 20,
         borderRadius: 20,
         flexDirection: "row",
