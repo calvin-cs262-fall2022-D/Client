@@ -1,9 +1,52 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
+import { useState, useEffect } from 'react';
 
 export default function AboutScreen({ route }) {
+    const [favorites, setFavorites] = useState({});
 
     const { title, poster } = route.params;
+    const MOVIE_KEY = "@movie_Key";
+
+    const saveFavorites = async (movieObj) => {
+        try {
+            const jsonValue = JSON.stringify(movieObj);
+            await AsyncStorage.setItem(MOVIE_KEY, jsonValue);
+          } catch (e) {
+            alert(`${title}: ${e}`);
+          }
+    }
+
+    const addFavorites = async () => {
+        const favMovie = {title: title, poster: poster};
+
+        // prevent duplicate favorites
+        // aellxx: ternary operator didn't work
+        console.log(favorites);
+        if (Object.values(favorites).find(item => item.title === title)) {
+            alert(`"${title}" already exists in favorites`);
+            return;
+        } else {
+            const newFavs = {...favorites, [Date.now()]: favMovie};
+            setFavorites(newFavs);
+            await saveFavorites(newFavs);
+        }
+    }
+
+    useEffect(
+        () => {
+            const loadFavorites = async () => {
+                try {
+                    const jsonValue = await AsyncStorage.getItem(MOVIE_KEY);
+                    setFavorites(jsonValue != null ? JSON.parse(jsonValue) : {});
+                } catch(e) {
+                    alert(`${e}`);
+                }
+            }
+            loadFavorites();
+        }, []
+    )
 
     return (
         <View style={styles.container}>
@@ -15,13 +58,17 @@ export default function AboutScreen({ route }) {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </Text>
             <View style={styles.buttonsWrapper}>
-                <TouchableOpacity style={styles.buttonContainer}>
+                <TouchableOpacity 
+                    style={styles.buttonContainer}
+                    onPress={addFavorites}>
                     <Text style={styles.buttonText}>Favorites</Text>
                     <Ionicons name="heart" size={24} color="#fff" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonContainer}>
-                    <Text style={styles.buttonText}>Download</Text>
-                    <Ionicons name="download" size={24} color="#fff" />
+                <TouchableOpacity 
+                    style={styles.buttonContainer}
+                    onPress={() => console.log(`${title} added to watch history`)}>
+                    <Text style={styles.buttonText}>Play</Text>
+                    <Ionicons name="play" size={24} color="#fff" />
                 </TouchableOpacity>
             </View>
         </View>
