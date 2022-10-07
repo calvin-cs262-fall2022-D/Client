@@ -1,11 +1,8 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-
-import App from '../App';
-//import backButton from '../assets/back_button.png';
 
 export default function AboutScreen({ route }) {
     const [favorites, setFavorites] = useState({});
@@ -29,7 +26,6 @@ export default function AboutScreen({ route }) {
 
         // prevent duplicate favorites
         // aellxx: ternary operator didn't work
-        console.log(favorites);
         if (Object.values(favorites).find(item => item.title === title)) {
             alert(`"${title}" already exists in favorites`);
             return;
@@ -38,6 +34,24 @@ export default function AboutScreen({ route }) {
             setFavorites(newFavs);
             await saveFavorites(newFavs);
         }
+    }
+
+    const alertBeforeAdd = () => {
+        Alert.alert(
+            "Adding to Favorites",
+            `Adding ${title} to favorites`,
+            [
+                {
+                  text: "Cancel",
+                  style: "cancel",
+                },
+                {
+                  text: "Add",
+                  onPress: () => addFavorites(),
+                  style: "default",
+                }
+              ]
+        )
     }
 
     useEffect(
@@ -58,12 +72,12 @@ export default function AboutScreen({ route }) {
     return (
         // Place the poster, description, and buttons for adding to favorites and playing the video
         <View style={styles.container}>
-             <TouchableOpacity
+{/*             <TouchableOpacity
                     style={styles.backButton}
-                    onPress={() => navigation.navigate('Home')}>
+                    >
                     <Image style={styles.backImage} source={require('../assets/back_button.png')}/>
                 </TouchableOpacity>
-
+    */}
             <View style={styles.imageContainer}>
                 <Image style={styles.poster} source={{ uri: poster }} />
             </View>
@@ -74,7 +88,7 @@ export default function AboutScreen({ route }) {
             <View style={styles.buttonsWrapper}>
                 <TouchableOpacity
                     style={styles.buttonContainer}
-                    onPress={addFavorites}>
+                    onPress={alertBeforeAdd}>
                     <Text style={styles.buttonText}>Favorites</Text>
                     <Ionicons name="heart" size={24} color="#fff" />
                 </TouchableOpacity>
