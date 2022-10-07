@@ -1,12 +1,16 @@
-import { View, StyleSheet, ScrollView, Pressable, Alert, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ScrollView, Alert, ActivityIndicator, Button} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import MovieBanner from '../components/MovieBanner';
 import { useState, useCallback } from 'react';
+import { Swipeable } from 'react-native-gesture-handler';
 
-export default function FavoritesScreen(props) {
+export default function FavoritesScreen({ navigation }) {
     const [loading, setLoading] = useState(true); 
     const [favMovies, setFavMovies] = useState({});
+    const [prevOpenedRow, setPrevOpenedRow] = useState();
+    const [row, setRow] = useState({});
+    
 
     const MOVIE_KEY = "@movie_Key";
 
@@ -19,6 +23,14 @@ export default function FavoritesScreen(props) {
           }
     }
 
+    const deleteFavorite = async (movieKey) => {
+        const newFavs = {...favMovies}
+        delete newFavs[movieKey];
+        setFavMovies(newFavs);
+        await saveFavorites(newFavs);
+        console.log("newFavs: ", newFavs);
+    }
+
     const alertBeforeDelete = (movieKeyToDelete) => {
         Alert.alert(
             "Remove from Favorites", 
@@ -29,19 +41,34 @@ export default function FavoritesScreen(props) {
               },
               {
                 text: "Delete",
-                onPress: async () => deleteFavorite(movieKeyToDelete),
+                onPress: () => deleteFavorite(movieKeyToDelete),
                 style: "destructive",
               }
             ]
           );
     }
 
-    const deleteFavorite = async (movieKey) => {
-        const newFavs = {...favMovies}
-        delete newFavs[movieKey];
-        setFavMovies(newFavs);
-        await saveFavorites(newFavs);
-    }
+    const renderRightActions = (progress, dragX, alertBeforeDelete) => {
+        return (
+          <View
+            style={{
+              margin: 0,
+              alignContent: 'center',
+              justifyContent: 'center',
+              width: 70,
+            }}>
+            <Button color="red" onPress={alertBeforeDelete} title="DELETE"></Button>
+          </View>
+        );
+      };
+
+    const closeRow = (movieKey) => {
+        console.log('closerow');
+        if (prevOpenedRow && prevOpenedRow !== row[movieKey]) {
+          prevOpenedRow.close();
+        }
+        setPrevOpenedRow(row[movieKey]);
+    };
 
     useFocusEffect(
         // WHENEVER Favorites screen is focused, load Favorite movies from AsyncStorage
@@ -49,7 +76,7 @@ export default function FavoritesScreen(props) {
             const getFavorites = async () => {
                 try {
                     const jsonValue = await AsyncStorage.getItem(MOVIE_KEY);
-                    setFavMovies(jsonValue != null ? JSON.parse(jsonValue) : null);
+                    setFavMovies(jsonValue != null ? JSON.parse(jsonValue) : {});
                 } catch(e) {
                     alert(`${e}`);
                 }
@@ -57,6 +84,7 @@ export default function FavoritesScreen(props) {
             
             getFavorites();
             setLoading(false);
+            console.log(Object.values(favMovies));
             // Not focused on Favorites -> do nothing
             return () => {/*console.log("not in favs anymore :(")*/};
         }, [])
@@ -72,11 +100,17 @@ export default function FavoritesScreen(props) {
                 <ScrollView>
                     {
                         Object.keys(favMovies).map((movieKey) =>
-                            <Pressable 
+                            <Swipeable
                                 key={movieKey}
-                                onLongPress={() => alertBeforeDelete(movieKey)}>
+                                renderRightActions={(progress, dragX) =>
+                                  renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
+                                }
+                                ref={(ref) => (row[movieKey] = ref)}
+                                onSwipeableOpen={() => closeRow(movieKey)}
+                                rightOpenValue={-100}
+                            >
                                 <MovieBanner title={favMovies[movieKey].title} poster={favMovies[movieKey].poster} />
-                            </Pressable>
+                            </Swipeable>
                         )
                     }
                 </ScrollView>
