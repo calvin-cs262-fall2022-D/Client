@@ -9,17 +9,18 @@ export default function AboutScreen({ route }) {
     const { title, poster } = route.params;
     const MOVIE_KEY = "@movie_Key";
 
+    // Save what movies you favorite
     const saveFavorites = async (movieObj) => {
         try {
             const jsonValue = JSON.stringify(movieObj);
             await AsyncStorage.setItem(MOVIE_KEY, jsonValue);
-          } catch (e) {
+        } catch (e) {
             alert(`${title}: ${e}`);
-          }
+        }
     }
 
     const addFavorites = async () => {
-        const favMovie = {title: title, poster: poster};
+        const favMovie = { title: title, poster: poster };
 
         // prevent duplicate favorites
         // aellxx: ternary operator didn't work
@@ -28,19 +29,20 @@ export default function AboutScreen({ route }) {
             alert(`"${title}" already exists in favorites`);
             return;
         } else {
-            const newFavs = {...favorites, [Date.now()]: favMovie};
+            const newFavs = { ...favorites, [Date.now()]: favMovie };
             setFavorites(newFavs);
             await saveFavorites(newFavs);
         }
     }
 
     useEffect(
+        // Use aysnc memory to remember what videos people have favorited
         () => {
             const loadFavorites = async () => {
                 try {
                     const jsonValue = await AsyncStorage.getItem(MOVIE_KEY);
                     setFavorites(jsonValue != null ? JSON.parse(jsonValue) : {});
-                } catch(e) {
+                } catch (e) {
                     alert(`${e}`);
                 }
             }
@@ -49,22 +51,23 @@ export default function AboutScreen({ route }) {
     )
 
     return (
+        // Place the poster, description, and buttons for adding to favorites and playing the video
         <View style={styles.container}>
             <View style={styles.imageContainer}>
-                <Image style={styles.poster} source={{uri: poster}} />
+                <Image style={styles.poster} source={{ uri: poster }} />
             </View>
             <Text style={styles.titleText}>{title}</Text>
             <Text style={styles.descriptionText}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </Text>
             <View style={styles.buttonsWrapper}>
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={styles.buttonContainer}
                     onPress={addFavorites}>
                     <Text style={styles.buttonText}>Favorites</Text>
                     <Ionicons name="heart" size={24} color="#fff" />
                 </TouchableOpacity>
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={styles.buttonContainer}
                     onPress={() => console.log(`${title} added to watch history`)}>
                     <Text style={styles.buttonText}>Play</Text>
