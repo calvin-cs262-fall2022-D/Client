@@ -5,7 +5,7 @@ import MovieBanner from '../components/MovieBanner';
 import { useState, useCallback } from 'react';
 
 export default function FavoritesScreen(props) {
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
     const [favMovies, setFavMovies] = useState({});
 
     const MOVIE_KEY = "@movie_Key";
@@ -14,30 +14,32 @@ export default function FavoritesScreen(props) {
         try {
             const jsonValue = JSON.stringify(movieObj);
             await AsyncStorage.setItem(MOVIE_KEY, jsonValue);
-          } catch (e) {
+        } catch (e) {
             alert(`${title}: ${e}`);
-          }
+        }
     }
 
+    // Let the user know a movie is being removed from the favorites
     const alertBeforeDelete = (movieKeyToDelete) => {
         Alert.alert(
-            "Remove from Favorites", 
+            "Remove from Favorites",
             `Removing "${favMovies[movieKeyToDelete].title}"`,
             [
-              {
-                text: "Cancel",
-              },
-              {
-                text: "Delete",
-                onPress: async () => deleteFavorite(movieKeyToDelete),
-                style: "destructive",
-              }
+                {
+                    text: "Cancel",
+                },
+                {
+                    text: "Delete",
+                    onPress: async () => deleteFavorite(movieKeyToDelete),
+                    style: "destructive",
+                }
             ]
-          );
+        );
     }
 
+    // Get rid of a favorited movie
     const deleteFavorite = async (movieKey) => {
-        const newFavs = {...favMovies}
+        const newFavs = { ...favMovies }
         delete newFavs[movieKey];
         setFavMovies(newFavs);
         await saveFavorites(newFavs);
@@ -50,19 +52,19 @@ export default function FavoritesScreen(props) {
                 try {
                     const jsonValue = await AsyncStorage.getItem(MOVIE_KEY);
                     setFavMovies(jsonValue != null ? JSON.parse(jsonValue) : null);
-                } catch(e) {
+                } catch (e) {
                     alert(`${e}`);
                 }
             }
-            
+
             getFavorites();
             setLoading(false);
             // Not focused on Favorites -> do nothing
-            return () => {/*console.log("not in favs anymore :(")*/};
+            return () => {/*console.log("not in favs anymore :(")*/ };
         }, [])
-      );
+    );
 
-    return (loading ? 
+    return (loading ?
         (
             <View style={styles.loadingPage}>
                 <ActivityIndicator size="large" color="#ffffff" />
@@ -72,7 +74,7 @@ export default function FavoritesScreen(props) {
                 <ScrollView>
                     {
                         Object.keys(favMovies).map((movieKey) =>
-                            <Pressable 
+                            <Pressable
                                 key={movieKey}
                                 onLongPress={() => alertBeforeDelete(movieKey)}>
                                 <MovieBanner title={favMovies[movieKey].title} poster={favMovies[movieKey].poster} />

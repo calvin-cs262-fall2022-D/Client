@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, } from 'react-native';
 
+// Set up the recently watched page
 export default function RecentlyWatchedScreen() {
     return (
         <View style={styles.container}>
