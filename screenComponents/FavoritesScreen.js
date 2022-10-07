@@ -1,15 +1,16 @@
-import { View, StyleSheet, ScrollView, Alert, ActivityIndicator, Button} from 'react-native';
+import { View, StyleSheet, ScrollView, Alert, ActivityIndicator, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import MovieBanner from '../components/MovieBanner';
 import { useState, useCallback } from 'react';
 import { Swipeable } from 'react-native-gesture-handler';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function FavoritesScreen({ navigation }) {
     const [loading, setLoading] = useState(true); 
     const [favMovies, setFavMovies] = useState({});
     const [prevOpenedRow, setPrevOpenedRow] = useState();
-    const [row, setRow] = useState({});
+    const [selectedMovie, setSelectedMovie ] = useState({});
     
 
     const MOVIE_KEY = "@movie_Key";
@@ -28,7 +29,6 @@ export default function FavoritesScreen({ navigation }) {
         delete newFavs[movieKey];
         setFavMovies(newFavs);
         await saveFavorites(newFavs);
-        console.log("newFavs: ", newFavs);
     }
 
     const alertBeforeDelete = (movieKeyToDelete) => {
@@ -48,6 +48,8 @@ export default function FavoritesScreen({ navigation }) {
           );
     }
 
+    // Swipeable code modified;
+    // originally from: https://snack.expo.dev/@aaronksaunders/calm-beef-jerky
     const renderRightActions = (progress, dragX, alertBeforeDelete) => {
         return (
           <View
@@ -57,17 +59,20 @@ export default function FavoritesScreen({ navigation }) {
               justifyContent: 'center',
               width: 70,
             }}>
-            <Button color="red" onPress={alertBeforeDelete} title="DELETE"></Button>
+            <TouchableOpacity
+                style={styles.deleteButton}
+                onPress={alertBeforeDelete}>
+                <Ionicons name="trash" size={40} color="#fff" />
+            </TouchableOpacity>
           </View>
         );
       };
 
     const closeRow = (movieKey) => {
-        console.log('closerow');
-        if (prevOpenedRow && prevOpenedRow !== row[movieKey]) {
+        if (prevOpenedRow && prevOpenedRow !== selectedMovie[movieKey]) {
           prevOpenedRow.close();
         }
-        setPrevOpenedRow(row[movieKey]);
+        setPrevOpenedRow(selectedMovie[movieKey]);
     };
 
     useFocusEffect(
@@ -84,7 +89,6 @@ export default function FavoritesScreen({ navigation }) {
             
             getFavorites();
             setLoading(false);
-            console.log(Object.values(favMovies));
             // Not focused on Favorites -> do nothing
             return () => {/*console.log("not in favs anymore :(")*/};
         }, [])
@@ -105,7 +109,7 @@ export default function FavoritesScreen({ navigation }) {
                                 renderRightActions={(progress, dragX) =>
                                   renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
                                 }
-                                ref={(ref) => (row[movieKey] = ref)}
+                                ref={(ref) => (selectedMovie[movieKey] = ref)}
                                 onSwipeableOpen={() => closeRow(movieKey)}
                                 rightOpenValue={-100}
                             >
@@ -128,5 +132,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#141414",
         justifyContent: "center",
+    },
+    deleteButton: {
+        color: "red",
+        backgroundColor: "#f5392f",
+        height: "95%",
+        borderRadius: 15,
+        justifyContent: "center",
+        alignItems: "center",
     }
 })
