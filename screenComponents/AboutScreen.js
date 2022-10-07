@@ -2,9 +2,14 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-na
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+
+import App from '../App';
+//import backButton from '../assets/back_button.png';
 
 export default function AboutScreen({ route }) {
     const [favorites, setFavorites] = useState({});
+    const navigation = useNavigation();
 
     const { title, poster } = route.params;
     const MOVIE_KEY = "@movie_Key";
@@ -67,6 +72,12 @@ export default function AboutScreen({ route }) {
 
     return (
         <View style={styles.container}>
+             <TouchableOpacity
+                    style={styles.backButton}
+                    onPress={() => navigation.navigate('Home')}>
+                    <Image style={styles.backImage} source={require('../assets/back_button.png')}/>
+                </TouchableOpacity>
+
             <View style={styles.imageContainer}>
                 <Image style={styles.poster} source={{uri: poster}} />
             </View>
@@ -75,13 +86,13 @@ export default function AboutScreen({ route }) {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </Text>
             <View style={styles.buttonsWrapper}>
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={styles.buttonContainer}
                     onPress={alertBeforeAdd}>
                     <Text style={styles.buttonText}>Favorites</Text>
                     <Ionicons name="heart" size={24} color="#fff" />
                 </TouchableOpacity>
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={styles.buttonContainer}
                     onPress={() => console.log(`${title} added to watch history`)}>
                     <Text style={styles.buttonText}>Play</Text>
@@ -134,5 +145,23 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontFamily: "Fjalla",
         fontSize: 20,
+    },
+    backButton: {
+        backgroundColor: "#97252B",
+        borderRadius: 20,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        top: -17,
+        right: 170,
+        bottom: 50,
+    },
+    backImage: {
+        //padding: 10,
+        //borderRadius: 20,
+        //flexDirection: "row",
+        width: 40,
+        height: 40,
+        justifyContent: "space-between",
+
     }
 })
