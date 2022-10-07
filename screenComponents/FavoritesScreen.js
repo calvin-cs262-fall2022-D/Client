@@ -19,9 +19,9 @@ export default function FavoritesScreen({ navigation }) {
         try {
             const jsonValue = JSON.stringify(movieObj);
             await AsyncStorage.setItem(MOVIE_KEY, jsonValue);
-          } catch (e) {
+        } catch (e) {
             alert(`${title}: ${e}`);
-          }
+        }
     }
 
     const deleteFavorite = async (movieKey) => {
@@ -33,7 +33,7 @@ export default function FavoritesScreen({ navigation }) {
 
     const alertBeforeDelete = (movieKeyToDelete) => {
         Alert.alert(
-            "Remove from Favorites", 
+            "Remove from Favorites",
             `Removing "${favMovies[movieKeyToDelete].title}"`,
             [
               {
@@ -45,7 +45,7 @@ export default function FavoritesScreen({ navigation }) {
                 style: "destructive",
               }
             ]
-          );
+        );
     }
 
     // Swipeable code modified;
@@ -86,15 +86,15 @@ export default function FavoritesScreen({ navigation }) {
                     alert(`${e}`);
                 }
             }
-            
+
             getFavorites();
             setLoading(false);
             // Not focused on Favorites -> do nothing
-            return () => {/*console.log("not in favs anymore :(")*/};
+            return () => {/*console.log("not in favs anymore :(")*/ };
         }, [])
-      );
+    );
 
-    return (loading ? 
+    return (loading ?
         (
             <View style={styles.loadingPage}>
                 <ActivityIndicator size="large" color="#ffffff" />

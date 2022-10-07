@@ -11,17 +11,18 @@ export default function AboutScreen({ route }) {
     const { title, poster } = route.params;
     const MOVIE_KEY = "@movie_Key";
 
+    // Save what movies you favorite
     const saveFavorites = async (movieObj) => {
         try {
             const jsonValue = JSON.stringify(movieObj);
             await AsyncStorage.setItem(MOVIE_KEY, jsonValue);
-          } catch (e) {
+        } catch (e) {
             alert(`${title}: ${e}`);
-          }
+        }
     }
 
     const addFavorites = async () => {
-        const favMovie = {title: title, poster: poster};
+        const favMovie = { title: title, poster: poster };
 
         // prevent duplicate favorites
         // aellxx: ternary operator didn't work
@@ -29,7 +30,7 @@ export default function AboutScreen({ route }) {
             alert(`"${title}" already exists in favorites`);
             return;
         } else {
-            const newFavs = {...favorites, [Date.now()]: favMovie};
+            const newFavs = { ...favorites, [Date.now()]: favMovie };
             setFavorites(newFavs);
             await saveFavorites(newFavs);
         }
@@ -54,12 +55,13 @@ export default function AboutScreen({ route }) {
     }
 
     useEffect(
+        // Use aysnc memory to remember what videos people have favorited
         () => {
             const loadFavorites = async () => {
                 try {
                     const jsonValue = await AsyncStorage.getItem(MOVIE_KEY);
                     setFavorites(jsonValue != null ? JSON.parse(jsonValue) : {});
-                } catch(e) {
+                } catch (e) {
                     alert(`${e}`);
                 }
             }
@@ -68,6 +70,7 @@ export default function AboutScreen({ route }) {
     )
 
     return (
+        // Place the poster, description, and buttons for adding to favorites and playing the video
         <View style={styles.container}>
 {/*             <TouchableOpacity
                     style={styles.backButton}
@@ -76,7 +79,7 @@ export default function AboutScreen({ route }) {
                 </TouchableOpacity>
     */}
             <View style={styles.imageContainer}>
-                <Image style={styles.poster} source={{uri: poster}} />
+                <Image style={styles.poster} source={{ uri: poster }} />
             </View>
             <Text style={styles.titleText}>{title}</Text>
             <Text style={styles.descriptionText}>

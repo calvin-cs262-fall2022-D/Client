@@ -11,6 +11,7 @@ import DisplayScreen from './screenComponents/DisplayScreen';
 
 const Tab = createBottomTabNavigator();
 
+// Create an object for each screen in the app
 const iconObj = {
   'HomeStack': ['home', 'home-outline'],
   'Favorites': ['heart', 'heart-outline'],
@@ -20,6 +21,7 @@ const iconObj = {
 
 export default function App() {
 
+  // Instigate and style the tab bar, and plan the routes for each one
   const screenStyles = ({ route }) => ({
     tabBarIcon: ({ focused, color, size }) => {
       const iconName = focused ? iconObj[route.name][0] : iconObj[route.name][1];
@@ -49,11 +51,13 @@ export default function App() {
     headerStyle: {
       backgroundColor: "#97252B",
     },
+    // Put the Knightflix logo on the header
     headerTitle: () => <Image source={whiteLogo} style={styles.whiteLogo}></Image>,
     title: "Home",
   }
 
   return (
+    // Link each screen to its corrosponding component
     <NavigationContainer style={styles.container}>
       <Tab.Navigator screenOptions={screenStyles} >
         <Tab.Screen name="HomeStack" component={HomeScreenStack} options={homeHeaderStyles} />
@@ -71,6 +75,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  // Style the Knightflix logo
   whiteLogo: {
     width: 120,
     height: 32,
