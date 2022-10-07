@@ -4,9 +4,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import App from '../App';
-//import backButton from '../assets/back_button.png';
-
 export default function AboutScreen({ route }) {
     const [favorites, setFavorites] = useState({});
     const navigation = useNavigation();
@@ -72,12 +69,12 @@ export default function AboutScreen({ route }) {
 
     return (
         <View style={styles.container}>
-             <TouchableOpacity
+{/*             <TouchableOpacity
                     style={styles.backButton}
-                    onPress={() => navigation.navigate('Home')}>
+                    >
                     <Image style={styles.backImage} source={require('../assets/back_button.png')}/>
                 </TouchableOpacity>
-
+    */}
             <View style={styles.imageContainer}>
                 <Image style={styles.poster} source={{uri: poster}} />
             </View>

@@ -55,10 +55,6 @@ export default function App() {
 
   return (
     <NavigationContainer style={styles.container}>
-      {/**<View style={styles.header}>
-          <Image source={whiteLogo} style={styles.whiteLogo}/>
-  </View>*/}
-
       <Tab.Navigator screenOptions={screenStyles} >
         <Tab.Screen name="HomeStack" component={HomeScreenStack} options={homeHeaderStyles} />
         <Tab.Screen name="Favorites" component={FavoritesScreen} options={screenHeaderStyles} />

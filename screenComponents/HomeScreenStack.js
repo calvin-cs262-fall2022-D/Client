@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './HomeScreen';
 import AboutScreen from './AboutScreen';
-import whiteLogo from '../assets/whiteLogo.png';
 
 const Stack = createNativeStackNavigator();
 
