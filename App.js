@@ -80,4 +80,22 @@ const styles = StyleSheet.create({
     width: 120,
     height: 32,
   },
+  backButton: {
+    backgroundColor: "#97252B",
+    borderRadius: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    bottom: 0,
+    zIndex: 3,
+    bottom: 50,
+},
+backImage: {
+    //padding: 10,
+    //borderRadius: 20,
+    //flexDirection: "row",
+    width: 30,
+    height: 30,
+    justifyContent: "space-between",
+
+}
 });
