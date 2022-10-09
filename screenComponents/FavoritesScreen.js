@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView, Alert, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView, Alert, ActivityIndicator, TouchableOpacity, Button } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import MovieBanner from '../components/MovieBanner';
@@ -13,12 +13,12 @@ export default function FavoritesScreen({ navigation }) {
     const [selectedMovie, setSelectedMovie ] = useState({});
     
 
-    const MOVIE_KEY = "@movie_Key";
+    const FAVORITES_KEY = "@favorites_Key";
 
     const saveFavorites = async (movieObj) => {
         try {
             const jsonValue = JSON.stringify(movieObj);
-            await AsyncStorage.setItem(MOVIE_KEY, jsonValue);
+            await AsyncStorage.setItem(FAVORITES_KEY, jsonValue);
         } catch (e) {
             alert(`${title}: ${e}`);
         }
@@ -42,6 +42,29 @@ export default function FavoritesScreen({ navigation }) {
               {
                 text: "Delete",
                 onPress: () => deleteFavorite(movieKeyToDelete),
+                style: "destructive",
+              }
+            ]
+        );
+    }
+
+    const clearFavorites = async () => {
+        const emptyFavs = {}
+        setFavMovies(emptyFavs);
+        await saveFavorites(emptyFavs);
+    }
+
+    const alertBeforeClear = () => {
+        Alert.alert(
+            "Clearing Favorites",
+            "This action cannot be undone. Are you sure?",
+            [
+              {
+                text: "Cancel",
+              },
+              {
+                text: "Yes, I'm sure",
+                onPress: () => clearFavorites(),
                 style: "destructive",
               }
             ]
@@ -80,7 +103,7 @@ export default function FavoritesScreen({ navigation }) {
         useCallback(() => {
             const getFavorites = async () => {
                 try {
-                    const jsonValue = await AsyncStorage.getItem(MOVIE_KEY);
+                    const jsonValue = await AsyncStorage.getItem(FAVORITES_KEY);
                     setFavMovies(jsonValue != null ? JSON.parse(jsonValue) : {});
                 } catch(e) {
                     alert(`${e}`);
@@ -118,6 +141,13 @@ export default function FavoritesScreen({ navigation }) {
                         )
                     }
                 </ScrollView>
+                <View style={styles.clearButtonContainer}>
+                    <Button 
+                        style={styles.clearButton} 
+                        title="clear" 
+                        color="#f5392f" 
+                        onPress={alertBeforeClear} />
+                </View>
             </View>
         )
     )
@@ -140,5 +170,8 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         justifyContent: "center",
         alignItems: "center",
-    }
+    },
+    clearButtonContainer: {
+        marginBottom: 15,
+    },
 })

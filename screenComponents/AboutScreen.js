@@ -6,16 +6,19 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function AboutScreen({ route }) {
     const [favorites, setFavorites] = useState({});
+    const [recentlyWatched, setRecentlyWatched] = useState({});
+
     const navigation = useNavigation();
 
     const { title, poster } = route.params;
-    const MOVIE_KEY = "@movie_Key";
+    const FAVORITES_KEY = "@favorites_Key";
+    const RECENTS_KEY = "@recents_Key";
 
     // Save what movies you favorite
     const saveFavorites = async (movieObj) => {
         try {
             const jsonValue = JSON.stringify(movieObj);
-            await AsyncStorage.setItem(MOVIE_KEY, jsonValue);
+            await AsyncStorage.setItem(FAVORITES_KEY, jsonValue);
         } catch (e) {
             alert(`${title}: ${e}`);
         }
@@ -54,18 +57,44 @@ export default function AboutScreen({ route }) {
         )
     }
 
+    // Save what movies you favorite
+    const saveRecents = async (movieObj) => {
+        try {
+            const jsonValue = JSON.stringify(movieObj);
+            await AsyncStorage.setItem(RECENTS_KEY, jsonValue);
+        } catch (e) {
+            alert(`${title}: ${e}`);
+        }
+    }
+
+    const addRecents = async () => {
+        const recentMovie = { title: title, poster: poster };
+
+        // prevent duplicate favorites
+        // aellxx: ternary operator didn't work
+        if (Object.values(recentlyWatched).find(item => item.title === title)) {
+            return;
+        } else {
+            const newRecents = { ...recentlyWatched, [Date.now()]: recentMovie };
+            setRecentlyWatched(newRecents);
+            await saveRecents(newRecents);
+        }
+    }
+
     useEffect(
         // Use aysnc memory to remember what videos people have favorited
         () => {
-            const loadFavorites = async () => {
+            const loadInfo = async () => {
                 try {
-                    const jsonValue = await AsyncStorage.getItem(MOVIE_KEY);
-                    setFavorites(jsonValue != null ? JSON.parse(jsonValue) : {});
+                    const favJsonValue = await AsyncStorage.getItem(FAVORITES_KEY);
+                    const recentJsonValue = await AsyncStorage.getItem(RECENTS_KEY);
+                    setFavorites(favJsonValue != null ? JSON.parse(favJsonValue) : {});
+                    setRecentlyWatched(recentJsonValue != null ? JSON.parse(recentJsonValue) : {});
                 } catch (e) {
                     alert(`${e}`);
                 }
             }
-            loadFavorites();
+            loadInfo();
         }, []
     )
 
@@ -94,7 +123,7 @@ export default function AboutScreen({ route }) {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.buttonContainer}
-                    onPress={() => console.log(`${title} added to watch history`)}>
+                    onPress={addRecents}>
                     <Text style={styles.buttonText}>Play</Text>
                     <Ionicons name="play" size={24} color="#fff" />
                 </TouchableOpacity>
