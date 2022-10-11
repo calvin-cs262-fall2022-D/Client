@@ -2,6 +2,12 @@ import { View, Text, StyleSheet, } from 'react-native';
 import WebView from 'react-native-webview';
 import {Vimeo} from 'react-native-vimeo-iframe';
 
+function getID(url){
+  let parts = url.split('/');
+  let lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
+  return lastSegment;
+  }
+
 export default function DisplayScreen() {
   const videoCallbacks = {
     timeupdate: (data) => console.log('timeupdate: ', data),
@@ -14,7 +20,7 @@ export default function DisplayScreen() {
     return (
         <View style={styles.container}>
             <Vimeo style={styles.vimeo}
-            videoId={'208159015'}
+            videoId={getID('https://vimeo.com/208159015')}
             params={'api=1&autoplay=0'}
             handlers={videoCallbacks}
           />
