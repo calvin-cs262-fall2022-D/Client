@@ -107,25 +107,29 @@ export default function AboutScreen({ route }) {
                     <Image style={styles.backImage} source={require('../assets/back_button.png')}/>
                 </TouchableOpacity>
     */}
-            <View style={styles.imageContainer}>
-                <Image style={styles.poster} source={{ uri: poster }} />
+            <View style={styles.imageWrapper}>
+                <Image style={styles.poster} source={{ uri: poster }} resizeMode="contain" />
             </View>
-            <Text style={styles.titleText}>{title}</Text>
-            <Text style={styles.descriptionText}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </Text>
+            <View style={styles.textWrapper}>
+                <Text style={styles.titleText}>{title}</Text>
+                <Text style={styles.descriptionText}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                </Text>
+            </View>
             <View style={styles.buttonsWrapper}>
                 <TouchableOpacity
-                    style={styles.buttonContainer}
+                    style={styles.button}
                     onPress={alertBeforeAdd}>
-                    <Text style={styles.buttonText}>Favorites</Text>
-                    <Ionicons name="heart" size={24} color="#fff" />
+                    <Text style={styles.buttonText}>
+                        Favorites <Ionicons name="heart" size={24} color="#fff" />
+                    </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.buttonContainer}
+                    style={styles.button}
                     onPress={addRecents}>
-                    <Text style={styles.buttonText}>Play</Text>
-                    <Ionicons name="play" size={24} color="#fff" />
+                    <Text style={styles.buttonText}>
+                        Play <Ionicons name="play" size={24} color="#fff" />
+                    </Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -139,17 +143,31 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#141414",
         alignItems: "center",
-        padding: 30,
-        justifyContent: "space-around"
+        justifyContent: "space-around",
     },
-    imageContainer: {
-        width: 400,
-        height: 300,
+    imageWrapper: {
+        flex: 8,
+        alignItems: "center",
+        flexDirection: "row",
+    },
+    textWrapper: {
+        flex: 4,
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        paddingHorizontal: 15,
+    },
+    buttonsWrapper: {
+        flex: 3,
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-around",
         alignItems: "center",
     },
     poster: {
-        width: "100%",
-        height: "100%",
+        flex: 1,
+        height: undefined,
+        width: undefined,
+        alignSelf: "stretch",
     },
     titleText: {
         fontSize: 30,
@@ -160,17 +178,12 @@ const styles = StyleSheet.create({
     descriptionText: {
         color: "#fff",
     },
-    buttonsWrapper: {
-        width: "100%",
-        flexDirection: "row",
-        justifyContent: "space-around",
-    },
-    buttonContainer: {
+    button: {
         backgroundColor: "#97252B",
         padding: 20,
         borderRadius: 20,
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
     },
     buttonText: {
         color: "#fff",
