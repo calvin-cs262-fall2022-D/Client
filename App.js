@@ -38,7 +38,7 @@ export default function App() {
   const screenHeaderStyles = {
     headerTitleStyle: {
       color: "white",
-      fontSize: "35",
+      fontSize: 35,
       fontFamily: 'BebasNeue',
     }
   }
