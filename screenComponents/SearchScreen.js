@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, Image 
 
 export default function SearchScreen() {
     return (
+        // Set up the search input
         <View style={styles.container}>
             <View style={styles.textInputContainer}>
                 <TextInput
@@ -26,11 +27,11 @@ export default function SearchScreen() {
                         </View>
                     </View>
                 </TouchableOpacity>
-
+                {/* Data for each student film */}
                 <TouchableOpacity onPress={showSearchInfo}>
                     <View style={styles.suggestionBanner}>
                         <View style={styles.imageContainer}>
-                            <Image style={styles.poster} source= {{uri: "https://i.vimeocdn.com/video/626019415-241412f021ef833dcd5399ad03bd689cbbe041774d11e627b85413b9e7f01baf-d_1920x1080"}}></Image>
+                            <Image style={styles.poster} source={{ uri: "https://i.vimeocdn.com/video/626019415-241412f021ef833dcd5399ad03bd689cbbe041774d11e627b85413b9e7f01baf-d_1920x1080" }}></Image>
                         </View>
                         <View style={styles.textContainer}>
                             <Text style={styles.titleText}>Significant Others</Text>
@@ -45,13 +46,13 @@ export default function SearchScreen() {
                 <TouchableOpacity onPress={showSearchInfo}>
                     <View style={styles.suggestionBanner}>
                         <View style={styles.imageContainer}>
-                        <Image style={styles.poster} source= {{uri: "https://i.vimeocdn.com/video/626019221-f6fe572940b55fde70d601651b6de8d5a0d34b812591c5d4d13eb953351f3d0e-d_1920x1080" }}></Image>
+                            <Image style={styles.poster} source={{ uri: "https://i.vimeocdn.com/video/626019221-f6fe572940b55fde70d601651b6de8d5a0d34b812591c5d4d13eb953351f3d0e-d_1920x1080" }}></Image>
                         </View>
                         <View style={styles.textContainer}>
                             <Text style={styles.titleText}>Renardo</Text>
                             <Text style={styles.directorText}>Nate Roels</Text>
                             <Text style={styles.descriptionText}>
-                               Who is Renardo? Why is Renardo? Renardo could be a person. Renardo could be a place. Most importantly, Renardo could simply be a feeling.
+                                Who is Renardo? Why is Renardo? Renardo could be a person. Renardo could be a place. Most importantly, Renardo could simply be a feeling.
                             </Text>
                         </View>
                     </View>
