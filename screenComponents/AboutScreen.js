@@ -129,6 +129,8 @@ export default function AboutScreen({ route }) {
                 </TouchableOpacity>
             </View>
         </View>
+
+
     )
 }
 
