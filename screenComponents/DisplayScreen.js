@@ -2,6 +2,9 @@ import { View, Text, StyleSheet, } from 'react-native';
 import WebView from 'react-native-webview';
 import {Vimeo} from 'react-native-vimeo-iframe';
 
+//this array is temporary, but shows how we can change the link using an array
+const links = ['https://vimeo.com/208160267', 'https://vimeo.com/208159015'];
+
 function getID(url){
   let parts = url.split('/');
   let lastSegment = parts.pop() || parts.pop();  // handle potential trailing slash
@@ -20,7 +23,7 @@ export default function DisplayScreen() {
     return (
         <View style={styles.container}>
             <Vimeo style={styles.vimeo}
-            videoId={getID('https://vimeo.com/208159015')}
+            videoId={getID(links[0])}
             params={'api=1&autoplay=0'}
             handlers={videoCallbacks}
           />
