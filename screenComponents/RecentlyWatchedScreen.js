@@ -105,7 +105,6 @@ export default function RecentlyWatchedScreen({ navigation }) {
                 try {
                     const jsonValue = await AsyncStorage.getItem(RECENTS_KEY);
                     setRecentMovies(jsonValue != null ? JSON.parse(jsonValue) : {});
-                    console.log(jsonValue);
                 } catch(e) {
                     alert(`${e}`);
                 }
@@ -128,17 +127,28 @@ export default function RecentlyWatchedScreen({ navigation }) {
                 <ScrollView>
                     {
                         Object.keys(recentMovies).map((movieKey) =>
-                            <Swipeable
+                            <TouchableOpacity 
                                 key={movieKey}
-                                renderRightActions={(progress, dragX) =>
-                                  renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
-                                }
-                                ref={(ref) => (selectedMovie[movieKey] = ref)}
-                                onSwipeableOpen={() => closeRow(movieKey)}
-                                rightOpenValue={-100}
-                            >
-                                <MovieBanner title={recentMovies[movieKey].title} poster={recentMovies[movieKey].poster} />
-                            </Swipeable>
+                                onPress={() => {
+                                    navigation.navigate({
+                                        name: "About",
+                                        params: {
+                                            title: recentMovies[movieKey].title,
+                                            poster: recentMovies[movieKey].poster,
+                                        },
+                                    })
+                                }}>
+                                <Swipeable
+                                    renderRightActions={(progress, dragX) =>
+                                      renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
+                                    }
+                                    ref={(ref) => (selectedMovie[movieKey] = ref)}
+                                    onSwipeableOpen={() => closeRow(movieKey)}
+                                    rightOpenValue={-100}
+                                >
+                                    <MovieBanner title={recentMovies[movieKey].title} poster={recentMovies[movieKey].poster} />
+                                </Swipeable>
+                            </TouchableOpacity>
                         )
                     }
                 </ScrollView>
