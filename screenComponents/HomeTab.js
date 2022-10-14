@@ -26,10 +26,14 @@ export default function HomeTab() {
         },
         tabBarActiveTintColor: '#f2cc00',
         tabBarInactiveTintColor: '#f2cc00',
-        tabBarStyle: { backgroundColor: "#97252B" },
+        tabBarStyle: { 
+          backgroundColor: "#97252B",
+          borderTopWidth: 0,
+        },
         headerStyle: {
           backgroundColor: "#97252B",
-        }
+          borderTopWidth: 0,
+        },
       })
     
 
@@ -51,7 +55,8 @@ export default function HomeTab() {
     }
 
     return (
-        <Tab.Navigator screenOptions={screenStyles}>
+        <Tab.Navigator 
+          screenOptions={screenStyles}>
             <Tab.Screen name="Home" component={HomeScreen} options={homeHeaderStyles}/>
             <Tab.Screen name="Favorites" component={FavoritesScreen} options={screenHeaderStyles} />
             <Tab.Screen name="Recently Watched" component={RecentlyWatchedScreen} options={screenHeaderStyles} />
