@@ -127,17 +127,28 @@ export default function FavoritesScreen({ navigation }) {
                 <ScrollView>
                     {
                         Object.keys(favMovies).map((movieKey) =>
-                            <Swipeable
-                                key={movieKey}
-                                renderRightActions={(progress, dragX) =>
-                                  renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
-                                }
-                                ref={(ref) => (selectedMovie[movieKey] = ref)}
-                                onSwipeableOpen={() => closeRow(movieKey)}
-                                rightOpenValue={-100}
-                            >
-                                <MovieBanner title={favMovies[movieKey].title} poster={favMovies[movieKey].poster} />
-                            </Swipeable>
+                            <TouchableOpacity 
+                                key={movieKey} 
+                                onPress={() => {
+                                    navigation.navigate({
+                                        name: "About",
+                                        params: {
+                                            title: favMovies[movieKey].title,
+                                            poster: favMovies[movieKey].poster,
+                                        },
+                                    })
+                                }}>
+                                <Swipeable
+                                    renderRightActions={(progress, dragX) =>
+                                      renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
+                                    }
+                                    ref={(ref) => (selectedMovie[movieKey] = ref)}
+                                    onSwipeableOpen={() => closeRow(movieKey)}
+                                    rightOpenValue={-100}
+                                >
+                                    <MovieBanner title={favMovies[movieKey].title} poster={favMovies[movieKey].poster} />
+                                </Swipeable>
+                            </TouchableOpacity>
                         )
                     }
                 </ScrollView>
