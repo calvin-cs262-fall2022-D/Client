@@ -10,7 +10,7 @@ export default function AboutScreen({ route }) {
 
     const navigation = useNavigation();
 
-    const { title, poster } = route.params;
+    const { title, poster, videoId } = route.params;
     const FAVORITES_KEY = "@favorites_Key";
     const RECENTS_KEY = "@recents_Key";
 
@@ -25,7 +25,7 @@ export default function AboutScreen({ route }) {
     }
 
     const addFavorites = async () => {
-        const favMovie = { title: title, poster: poster };
+        const favMovie = { title: title, poster: poster, videoId: videoId };
 
         // prevent duplicate favorites
         // aellxx: ternary operator didn't work
@@ -67,18 +67,23 @@ export default function AboutScreen({ route }) {
         }
     }
 
-    const addRecents = async () => {
-        const recentMovie = { title: title, poster: poster };
-
+    const addRecents = async (movie) => {
         // prevent duplicate favorites
         // aellxx: ternary operator didn't work
         if (Object.values(recentlyWatched).find(item => item.title === title)) {
             return;
         } else {
-            const newRecents = { ...recentlyWatched, [Date.now()]: recentMovie };
+            const newRecents = { ...recentlyWatched, [Date.now()]: movie };
             setRecentlyWatched(newRecents);
             await saveRecents(newRecents);
         }
+    }
+
+    const playMovie = async () => {
+        const recentMovie = { title: title, poster: poster, videoId: videoId };
+        
+        await addRecents(recentMovie);
+        navigation.navigate("Display", recentMovie);
     }
 
     useEffect(
@@ -101,12 +106,6 @@ export default function AboutScreen({ route }) {
     return (
         // Place the poster, description, and buttons for adding to favorites and playing the video
         <View style={styles.container}>
-{/*             <TouchableOpacity
-                    style={styles.backButton}
-                    >
-                    <Image style={styles.backImage} source={require('../assets/back_button.png')}/>
-                </TouchableOpacity>
-    */}
             <View style={styles.imageWrapper}>
                 <Image style={styles.poster} source={{ uri: poster }} resizeMode="contain" />
             </View>
@@ -126,7 +125,7 @@ export default function AboutScreen({ route }) {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={addRecents}>
+                    onPress={playMovie}>
                     <Text style={styles.buttonText}>
                         Play <Ionicons name="play" size={24} color="#fff" />
                     </Text>
@@ -200,9 +199,6 @@ const styles = StyleSheet.create({
         bottom: 50,
     },
     backImage: {
-        //padding: 10,
-        //borderRadius: 20,
-        //flexDirection: "row",
         width: 40,
         height: 40,
         justifyContent: "space-between",
