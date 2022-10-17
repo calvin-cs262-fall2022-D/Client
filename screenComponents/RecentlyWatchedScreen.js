@@ -135,6 +135,7 @@ export default function RecentlyWatchedScreen({ navigation }) {
                                         params: {
                                             title: recentMovies[movieKey].title,
                                             poster: recentMovies[movieKey].poster,
+                                            videoId: recentMovies[movieKey].videoId,
                                         },
                                     })
                                 }}>
@@ -146,7 +147,10 @@ export default function RecentlyWatchedScreen({ navigation }) {
                                     onSwipeableOpen={() => closeRow(movieKey)}
                                     rightOpenValue={-100}
                                 >
-                                    <MovieBanner title={recentMovies[movieKey].title} poster={recentMovies[movieKey].poster} />
+                                    <MovieBanner 
+                                        title={recentMovies[movieKey].title} 
+                                        poster={recentMovies[movieKey].poster} 
+                                        />
                                 </Swipeable>
                             </TouchableOpacity>
                         )

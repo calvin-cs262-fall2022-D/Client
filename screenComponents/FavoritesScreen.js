@@ -135,6 +135,7 @@ export default function FavoritesScreen({ navigation }) {
                                         params: {
                                             title: favMovies[movieKey].title,
                                             poster: favMovies[movieKey].poster,
+                                            videoId: favMovies[movieKey].videoId,
                                         },
                                     })
                                 }}>
