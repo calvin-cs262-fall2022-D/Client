@@ -126,7 +126,7 @@ export default function RecentlyWatchedScreen({ navigation }) {
             <View style={styles.container}>
                 <ScrollView>
                     {
-                        Object.keys(recentMovies).map((movieKey) =>
+                        Object.keys(recentMovies).reverse().map((movieKey) =>
                             <TouchableOpacity 
                                 key={movieKey}
                                 onPress={() => {
