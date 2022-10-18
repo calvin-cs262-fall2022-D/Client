@@ -145,8 +145,7 @@ export default function RecentlyWatchedScreen({ navigation }) {
                                     }
                                     ref={(ref) => (selectedMovie[movieKey] = ref)}
                                     onSwipeableOpen={() => closeRow(movieKey)}
-                                    rightOpenValue={-100}
-                                >
+                                    rightOpenValue={-100}>
                                     <MovieBanner 
                                         title={recentMovies[movieKey].title} 
                                         poster={recentMovies[movieKey].poster} 
@@ -161,7 +160,7 @@ export default function RecentlyWatchedScreen({ navigation }) {
                         style={styles.clearButton} 
                         title="clear" 
                         color="#f5392f" 
-                        onPress={alertBeforeClear} />
+                        onPress={alertBeforeClear}/>
                 </View>
             </View>
         )

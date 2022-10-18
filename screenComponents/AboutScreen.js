@@ -28,7 +28,6 @@ export default function AboutScreen({ route }) {
         const favMovie = { title: title, poster: poster, videoId: videoId };
 
         // prevent duplicate favorites
-        // aellxx: ternary operator didn't work
         if (Object.values(favorites).find(item => item.title === title)) {
             alert(`"${title}" already exists in favorites`);
             return;
@@ -191,19 +190,4 @@ const styles = StyleSheet.create({
         fontFamily: "Fjalla",
         fontSize: 20,
     },
-    backButton: {
-        backgroundColor: "#97252B",
-        borderRadius: 20,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        top: -17,
-        right: 170,
-        bottom: 50,
-    },
-    backImage: {
-        width: 40,
-        height: 40,
-        justifyContent: "space-between",
-
-    }
 })
