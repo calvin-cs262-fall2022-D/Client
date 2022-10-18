@@ -69,14 +69,16 @@ export default function AboutScreen({ route }) {
 
     const addRecents = async (movie) => {
         // prevent duplicate favorites
-        // aellxx: ternary operator didn't work
-        if (Object.values(recentlyWatched).find(item => item.title === title)) {
-            return;
-        } else {
-            const newRecents = { ...recentlyWatched, [Date.now()]: movie };
-            setRecentlyWatched(newRecents);
-            await saveRecents(newRecents);
-        }
+        const alreadyWatchedKey = Object.keys(recentlyWatched).find(key => recentlyWatched[key].title === title);
+        console.log(alreadyWatchedKey)
+        let newRecents = {...recentlyWatched};
+
+        if (alreadyWatchedKey) {
+            delete newRecents[alreadyWatchedKey]
+        } 
+        newRecents = { ...newRecents, [Date.now()]: movie };
+        setRecentlyWatched(newRecents);
+        await saveRecents(newRecents);
     }
 
     const playMovie = async () => {
