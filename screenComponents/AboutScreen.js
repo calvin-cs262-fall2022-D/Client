@@ -1,18 +1,34 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
-import { useState, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 
 export default function AboutScreen({ route }) {
     const [favorites, setFavorites] = useState({});
     const [recentlyWatched, setRecentlyWatched] = useState({});
+    const [isLiked, setIsLiked] = useState(false);
 
     const navigation = useNavigation();
 
     const { title, poster, videoId } = route.params;
     const FAVORITES_KEY = "@favorites_Key";
     const RECENTS_KEY = "@recents_Key";
+    const animation = React.useRef(null);
+
+
+    // useFocusEffect(
+    //     useCallback(() => {
+    //         if (isLiked) {
+    //             animation.current.play(103, 104);
+    //         } else {
+    //             animation.current.play(8, 10);
+    //         }
+    //     }
+    //     )
+    // )
+
 
     // Save what movies you favorite
     const saveFavorites = async (movieObj) => {
@@ -32,9 +48,11 @@ export default function AboutScreen({ route }) {
             alert(`"${title}" already exists in favorites`);
             return;
         } else {
+            animation.current.play(10, 104);
             const newFavs = { ...favorites, [Date.now()]: favMovie };
             setFavorites(newFavs);
             await saveFavorites(newFavs);
+            setIsLiked(true);
         }
     }
 
@@ -44,15 +62,15 @@ export default function AboutScreen({ route }) {
             `Adding ${title} to favorites`,
             [
                 {
-                  text: "Cancel",
-                  style: "cancel",
+                    text: "Cancel",
+                    style: "cancel",
                 },
                 {
-                  text: "Add",
-                  onPress: () => addFavorites(),
-                  style: "default",
+                    text: "Add",
+                    onPress: () => addFavorites(),
+                    style: "default",
                 }
-              ]
+            ]
         )
     }
 
@@ -82,7 +100,7 @@ export default function AboutScreen({ route }) {
 
     const playMovie = async () => {
         const recentMovie = { title: title, poster: poster, videoId: videoId };
-        
+
         await addRecents(recentMovie);
         navigation.navigate("Display", recentMovie);
     }
@@ -113,16 +131,29 @@ export default function AboutScreen({ route }) {
             <View style={styles.textWrapper}>
                 <Text style={styles.titleText}>{title}</Text>
                 <Text style={styles.descriptionText}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                 </Text>
             </View>
             <View style={styles.buttonsWrapper}>
                 <TouchableOpacity
                     style={styles.button}
                     onPress={alertBeforeAdd}>
-                    <Text style={styles.buttonText}>
-                        Favorites <Ionicons name="heart" size={24} color="#fff" />
-                    </Text>
+                    <View style={styles.favoritesWrapper}>
+                        <View style={{ justifyContent: "center" }}>
+                            <Text style={styles.buttonText}>
+                                Favorite
+                                {/* <Ionicons name="heart" size={24} color="#fff"> */}
+                            </Text>
+                        </View>
+                        <View style={styles.lottieWrapper}>
+                            <LottieView style={styles.heartLottie}
+                                ref={animation}
+                                source={require('../assets/lottie/like.json')}
+                                loop={false}
+                                autoPlay={false}>
+                            </LottieView>
+                        </View>
+                    </View>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.button}
@@ -131,8 +162,8 @@ export default function AboutScreen({ route }) {
                         Play <Ionicons name="play" size={24} color="#fff" />
                     </Text>
                 </TouchableOpacity>
-            </View>
-        </View>
+            </View >
+        </View >
 
 
     )
@@ -160,8 +191,16 @@ const styles = StyleSheet.create({
         flex: 3,
         width: "100%",
         flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "space-evenly",
         alignItems: "center",
+    },
+    favoritesWrapper: {
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+    },
+    lottieWrapper: {
+        justifyContent: "space-evenly",
+        margin: -15,
     },
     poster: {
         flex: 1,
@@ -184,10 +223,31 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         flexDirection: "row",
         justifyContent: "space-between",
+        margin: 28,
     },
     buttonText: {
         color: "#fff",
         fontFamily: "Fjalla",
         fontSize: 20,
+        justifyContent: "center",
     },
+    backButton: {
+        backgroundColor: "#97252B",
+        borderRadius: 20,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        top: -17,
+        right: 170,
+        bottom: 50,
+    },
+    backImage: {
+        width: 40,
+        height: 40,
+        justifyContent: "space-between",
+
+    },
+    heartLottie: {
+        width: 75,
+        height: 75,
+    }
 })

@@ -1,16 +1,16 @@
-const movies = { 
-    "Fall 2022" :  [
+const movies = {
+    "Fall 2022": [
         {
             id: 1,
             title: "Breakfast at Tiffany's",
             image: "https://i.pinimg.com/originals/47/79/45/47794561e0e38712ae1e8f75d879ff9e.jpg",
-        }, 
+        },
         {
             id: 2,
             title: "Parasite",
             image: "https://parade.com/.image/t_share/MTkwNTgxMjk2NzkxODg5MDIx/parasite2.jpg",
         },
-        {   
+        {
             id: 3,
             title: "Titanic",
             image: "https://www.shuspectra.com/wp-content/uploads/2022/01/titanic-631x900.jpg",
@@ -21,13 +21,13 @@ const movies = {
             image: "https://m.media-amazon.com/images/M/MV5BZDdiZTAwYzAtMDI3Ni00OTRjLTkzN2UtMGE3MDMyZmU4NTU4XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_.jpg",
         },
     ],
-    "Spring 2022" : [
+    "Spring 2022": [
         {
             id: 1,
             title: "ObstructSean",
-            image: "https://i.vimeocdn.com/video/623408857-9ed08834cb46cde1b9b1a28f7915f9b69035e828f667ae079ff35e5125189ce4-d_1920x1080",        
+            image: "https://i.vimeocdn.com/video/623408857-9ed08834cb46cde1b9b1a28f7915f9b69035e828f667ae079ff35e5125189ce4-d_1920x1080",
             videoId: 208160267,
-        }, 
+        },
         {
             id: 2,
             title: "Significant Others",
@@ -52,7 +52,7 @@ const movies = {
             id: 1,
             title: "Breakfast at Tiffany's",
             image: "https://i.pinimg.com/originals/47/79/45/47794561e0e38712ae1e8f75d879ff9e.jpg",
-        }, 
+        },
         {
             id: 2,
             title: "Parasite",
@@ -69,12 +69,12 @@ const movies = {
             image: "https://mymodernmet.com/wp/wp-content/uploads/2020/10/minimalist-movie-posters-no240-my-inception-minimal-movie-poster-chungkong-art.jpg",
         },
     ],
-    "Spring 2021" : [
+    "Spring 2021": [
         {
             id: 1,
             title: "The Walk",
             image: "https://m.media-amazon.com/images/I/91CSnIKKJoL._SL1500_.jpg",
-        }, 
+        },
         {
             id: 2,
             title: "The Shawshank Redemption",
@@ -91,12 +91,12 @@ const movies = {
             image: "https://m.media-amazon.com/images/I/61MFmDpvljL._AC_SL1022_.jpg",
         },
     ],
-    "Fall 2020" : [
+    "Fall 2020": [
         {
             id: 1,
             title: "Back to the Future",
             image: "https://mymodernmet.com/wp/wp-content/uploads/2020/10/minimalist-movie-posters-no183-my-back-to-the-future-minimal-movie-poster-chungkong-art.jpg",
-        }, 
+        },
         {
             id: 2,
             title: "Heathers",
@@ -109,7 +109,7 @@ const movies = {
         },
         {
             id: 4,
-            title: "The Trueman Show",
+            title: "The Truman Show",
             image: "https://i.pinimg.com/736x/82/b0/8e/82b08eda975df9a145c792e019060e38.jpg",
         },
     ]
