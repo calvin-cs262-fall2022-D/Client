@@ -46,10 +46,20 @@ export default function AboutScreen({ route }) {
         // prevent duplicate favorites
         // aellxx: ternary operator didn't work
         if (Object.values(favorites).find(item => item.title === title)) {
-            alert(`"${title}" already exists in favorites`);
-            return;
+            // play unfavoriting animation
+            animation.current.play(94, 180);
+            // delete the movie from your favorites
+            const newFavs = { ...favorites };
+            const movieToDelete = Object.values(favorites).find(item => item.title === title);
+            const movieKey = Object.keys(favorites).find(key => favorites[key] === movieToDelete);
+            delete newFavs[movieKey];
+            setFavorites(newFavs);
+            await saveFavorites(newFavs);
+            setIsLiked(false);
         } else {
+            // play favoriting animation
             animation.current.play(10, 104);
+            // add movie to favorites
             const newFavs = { ...favorites, [Date.now()]: favMovie };
             setFavorites(newFavs);
             await saveFavorites(newFavs);
@@ -57,23 +67,23 @@ export default function AboutScreen({ route }) {
         }
     }
 
-    const alertBeforeAdd = () => {
-        Alert.alert(
-            "Adding to Favorites",
-            `Adding ${title} to favorites`,
-            [
-                {
-                    text: "Cancel",
-                    style: "cancel",
-                },
-                {
-                    text: "Add",
-                    onPress: () => addFavorites(),
-                    style: "default",
-                }
-            ]
-        )
-    }
+    // const alertBeforeAdd = () => {
+    //     Alert.alert(
+    //         "Adding to Favorites",
+    //         `Adding ${title} to favorites`,
+    //         [
+    //             {
+    //                 text: "Cancel",
+    //                 style: "cancel",
+    //             },
+    //             {
+    //                 text: "Add",
+    //                 onPress: () => addFavorites(),
+    //                 style: "default",
+    //             }
+    //         ]
+    //     )
+    // }
 
     // Save what movies you favorite
     const saveRecents = async (movieObj) => {
@@ -136,7 +146,7 @@ export default function AboutScreen({ route }) {
             <View style={styles.buttonsWrapper}>
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={alertBeforeAdd}>
+                    onPress={addFavorites}>
                     <View style={styles.favoritesWrapper}>
                         <View style={{ justifyContent: "center" }}>
                             <Text style={styles.buttonText}>
