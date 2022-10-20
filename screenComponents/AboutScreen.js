@@ -8,7 +8,6 @@ import LottieView from 'lottie-react-native';
 export default function AboutScreen({ route }) {
     const [favorites, setFavorites] = useState({});
     const [recentlyWatched, setRecentlyWatched] = useState({});
-    const [isLiked, setIsLiked] = useState(false);
 
     const navigation = useNavigation();
 
@@ -54,7 +53,6 @@ export default function AboutScreen({ route }) {
             delete newFavs[movieKey];
             setFavorites(newFavs);
             await saveFavorites(newFavs);
-            setIsLiked(false);
         } else {
             // play favoriting animation
             animation.current.play(10, 104);
@@ -62,7 +60,6 @@ export default function AboutScreen({ route }) {
             const newFavs = { ...favorites, [Date.now()]: favMovie };
             setFavorites(newFavs);
             await saveFavorites(newFavs);
-            setIsLiked(true);
         }
     }
 
@@ -122,11 +119,19 @@ export default function AboutScreen({ route }) {
                 try {
                     const favJsonValue = await AsyncStorage.getItem(FAVORITES_KEY);
                     const recentJsonValue = await AsyncStorage.getItem(RECENTS_KEY);
-                    setFavorites(favJsonValue != null ? JSON.parse(favJsonValue) : {});
-                    setRecentlyWatched(recentJsonValue != null ? JSON.parse(recentJsonValue) : {});
+                    const favObj = favJsonValue != null ? JSON.parse(favJsonValue) : {};
+                    const recObj = recentJsonValue != null ? JSON.parse(recentJsonValue) : {};
+                    // set states
+                    setFavorites(favObj);
+                    setRecentlyWatched(recObj);
+                    // if in favorites, fill heart
+                    if (Object.values(favObj).find(item => item.title === title)) {
+                        animation.current.play(103, 104);
+                    }
                 } catch (e) {
                     alert(`${e}`);
                 }
+                
             }
             loadInfo();
         }, []
