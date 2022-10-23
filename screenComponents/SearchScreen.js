@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         borderRadius: 20,
         backgroundColor: "#97252B",
+
     },
     textInputStyles: {
         padding: 20,
@@ -110,12 +111,15 @@ const styles = StyleSheet.create({
         borderRadius: 15,
     },
     titleText: {
-        fontSize: 30,
-        fontWeight: "700"
+        fontSize: 29,
+        fontWeight: "700",
+        paddingBottom: 2,
     },
     directorText: {
         fontSize: 20,
+        color: 'gray',
         fontWeight: "600",
+        paddingBottom: 3,
     },
     navigation: {
         flex: .12,
@@ -126,7 +130,7 @@ const styles = StyleSheet.create({
     },
     poster: {
         backgroundColor: "#fff",
-        height: 185,
+        height: 270,
         width: 192,
         right: 40,
         borderRadius: 15,
