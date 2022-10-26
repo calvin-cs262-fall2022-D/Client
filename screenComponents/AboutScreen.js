@@ -17,19 +17,6 @@ export default function AboutScreen({ route }) {
     const RECENTS_KEY = "@recents_Key";
     const animation = React.useRef(null);
 
-
-    // useFocusEffect(
-    //     useCallback(() => {
-    //         if (isLiked) {
-    //             animation.current.play(103, 104);
-    //         } else {
-    //             animation.current.play(8, 10);
-    //         }
-    //     }
-    //     )
-    // )
-
-
     // Save what movies you favorite
     const saveFavorites = async (movieObj) => {
         try {
@@ -253,7 +240,6 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         justifyContent: "space-between",
-
     },
     heartLottie: {
         width: 75,
