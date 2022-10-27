@@ -4,15 +4,15 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import MovieBanner from '../components/MovieBanner';
 import { movies } from '../data/movies';
 
-export default function SearchScreen() {
+export default function SearchScreen({navigation}) {
     // aellxx: this data is to implement a placeholder for the search function 
     const tempData = movies["Spring 2022"];
     console.log(tempData);
 
     // aellxx: temporary render function; delete once we have DB set up
     const renderMovie = ({item}) => (
-        <TouchableOpacity>
-            <MovieBanner title={item.title} poster={item.image}></MovieBanner>
+        <TouchableOpacity onPress={() => navigation.navigate("About", {title: item.title, poster: item.image, videoId: item.videoId})} >
+            <MovieBanner title={item.title} poster={item.image}/>
         </TouchableOpacity>
     )
 
