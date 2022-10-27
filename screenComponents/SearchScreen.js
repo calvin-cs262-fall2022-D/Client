@@ -1,19 +1,20 @@
-import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, Image, } from 'react-native';
+import SearchBar from "react-native-dynamic-search-bar"
 
 export default function SearchScreen() {
     return (
         // Set up the search input
-        <View style={styles.container}>
+        <View style={styles.container} >
             <View style={styles.textInputContainer}>
-                <TextInput
-                    style={styles.textInputStyles}
-                    placeholder="What are you looking for?"
-                    placeholderTextColor={"#000000"}></TextInput>
+                <SearchBar
+                    placeholder="Search">
+                    {/*onChangeText{(text) => this.filterList(text)} */}
+                </SearchBar>
             </View>
             {/* allows user to scroll through the search page*/}
-            <ScrollView style={styles.suggestionContainer}>
+            <ScrollView style={styles.suggestionContainer} >
                 {/* allows user to click search items*/}
-                <TouchableOpacity onPress={showSearchInfo}>
+                < TouchableOpacity onPress={showSearchInfo} >
                     <View style={styles.suggestionBanner}>
                         <View style={styles.imageContainer}>
                             <Image style={styles.poster} source={{ uri: "https://i.vimeocdn.com/video/623408857-9ed08834cb46cde1b9b1a28f7915f9b69035e828f667ae079ff35e5125189ce4-d_1920x1080" }}></Image>
@@ -28,7 +29,7 @@ export default function SearchScreen() {
                     </View>
                 </TouchableOpacity>
                 {/* Data for each student film */}
-                <TouchableOpacity onPress={showSearchInfo}>
+                < TouchableOpacity onPress={showSearchInfo} >
                     <View style={styles.suggestionBanner}>
                         <View style={styles.imageContainer}>
                             <Image style={styles.poster} source={{ uri: "https://i.vimeocdn.com/video/626019415-241412f021ef833dcd5399ad03bd689cbbe041774d11e627b85413b9e7f01baf-d_1920x1080" }}></Image>
@@ -41,7 +42,7 @@ export default function SearchScreen() {
                             </Text>
                         </View>
                     </View>
-                </TouchableOpacity>
+                </TouchableOpacity >
 
                 <TouchableOpacity onPress={showSearchInfo}>
                     <View style={styles.suggestionBanner}>
@@ -57,15 +58,15 @@ export default function SearchScreen() {
                         </View>
                     </View>
                 </TouchableOpacity>
-            </ScrollView>
-        </View>
+            </ScrollView >
+        </View >
     )
 }
+
 const showSearchInfo = () => {
     console.log('Search was clicked!');
 
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -73,18 +74,18 @@ const styles = StyleSheet.create({
         backgroundColor: "#141414"
     },
     textInputContainer: {
-        paddingVertical: 20,
-        paddingHorizontal: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 0,
         marginTop: 15,
         borderRadius: 20,
         backgroundColor: "#97252B",
     },
-    textInputStyles: {
-        padding: 20,
-        backgroundColor: "rgba(255, 255, 255, 0.5)",
-        opacity: .5,
-        borderRadius: 10,
-    },
+    // textInputStyles: {
+    //     padding: 20,
+    //     backgroundColor: "rgba(255, 255, 255, 0.5)",
+    //     opacity: .5,
+    //     borderRadius: 30,
+    // },
     suggestionContainer: {
         flex: 1,
         marginVertical: 15,

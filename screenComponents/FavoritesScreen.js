@@ -7,11 +7,11 @@ import { Swipeable } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function FavoritesScreen({ navigation }) {
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
     const [favMovies, setFavMovies] = useState({});
     const [prevOpenedRow, setPrevOpenedRow] = useState();
-    const [selectedMovie, setSelectedMovie ] = useState({});
-    
+    const [selectedMovie, setSelectedMovie] = useState({});
+
 
     const FAVORITES_KEY = "@favorites_Key";
 
@@ -25,7 +25,7 @@ export default function FavoritesScreen({ navigation }) {
     }
 
     const deleteFavorite = async (movieKey) => {
-        const newFavs = {...favMovies}
+        const newFavs = { ...favMovies }
         delete newFavs[movieKey];
         setFavMovies(newFavs);
         await saveFavorites(newFavs);
@@ -36,14 +36,14 @@ export default function FavoritesScreen({ navigation }) {
             "Remove from Favorites",
             `Removing "${favMovies[movieKeyToDelete].title}"`,
             [
-              {
-                text: "Cancel",
-              },
-              {
-                text: "Delete",
-                onPress: () => deleteFavorite(movieKeyToDelete),
-                style: "destructive",
-              }
+                {
+                    text: "Cancel",
+                },
+                {
+                    text: "Delete",
+                    onPress: () => deleteFavorite(movieKeyToDelete),
+                    style: "destructive",
+                }
             ]
         );
     }
@@ -59,14 +59,14 @@ export default function FavoritesScreen({ navigation }) {
             "Clearing Favorites",
             "This action cannot be undone. Are you sure?",
             [
-              {
-                text: "Cancel",
-              },
-              {
-                text: "Yes, I'm sure",
-                onPress: () => clearFavorites(),
-                style: "destructive",
-              }
+                {
+                    text: "Cancel",
+                },
+                {
+                    text: "Yes, I'm sure",
+                    onPress: () => clearFavorites(),
+                    style: "destructive",
+                }
             ]
         );
     }
@@ -75,25 +75,25 @@ export default function FavoritesScreen({ navigation }) {
     // originally from: https://snack.expo.dev/@aaronksaunders/calm-beef-jerky
     const renderRightActions = (progress, dragX, alertBeforeDelete) => {
         return (
-          <View
-            style={{
-              margin: 0,
-              alignContent: 'center',
-              justifyContent: 'center',
-              width: 70,
-            }}>
-            <TouchableOpacity
-                style={styles.deleteButton}
-                onPress={alertBeforeDelete}>
-                <Ionicons name="trash" size={40} color="#fff" />
-            </TouchableOpacity>
-          </View>
+            <View
+                style={{
+                    margin: 0,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                    width: 70,
+                }}>
+                <TouchableOpacity
+                    style={styles.deleteButton}
+                    onPress={alertBeforeDelete}>
+                    <Ionicons name="trash" size={40} color="#fff" />
+                </TouchableOpacity>
+            </View>
         );
-      };
+    };
 
     const closeRow = (movieKey) => {
         if (prevOpenedRow && prevOpenedRow !== selectedMovie[movieKey]) {
-          prevOpenedRow.close();
+            prevOpenedRow.close();
         }
         setPrevOpenedRow(selectedMovie[movieKey]);
     };
@@ -105,7 +105,7 @@ export default function FavoritesScreen({ navigation }) {
                 try {
                     const jsonValue = await AsyncStorage.getItem(FAVORITES_KEY);
                     setFavMovies(jsonValue != null ? JSON.parse(jsonValue) : {});
-                } catch(e) {
+                } catch (e) {
                     alert(`${e}`);
                 }
             }
@@ -127,8 +127,8 @@ export default function FavoritesScreen({ navigation }) {
                 <ScrollView>
                     {
                         Object.keys(favMovies).map((movieKey) =>
-                            <TouchableOpacity 
-                                key={movieKey} 
+                            <TouchableOpacity
+                                key={movieKey}
                                 onPress={() => {
                                     navigation.navigate({
                                         name: "About",
@@ -141,7 +141,7 @@ export default function FavoritesScreen({ navigation }) {
                                 }}>
                                 <Swipeable
                                     renderRightActions={(progress, dragX) =>
-                                      renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
+                                        renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
                                     }
                                     ref={(ref) => (selectedMovie[movieKey] = ref)}
                                     onSwipeableOpen={() => closeRow(movieKey)}
@@ -154,10 +154,10 @@ export default function FavoritesScreen({ navigation }) {
                     }
                 </ScrollView>
                 <View style={styles.clearButtonContainer}>
-                    <Button 
-                        style={styles.clearButton} 
-                        title="clear" 
-                        color="#f5392f" 
+                    <Button
+                        style={styles.clearButton}
+                        title="clear"
+                        color="#f5392f"
                         onPress={alertBeforeClear} />
                 </View>
             </View>
