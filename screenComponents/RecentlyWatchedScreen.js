@@ -127,8 +127,15 @@ export default function RecentlyWatchedScreen({ navigation }) {
                 <ScrollView>
                     {
                         Object.keys(recentMovies).reverse().map((movieKey) =>
-                            <TouchableOpacity 
-                                key={movieKey}
+                                <Swipeable
+                                    key={movieKey}
+                                    renderRightActions={(progress, dragX) =>
+                                      renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
+                                    }
+                                    ref={(ref) => (selectedMovie[movieKey] = ref)}
+                                    onSwipeableOpen={() => closeRow(movieKey)}
+                                    rightOpenValue={-100}>
+                                    <TouchableOpacity 
                                 onPress={() => {
                                     navigation.navigate({
                                         name: "About",
@@ -139,19 +146,9 @@ export default function RecentlyWatchedScreen({ navigation }) {
                                         },
                                     })
                                 }}>
-                                <Swipeable
-                                    renderRightActions={(progress, dragX) =>
-                                      renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
-                                    }
-                                    ref={(ref) => (selectedMovie[movieKey] = ref)}
-                                    onSwipeableOpen={() => closeRow(movieKey)}
-                                    rightOpenValue={-100}>
-                                    <MovieBanner 
-                                        title={recentMovies[movieKey].title} 
-                                        poster={recentMovies[movieKey].poster} 
-                                        />
+                                    <MovieBanner title={recentMovies[movieKey].title} poster={recentMovies[movieKey].poster} />
+                                    </TouchableOpacity>
                                 </Swipeable>
-                            </TouchableOpacity>
                         )
                     }
                 </ScrollView>
