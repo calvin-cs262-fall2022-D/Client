@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert, Animated } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect, useCallback } from 'react';
@@ -8,14 +8,13 @@ import LottieView from 'lottie-react-native';
 export default function AboutScreen({ route }) {
     const [favorites, setFavorites] = useState({});
     const [recentlyWatched, setRecentlyWatched] = useState({});
-    const [isLiked, setIsLiked] = useState(false);
 
     const navigation = useNavigation();
+    const animation = React.useRef(null);
 
-    const { title, poster, videoId } = route.params;
+    const { title, poster, videoId, favorited } = route.params;
     const FAVORITES_KEY = "@favorites_Key";
     const RECENTS_KEY = "@recents_Key";
-    const animation = React.useRef(null);
 
     // Save what movies you favorite
     const saveFavorites = async (movieObj) => {
@@ -29,12 +28,11 @@ export default function AboutScreen({ route }) {
 
     const addFavorites = async () => {
         const favMovie = { title: title, poster: poster, videoId: videoId };
-
         // prevent duplicate favorites
         // aellxx: ternary operator didn't work
         if (Object.values(favorites).find(item => item.title === title)) {
             // play unfavoriting animation
-            animation.current.play(94, 180);
+            animation.current?.play(94, 180);
             // delete the movie from your favorites
             const newFavs = { ...favorites };
             const movieToDelete = Object.values(favorites).find(item => item.title === title);
@@ -42,15 +40,13 @@ export default function AboutScreen({ route }) {
             delete newFavs[movieKey];
             setFavorites(newFavs);
             await saveFavorites(newFavs);
-            setIsLiked(false);
         } else {
             // play favoriting animation
-            animation.current.play(10, 104);
+            animation.current?.play(10, 104);
             // add movie to favorites
             const newFavs = { ...favorites, [Date.now()]: favMovie };
             setFavorites(newFavs);
             await saveFavorites(newFavs);
-            setIsLiked(true);
         }
     }
 
@@ -101,21 +97,29 @@ export default function AboutScreen({ route }) {
         navigation.navigate("Display", recentMovie);
     }
 
-    useEffect(
+    useFocusEffect(
         // Use aysnc memory to remember what videos people have favorited
-        () => {
+        useCallback(() => {
             const loadInfo = async () => {
                 try {
                     const favJsonValue = await AsyncStorage.getItem(FAVORITES_KEY);
                     const recentJsonValue = await AsyncStorage.getItem(RECENTS_KEY);
-                    setFavorites(favJsonValue != null ? JSON.parse(favJsonValue) : {});
-                    setRecentlyWatched(recentJsonValue != null ? JSON.parse(recentJsonValue) : {});
+                    const favObj = favJsonValue != null ? JSON.parse(favJsonValue) : {};
+                    const recObj = recentJsonValue != null ? JSON.parse(recentJsonValue) : {};
+
+                    // set states
+                    setFavorites(favObj);
+                    setRecentlyWatched(recObj);
+                    // if in favorites, fill heart
+                    if (Object.values(favObj).find(item => item.title === title)) {
+                        animation.current?.play(103, 103);
+                    }
                 } catch (e) {
                     alert(`${e}`);
                 }
             }
             loadInfo();
-        }, []
+        }, [])
     )
 
     return (
