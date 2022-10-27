@@ -50,24 +50,6 @@ export default function AboutScreen({ route }) {
         }
     }
 
-    // const alertBeforeAdd = () => {
-    //     Alert.alert(
-    //         "Adding to Favorites",
-    //         `Adding ${title} to favorites`,
-    //         [
-    //             {
-    //                 text: "Cancel",
-    //                 style: "cancel",
-    //             },
-    //             {
-    //                 text: "Add",
-    //                 onPress: () => addFavorites(),
-    //                 style: "default",
-    //             }
-    //         ]
-    //     )
-    // }
-
     // Save what movies you favorite
     const saveRecents = async (movieObj) => {
         try {
