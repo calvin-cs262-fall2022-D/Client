@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert, Animated } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect, useCallback } from 'react';
@@ -10,11 +10,11 @@ export default function AboutScreen({ route }) {
     const [recentlyWatched, setRecentlyWatched] = useState({});
 
     const navigation = useNavigation();
+    const animation = React.useRef(null);
 
-    const { title, poster, videoId } = route.params;
+    const { title, poster, videoId, favorited } = route.params;
     const FAVORITES_KEY = "@favorites_Key";
     const RECENTS_KEY = "@recents_Key";
-    const animation = React.useRef(null);
 
     // Save what movies you favorite
     const saveFavorites = async (movieObj) => {
@@ -28,11 +28,10 @@ export default function AboutScreen({ route }) {
 
     const addFavorites = async () => {
         const favMovie = { title: title, poster: poster, videoId: videoId };
-
         // prevent duplicate favorites
         if (Object.values(favorites).find(item => item.title === title)) {
             // play unfavoriting animation
-            animation.current.play(94, 180);
+            animation.current?.play(94, 180);
             // delete the movie from your favorites
             const newFavs = { ...favorites };
             const movieToDelete = Object.values(favorites).find(item => item.title === title);
@@ -42,7 +41,7 @@ export default function AboutScreen({ route }) {
             await saveFavorites(newFavs);
         } else {
             // play favoriting animation
-            animation.current.play(10, 104);
+            animation.current?.play(10, 104);
             // add movie to favorites
             const newFavs = { ...favorites, [Date.now()]: favMovie };
             setFavorites(newFavs);
@@ -81,9 +80,9 @@ export default function AboutScreen({ route }) {
         navigation.navigate("Display", recentMovie);
     }
 
-    useEffect(
+    useFocusEffect(
         // Use aysnc memory to remember what videos people have favorited
-        () => {
+        useCallback(() => {
             const loadInfo = async () => {
                 try {
                     const favJsonValue = await AsyncStorage.getItem(FAVORITES_KEY);
@@ -103,7 +102,7 @@ export default function AboutScreen({ route }) {
                 
             }
             loadInfo();
-        }, []
+        }, [])
     )
 
     return (

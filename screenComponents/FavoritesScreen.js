@@ -27,6 +27,7 @@ export default function FavoritesScreen({ navigation }) {
     const deleteFavorite = async (movieKey) => {
         const newFavs = { ...favMovies }
         delete newFavs[movieKey];
+        movieKey.favorited = false;
         setFavMovies(newFavs);
         await saveFavorites(newFavs);
     }
