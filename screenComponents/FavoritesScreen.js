@@ -41,7 +41,7 @@ export default function FavoritesScreen({ navigation }) {
                     text: "Cancel",
                 },
                 {
-                    text: "Delete",
+                    text: "Unfavorite",
                     onPress: () => deleteFavorite(movieKeyToDelete),
                     style: "destructive",
                 }

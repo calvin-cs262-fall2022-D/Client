@@ -126,9 +126,16 @@ export default function RecentlyWatchedScreen({ navigation }) {
             <View style={styles.container}>
                 <ScrollView>
                     {
-                        Object.keys(recentMovies).map((movieKey) =>
-                            <TouchableOpacity 
-                                key={movieKey}
+                        Object.keys(recentMovies).reverse().map((movieKey) =>
+                                <Swipeable
+                                    key={movieKey}
+                                    renderRightActions={(progress, dragX) =>
+                                      renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
+                                    }
+                                    ref={(ref) => (selectedMovie[movieKey] = ref)}
+                                    onSwipeableOpen={() => closeRow(movieKey)}
+                                    rightOpenValue={-100}>
+                                    <TouchableOpacity 
                                 onPress={() => {
                                     navigation.navigate({
                                         name: "About",
@@ -139,20 +146,9 @@ export default function RecentlyWatchedScreen({ navigation }) {
                                         },
                                     })
                                 }}>
-                                <Swipeable
-                                    renderRightActions={(progress, dragX) =>
-                                      renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
-                                    }
-                                    ref={(ref) => (selectedMovie[movieKey] = ref)}
-                                    onSwipeableOpen={() => closeRow(movieKey)}
-                                    rightOpenValue={-100}
-                                >
-                                    <MovieBanner 
-                                        title={recentMovies[movieKey].title} 
-                                        poster={recentMovies[movieKey].poster} 
-                                        />
+                                    <MovieBanner title={recentMovies[movieKey].title} poster={recentMovies[movieKey].poster} />
+                                    </TouchableOpacity>
                                 </Swipeable>
-                            </TouchableOpacity>
                         )
                     }
                 </ScrollView>
@@ -161,7 +157,7 @@ export default function RecentlyWatchedScreen({ navigation }) {
                         style={styles.clearButton} 
                         title="clear" 
                         color="#f5392f" 
-                        onPress={alertBeforeClear} />
+                        onPress={alertBeforeClear}/>
                 </View>
             </View>
         )

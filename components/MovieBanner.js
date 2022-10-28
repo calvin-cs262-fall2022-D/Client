@@ -22,7 +22,9 @@ export default function MovieBanner(props) {
                     <Image style={styles.imageContent} source={{uri: props.poster}}/>
                 </View>
                 <View style={styles.textContainer}>
-                    <Text style={styles.titleText}>{props.title}</Text>
+                    <View style={styles.titleContainer}>
+                        <Text style={styles.titleText}>{props.title}</Text>
+                    </View>
                     <Text style={styles.directorText}>Director</Text>
                     <Text style={styles.descriptionText}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -58,12 +60,20 @@ const styles = StyleSheet.create({
         padding: 15,
         justifyContent: 'space-around',
     },
+    titleContainer: {
+        flex: 1.7,
+        justifyContent: "center",
+    },
     titleText: {
         fontSize: 24,
         fontWeight: "700",
     },
     directorText: {
+        flex: 1,
         fontSize: 18, 
         fontWeight: "600",
     },
+    descriptionText: {
+        flex: 2,
+    }
 })

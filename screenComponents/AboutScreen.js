@@ -29,7 +29,6 @@ export default function AboutScreen({ route }) {
     const addFavorites = async () => {
         const favMovie = { title: title, poster: poster, videoId: videoId };
         // prevent duplicate favorites
-        // aellxx: ternary operator didn't work
         if (Object.values(favorites).find(item => item.title === title)) {
             // play unfavoriting animation
             animation.current?.play(94, 180);
@@ -50,24 +49,6 @@ export default function AboutScreen({ route }) {
         }
     }
 
-    // const alertBeforeAdd = () => {
-    //     Alert.alert(
-    //         "Adding to Favorites",
-    //         `Adding ${title} to favorites`,
-    //         [
-    //             {
-    //                 text: "Cancel",
-    //                 style: "cancel",
-    //             },
-    //             {
-    //                 text: "Add",
-    //                 onPress: () => addFavorites(),
-    //                 style: "default",
-    //             }
-    //         ]
-    //     )
-    // }
-
     // Save what movies you favorite
     const saveRecents = async (movieObj) => {
         try {
@@ -80,14 +61,16 @@ export default function AboutScreen({ route }) {
 
     const addRecents = async (movie) => {
         // prevent duplicate favorites
-        // aellxx: ternary operator didn't work
-        if (Object.values(recentlyWatched).find(item => item.title === title)) {
-            return;
-        } else {
-            const newRecents = { ...recentlyWatched, [Date.now()]: movie };
-            setRecentlyWatched(newRecents);
-            await saveRecents(newRecents);
-        }
+        const alreadyWatchedKey = Object.keys(recentlyWatched).find(key => recentlyWatched[key].title === title);
+        console.log(alreadyWatchedKey)
+        let newRecents = {...recentlyWatched};
+
+        if (alreadyWatchedKey) {
+            delete newRecents[alreadyWatchedKey]
+        } 
+        newRecents = { ...newRecents, [Date.now()]: movie };
+        setRecentlyWatched(newRecents);
+        await saveRecents(newRecents);
     }
 
     const playMovie = async () => {
@@ -106,17 +89,17 @@ export default function AboutScreen({ route }) {
                     const recentJsonValue = await AsyncStorage.getItem(RECENTS_KEY);
                     const favObj = favJsonValue != null ? JSON.parse(favJsonValue) : {};
                     const recObj = recentJsonValue != null ? JSON.parse(recentJsonValue) : {};
-
                     // set states
                     setFavorites(favObj);
                     setRecentlyWatched(recObj);
                     // if in favorites, fill heart
                     if (Object.values(favObj).find(item => item.title === title)) {
-                        animation.current?.play(103, 103);
+                        animation.current.play(103, 104);
                     }
                 } catch (e) {
                     alert(`${e}`);
                 }
+                
             }
             loadInfo();
         }, [])
