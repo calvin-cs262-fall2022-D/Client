@@ -143,10 +143,16 @@ export default function RecentlyWatchedScreen({ navigation }) {
                                             title: recentMovies[movieKey].title,
                                             poster: recentMovies[movieKey].poster,
                                             videoId: recentMovies[movieKey].videoId,
+                                            description: recentMovies[movieKey].description,
+                                            course: recentMovies[movieKey].course,
                                         },
                                     })
                                 }}>
-                                    <MovieBanner title={recentMovies[movieKey].title} poster={recentMovies[movieKey].poster} />
+                                    <MovieBanner 
+                                        title={recentMovies[movieKey].title} 
+                                        poster={recentMovies[movieKey].poster}
+                                        course={recentMovies[movieKey].course}
+                                        description={recentMovies[movieKey].description} />
                                     </TouchableOpacity>
                                 </Swipeable>
                         )
