@@ -137,6 +137,8 @@ export default function FavoritesScreen({ navigation }) {
                                             title: favMovies[movieKey].title,
                                             poster: favMovies[movieKey].poster,
                                             videoId: favMovies[movieKey].videoId,
+                                            description: favMovies[movieKey].description,
+                                            class: favMovies[movieKey].class,
                                         },
                                     })
                                 }}>
@@ -148,7 +150,12 @@ export default function FavoritesScreen({ navigation }) {
                                     onSwipeableOpen={() => closeRow(movieKey)}
                                     rightOpenValue={-100}
                                 >
-                                    <MovieBanner title={favMovies[movieKey].title} poster={favMovies[movieKey].poster} />
+                                    <MovieBanner 
+                                        title={favMovies[movieKey].title} 
+                                        poster={favMovies[movieKey].poster} 
+                                        course={favMovies[movieKey].course}
+                                        description={favMovies[movieKey].description}
+                                    />
                                 </Swipeable>
                             </TouchableOpacity>
                         )

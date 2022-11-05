@@ -6,7 +6,7 @@ export default function Semester(props) {
     const movieData = props.movieData;
 
     const renderMovies = ({ item }) => (
-        <Movie poster={item.image} title={item.title} videoId={item.videoId} />
+        <Movie poster={item.image} title={item.title} videoId={item.videoId} description={item.description} course={item.course} />
     )
 
     return (

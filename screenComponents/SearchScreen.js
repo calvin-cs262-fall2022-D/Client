@@ -11,8 +11,16 @@ export default function SearchScreen({navigation}) {
 
     // aellxx: temporary render function; delete once we have DB set up
     const renderMovie = ({item}) => (
-        <TouchableOpacity onPress={() => navigation.navigate("About", {title: item.title, poster: item.image, videoId: item.videoId})} >
-            <MovieBanner title={item.title} poster={item.image}/>
+        <TouchableOpacity 
+            onPress={() => 
+                navigation.navigate("About", {
+                    title: item.title, 
+                    poster: item.image, 
+                    course: item.course, 
+                    videoId: item.videoId, 
+                    description: item.description,
+        })} >
+            <MovieBanner title={item.title} poster={item.image} description={item.description} course={item.course}/>
         </TouchableOpacity>
     )
 

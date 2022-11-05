@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert, Animated } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState, useEffect, useCallback } from 'react';
@@ -12,7 +12,9 @@ export default function AboutScreen({ route }) {
     const navigation = useNavigation();
     const animation = React.useRef(null);
 
-    const { title, poster, videoId, favorited } = route.params;
+    // get route parameters for necessary movie information
+    const { title, poster, videoId, description, course } = route.params;
+
     const FAVORITES_KEY = "@favorites_Key";
     const RECENTS_KEY = "@recents_Key";
 
@@ -27,7 +29,7 @@ export default function AboutScreen({ route }) {
     }
 
     const addFavorites = async () => {
-        const favMovie = { title: title, poster: poster, videoId: videoId };
+        const favMovie = { title: title, poster: poster, videoId: videoId, description: description, course: course };
         // prevent duplicate favorites
         if (Object.values(favorites).find(item => item.title === title)) {
             // play unfavoriting animation
@@ -74,7 +76,7 @@ export default function AboutScreen({ route }) {
     }
 
     const playMovie = async () => {
-        const recentMovie = { title: title, poster: poster, videoId: videoId };
+        const recentMovie = { title: title, poster: poster, videoId: videoId, description: description, course: course };
 
         await addRecents(recentMovie);
         navigation.navigate("Display", recentMovie);
@@ -113,9 +115,7 @@ export default function AboutScreen({ route }) {
             </View>
             <View style={styles.textWrapper}>
                 <Text style={styles.titleText}>{title}</Text>
-                <Text style={styles.descriptionText}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </Text>
+                <Text style={styles.descriptionText}>{description}</Text>
             </View>
             <View style={styles.buttonsWrapper}>
                 <TouchableOpacity
@@ -125,7 +125,6 @@ export default function AboutScreen({ route }) {
                         <View style={{ justifyContent: "center" }}>
                             <Text style={styles.buttonText}>
                                 Favorite
-                                {/* <Ionicons name="heart" size={24} color="#fff"> */}
                             </Text>
                         </View>
                         <View style={styles.lottieWrapper}>
