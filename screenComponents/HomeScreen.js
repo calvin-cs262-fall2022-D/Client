@@ -1,7 +1,5 @@
 import Semester from '../components/Semester';
 import { useFonts } from 'expo-font';
-import * as SplashScreen from 'expo-splash-screen';
-import { useCallback } from 'react';
 import { StyleSheet, View, ScrollView, Button } from 'react-native';
 import { movies } from "../data/movies";
 
