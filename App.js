@@ -20,7 +20,7 @@ export default function App() {
     headerTintColor: "#f2cc00",
   }
 
-  const displayHeaderStyles = ({ route }) => ({ 
+  const displayHeaderStyles = ({ route }) => ({
     headerTitleStyle: {
       color: "white",
       fontSize: 25,
@@ -32,15 +32,14 @@ export default function App() {
     headerTintColor: "#f2cc00",
     title: route.params.title,
   })
-  
 
   return (
     // Link each screen to its corrosponding component
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="HomeTabs" component={HomeTab} options={ {headerShown: false} }/>
-        <Stack.Screen name="About" component={AboutScreen} options={ aboutHeaderStyles }/>
-        <Stack.Screen name="Display" component={DisplayScreen} options={ displayHeaderStyles }/>
+        <Stack.Screen name="HomeTabs" component={HomeTab} options={{ headerShown: false }} />
+        <Stack.Screen name="About" component={AboutScreen} options={aboutHeaderStyles} />
+        <Stack.Screen name="Display" component={DisplayScreen} options={displayHeaderStyles} />
       </Stack.Navigator>
     </NavigationContainer>
 

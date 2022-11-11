@@ -1,6 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Vimeo } from "react-native-vimeo-iframe";
 
+// displays Vimeo player in the dispay screen
 export default function DisplayScreen({ route }) {
   const { videoId } = route.params;
   const videoCallbacks = {
