@@ -65,11 +65,11 @@ export default function AboutScreen({ route }) {
         // prevent duplicate favorites
         const alreadyWatchedKey = Object.keys(recentlyWatched).find(key => recentlyWatched[key].title === title);
         console.log(alreadyWatchedKey)
-        let newRecents = {...recentlyWatched};
+        let newRecents = { ...recentlyWatched };
 
         if (alreadyWatchedKey) {
             delete newRecents[alreadyWatchedKey]
-        } 
+        }
         newRecents = { ...newRecents, [Date.now()]: movie };
         setRecentlyWatched(newRecents);
         await saveRecents(newRecents);
@@ -101,7 +101,7 @@ export default function AboutScreen({ route }) {
                 } catch (e) {
                     alert(`${e}`);
                 }
-                
+
             }
             loadInfo();
         }, [])

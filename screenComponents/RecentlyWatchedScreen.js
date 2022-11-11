@@ -7,13 +7,15 @@ import { Swipeable } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 
 export default function RecentlyWatchedScreen({ navigation }) {
-    const [loading, setLoading] = useState(true); 
+    // hooks used to keep track of different states in the recently watched screen
+    const [loading, setLoading] = useState(true);
     const [recentMovies, setRecentMovies] = useState({});
     const [prevOpenedRow, setPrevOpenedRow] = useState();
-    const [selectedMovie, setSelectedMovie ] = useState({});
-    
+    const [selectedMovie, setSelectedMovie] = useState({});
 
+    // variable to keep track of recents
     const RECENTS_KEY = "@recents_Key";
+
 
     const saveRecents = async (movieObj) => {
         try {
@@ -25,7 +27,7 @@ export default function RecentlyWatchedScreen({ navigation }) {
     }
 
     const deleteRecents = async (movieKey) => {
-        const newRecents = {...recentMovies}
+        const newRecents = { ...recentMovies }
         delete newRecents[movieKey];
         setRecentMovies(newRecents);
         await saveRecents(newRecents);
@@ -36,14 +38,14 @@ export default function RecentlyWatchedScreen({ navigation }) {
             "Remove from Recently Watched",
             `Removing "${recentMovies[movieKeyToDelete].title}"`,
             [
-              {
-                text: "Cancel",
-              },
-              {
-                text: "Delete",
-                onPress: () => deleteRecents(movieKeyToDelete),
-                style: "destructive",
-              }
+                {
+                    text: "Cancel",
+                },
+                {
+                    text: "Delete",
+                    onPress: () => deleteRecents(movieKeyToDelete),
+                    style: "destructive",
+                }
             ]
         );
     }
@@ -59,14 +61,14 @@ export default function RecentlyWatchedScreen({ navigation }) {
             "Clearing Watch History",
             "This action cannot be undone. Are you sure?",
             [
-              {
-                text: "Cancel",
-              },
-              {
-                text: "Yes, I'm sure",
-                onPress: () => clearHistory(),
-                style: "destructive",
-              }
+                {
+                    text: "Cancel",
+                },
+                {
+                    text: "Yes, I'm sure",
+                    onPress: () => clearHistory(),
+                    style: "destructive",
+                }
             ]
         );
     }
@@ -75,37 +77,37 @@ export default function RecentlyWatchedScreen({ navigation }) {
     // originally from: https://snack.expo.dev/@aaronksaunders/calm-beef-jerky
     const renderRightActions = (progress, dragX, alertBeforeDelete) => {
         return (
-          <View
-            style={{
-              margin: 0,
-              alignContent: 'center',
-              justifyContent: 'center',
-              width: 70,
-            }}>
-            <TouchableOpacity
-                style={styles.deleteButton}
-                onPress={alertBeforeDelete}>
-                <Ionicons name="trash" size={40} color="#fff" />
-            </TouchableOpacity>
-          </View>
+            <View
+                style={{
+                    margin: 0,
+                    alignContent: 'center',
+                    justifyContent: 'center',
+                    width: 70,
+                }}>
+                <TouchableOpacity
+                    style={styles.deleteButton}
+                    onPress={alertBeforeDelete}>
+                    <Ionicons name="trash" size={40} color="#fff" />
+                </TouchableOpacity>
+            </View>
         );
-      };
+    };
 
     const closeRow = (movieKey) => {
         if (prevOpenedRow && prevOpenedRow !== selectedMovie[movieKey]) {
-          prevOpenedRow.close();
+            prevOpenedRow.close();
         }
         setPrevOpenedRow(selectedMovie[movieKey]);
     };
 
     useFocusEffect(
-        // WHENEVER Favorites screen is focused, load Favorite movies from AsyncStorage
+        // Whenever Favorites screen is focused, load Favorite movies from AsyncStorage
         useCallback(() => {
             const getRecents = async () => {
                 try {
                     const jsonValue = await AsyncStorage.getItem(RECENTS_KEY);
                     setRecentMovies(jsonValue != null ? JSON.parse(jsonValue) : {});
-                } catch(e) {
+                } catch (e) {
                     alert(`${e}`);
                 }
             }
@@ -127,43 +129,43 @@ export default function RecentlyWatchedScreen({ navigation }) {
                 <ScrollView>
                     {
                         Object.keys(recentMovies).reverse().map((movieKey) =>
-                                <Swipeable
-                                    key={movieKey}
-                                    renderRightActions={(progress, dragX) =>
-                                      renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
-                                    }
-                                    ref={(ref) => (selectedMovie[movieKey] = ref)}
-                                    onSwipeableOpen={() => closeRow(movieKey)}
-                                    rightOpenValue={-100}>
-                                    <TouchableOpacity 
-                                onPress={() => {
-                                    navigation.navigate({
-                                        name: "About",
-                                        params: {
-                                            title: recentMovies[movieKey].title,
-                                            poster: recentMovies[movieKey].poster,
-                                            videoId: recentMovies[movieKey].videoId,
-                                            description: recentMovies[movieKey].description,
-                                            course: recentMovies[movieKey].course,
-                                        },
-                                    })
-                                }}>
-                                    <MovieBanner 
-                                        title={recentMovies[movieKey].title} 
+                            <Swipeable
+                                key={movieKey}
+                                renderRightActions={(progress, dragX) =>
+                                    renderRightActions(progress, dragX, () => alertBeforeDelete(movieKey))
+                                }
+                                ref={(ref) => (selectedMovie[movieKey] = ref)}
+                                onSwipeableOpen={() => closeRow(movieKey)}
+                                rightOpenValue={-100}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        navigation.navigate({
+                                            name: "About",
+                                            params: {
+                                                title: recentMovies[movieKey].title,
+                                                poster: recentMovies[movieKey].poster,
+                                                videoId: recentMovies[movieKey].videoId,
+                                                description: recentMovies[movieKey].description,
+                                                course: recentMovies[movieKey].course,
+                                            },
+                                        })
+                                    }}>
+                                    <MovieBanner
+                                        title={recentMovies[movieKey].title}
                                         poster={recentMovies[movieKey].poster}
                                         course={recentMovies[movieKey].course}
                                         description={recentMovies[movieKey].description} />
-                                    </TouchableOpacity>
-                                </Swipeable>
+                                </TouchableOpacity>
+                            </Swipeable>
                         )
                     }
                 </ScrollView>
                 <View style={styles.clearButtonContainer}>
-                    <Button 
-                        style={styles.clearButton} 
-                        title="clear" 
-                        color="#f5392f" 
-                        onPress={alertBeforeClear}/>
+                    <Button
+                        style={styles.clearButton}
+                        title="clear"
+                        color="#f5392f"
+                        onPress={alertBeforeClear} />
                 </View>
             </View>
         )

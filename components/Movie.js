@@ -1,38 +1,38 @@
-import {useFonts} from 'expo-font';
+import { useFonts } from 'expo-font';
 import {
-        StyleSheet,
-        Text,
-        View,
-        Image,
-        TouchableOpacity
-      } from 'react-native';
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TouchableOpacity
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 
 export default function Movie(props) {
     const [fontsLoaded] = useFonts({
         'BebasNeue': require('../assets/fonts/BebasNeue-Regular.ttf'),
-        'Fjalla' : require('../assets/fonts/FjallaOne-Regular.ttf')
+        'Fjalla': require('../assets/fonts/FjallaOne-Regular.ttf')
     });
 
-    const navigation = useNavigation(); 
+    const navigation = useNavigation();
 
-    console.log({props});
+    console.log({ props });
 
     const imageURI = props.poster;
     return (
         <View style={styles.container}>
-            <TouchableOpacity 
-                onPress={() => 
+            <TouchableOpacity
+                onPress={() =>
                     navigation.navigate(
                         "About", {
-                            title: props.title, 
-                            poster: imageURI, 
-                            videoId: props.videoId,
-                            course: props.course,
-                            description: props.description,
-            })}>
-                <Image style={styles.poster} source={{uri: imageURI}}></Image>
+                        title: props.title,
+                        poster: imageURI,
+                        videoId: props.videoId,
+                        course: props.course,
+                        description: props.description,
+                    })}>
+                <Image style={styles.poster} source={{ uri: imageURI }}></Image>
                 <View style={styles.titleContainer}>
                     <Text style={styles.titleText}>{props.title}</Text>
                 </View>
