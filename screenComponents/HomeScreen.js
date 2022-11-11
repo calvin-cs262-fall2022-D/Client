@@ -1,63 +1,65 @@
-import Semester from '../components/Semester';
-import { useFonts } from 'expo-font';
-import { StyleSheet, View, ScrollView, Button } from 'react-native';
-import { useState, useEffect } from 'react';
+import Semester from "../components/Semester";
+import { useFonts } from "expo-font";
+import { StyleSheet, View, ScrollView } from "react-native";
+import { useState, useEffect } from "react";
 
 export default function HomeScreen() {
   const [movies, setMovies] = useState([]);
-  const [semesters, setSemesters] = useState([]);
   const [filteredSemesters, setFilteredSemesters] = useState({});
   // Load in the fonts
   const [fontsLoaded] = useFonts({
-    'BebasNeue': require('../assets/fonts/BebasNeue-Regular.ttf'),
-    'Fjalla': require('../assets/fonts/FjallaOne-Regular.ttf')
+    BebasNeue: require("../assets/fonts/BebasNeue-Regular.ttf"),
+    Fjalla: require("../assets/fonts/FjallaOne-Regular.ttf"),
   });
 
-  const filterBySemesters = () => {
-    semesters.forEach((semester) => {
-      const semesterMovies = movies.filter((item) => {item.semester === semester});
-      const newFilteredSemesters = {...filteredSemesters, semester: semesterMovies};
-      setFilteredSemesters(newFilteredSemesters);
-    })
-  }
-
-  const getSemesters = () => {
-    console.log({movies});
-    movies.forEach((item) => {
-      // if the class is already in the set
-      if (!semesters.includes(item.semester)) {
-        setSemesters([...semesters, item.semester])
+  const getMoviesBySemesters = (data) => {
+    // get list of all the semesters
+    const sems = [];
+    data.forEach((item) => {
+      // if the semester is not in the set
+      if (!sems.includes(item.semester)) {
+        sems.push(item.semester);
       }
-    })
-  }
+    });
+
+    // filter movies by semesters
+    let filteredBySem = {};
+    sems.forEach((sem) => {
+      const semesterMovies = data.filter((item) => item.semester === sem);
+      console.log(sem, semesterMovies);
+      filteredBySem[sem] = semesterMovies;
+    });
+    setFilteredSemesters(filteredBySem);
+  };
 
   const fetchMovies = async () => {
     try {
-      const response = await fetch("https://knightflix-service.herokuapp.com/movies");
+      const response = await fetch(
+        "https://knightflix-service.herokuapp.com/movies"
+      );
       const json = await response.json();
-      setMovies(json)
-
-      getSemesters(); 
-      filterBySemesters();
+      setMovies(json);
+      getMoviesBySemesters(json);
     } catch (err) {
       alert(err);
     }
-  }
+  };
 
   useEffect(() => {
     fetchMovies();
-    console.log({semesters});
-  }, [])
+  }, []);
 
-  return (!fontsLoaded ? null :
+  return !fontsLoaded ? null : (
     <View style={styles.container}>
       <View style={styles.verticalScroll}>
         <ScrollView>
-          {
-            Object.keys(filteredSemesters).map((semester, idx) =>
-              <Semester key={idx} text={semester} movieData={filteredSemesters[semester]} />
-            )
-          }
+          {Object.keys(filteredSemesters).map((semester, idx) => (
+            <Semester
+              key={idx}
+              text={semester}
+              movieData={filteredSemesters[semester]}
+            />
+          ))}
         </ScrollView>
       </View>
     </View>

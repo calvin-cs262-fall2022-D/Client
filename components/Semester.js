@@ -5,6 +5,20 @@ import { useEffect, useState } from "react";
 export default function Semester(props) {
   const [isLoading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
+
+  const processText = (text) => {
+    // semester not specified
+    if (text === "null") {
+      return "Miscellaneous";
+    }
+
+    const year = text.match(/\d+/g);
+    const seasonObj = text.match(/[a-zA-Z]+/g).toString();
+    const season = seasonObj.charAt(0).toUpperCase() + seasonObj.slice(1);
+
+    return `${season} ${year}`;
+  };
+
   const getMovies = async () => {
     try {
       // We will fetch data from our Knightflix web service, and store the items in movies
@@ -30,18 +44,18 @@ export default function Semester(props) {
   const renderMovies = ({ item }) => (
     //now we just need to refactor the code so we can access the correct attributes
     <Movie
-      poster={item.image}
+      poster={item.imageLink}
       title={item.title}
-      videoId={item.videoId}
+      videoId={item.vimeoKey}
       description={item.description}
-      course={item.course}
+      course={item.class}
     />
   );
 
   return (
     <View style={styles.container}>
       <View style={styles.sectionHeading}>
-        <Text style={styles.sectionHeadingText}>{props.text}</Text>
+        <Text style={styles.sectionHeadingText}>{processText(props.text)}</Text>
       </View>
       <SafeAreaView style={styles.movieList}>
         <FlatList
