@@ -18,7 +18,11 @@ export default function AboutScreen({ route }) {
   const FAVORITES_KEY = "@favorites_Key";
   const RECENTS_KEY = "@recents_Key";
 
-  // Save what movies you favorite
+  /**
+   * Saves current favorited movies into the async storage.
+   *
+   * @param {*} movieObj the favorited movies to add into storage
+   */
   const saveFavorites = async (movieObj) => {
     try {
       const jsonValue = JSON.stringify(movieObj);
@@ -28,6 +32,11 @@ export default function AboutScreen({ route }) {
     }
   };
 
+  /**
+   * Adds a movie to favorites, ran when the favorite button is clicked.
+   * If a movie is in the favorites list, it plays the unfavoriting animation and deletes it from the favorite movies.
+   * Otherwise, it plays the favoriting animation and adds it to the favorite movies.
+   */
   const addFavorites = async () => {
     const favMovie = {
       title: title,
@@ -137,7 +146,6 @@ export default function AboutScreen({ route }) {
       </View>
       <View style={styles.textWrapper}>
         <Text style={styles.titleText}>{title}</Text>
-		<Text style={styles.courseText}>{course}</Text>
         <Text style={styles.descriptionText}>{description}</Text>
       </View>
       <View style={styles.buttonsWrapper}>
@@ -167,6 +175,9 @@ export default function AboutScreen({ route }) {
   );
 }
 
+/**
+ * Styling for the About page
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -178,7 +189,7 @@ const styles = StyleSheet.create({
     flex: 5,
     alignItems: "center",
     flexDirection: "row",
-	margin: 0,
+    margin: 0,
   },
   textWrapper: {
     flex: 4,
@@ -212,17 +223,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: "Fjalla",
     color: "#fff",
-	textAlign: "center",
+    textAlign: "center",
   },
   courseText: {
-	fontSize: 25,
-	fontWeight: "bold",
+    fontWeight: "bold",
     fontFamily: "Fjalla",
-	color: "#fff",
+    color: "#fff",
   },
   descriptionText: {
     color: "#fff",
-	textAlign: "center",
+    textAlign: "center",
   },
   button: {
     backgroundColor: "#97252B",
