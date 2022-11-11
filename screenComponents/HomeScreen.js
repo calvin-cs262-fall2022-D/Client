@@ -17,6 +17,7 @@ export default function HomeScreen() {
       <View style={styles.verticalScroll}>
         <ScrollView>
           {
+            // map each movie with a semester
             Object.keys(movies).map((item, idx) =>
               <Semester key={idx} text={item} movieData={movies[item]} />
             )

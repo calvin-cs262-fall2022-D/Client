@@ -1,17 +1,17 @@
-import {useFonts} from 'expo-font';
+import { useFonts } from 'expo-font';
 import {
-        StyleSheet,
-        Text,
-        View,
-        Image,
-        TouchableOpacity
-      } from 'react-native';
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TouchableOpacity
+} from 'react-native';
 
 
 export default function MovieBanner(props) {
     const [fontsLoaded] = useFonts({
         'BebasNeue': require('../assets/fonts/BebasNeue-Regular.ttf'),
-        'Fjalla' : require('../assets/fonts/FjallaOne-Regular.ttf')
+        'Fjalla': require('../assets/fonts/FjallaOne-Regular.ttf')
     });
 
 
@@ -19,7 +19,7 @@ export default function MovieBanner(props) {
         <View style={styles.container}>
             <View style={styles.flexWrapper}>
                 <View style={styles.imageContainer}>
-                    <Image style={styles.imageContent} source={{uri: props.poster}}/>
+                    <Image style={styles.imageContent} source={{ uri: props.poster }} />
                 </View>
                 <View style={styles.textContainer}>
                     <View style={styles.titleContainer}>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     },
     directorText: {
         flex: 1,
-        fontSize: 18, 
+        fontSize: 18,
         fontWeight: "600",
     },
     descriptionText: {

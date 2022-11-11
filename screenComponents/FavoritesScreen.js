@@ -150,9 +150,9 @@ export default function FavoritesScreen({ navigation }) {
                                     onSwipeableOpen={() => closeRow(movieKey)}
                                     rightOpenValue={-100}
                                 >
-                                    <MovieBanner 
-                                        title={favMovies[movieKey].title} 
-                                        poster={favMovies[movieKey].poster} 
+                                    <MovieBanner
+                                        title={favMovies[movieKey].title}
+                                        poster={favMovies[movieKey].poster}
                                         course={favMovies[movieKey].course}
                                         description={favMovies[movieKey].description}
                                     />
