@@ -2,12 +2,12 @@ import { View, StyleSheet, FlatList, SafeAreaView } from "react-native";
 import SearchBar from "react-native-dynamic-search-bar";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MovieBanner from "../components/MovieBanner";
-import { movies } from "../data/movies";
+import { useState, useEffect } from "react";
 
 export default function SearchScreen({ navigation }) {
   // aellxx: this data is to implement a placeholder for the search function
-  const tempData = movies["Spring 2022"];
-  console.log(tempData);
+  const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
   // aellxx: temporary render function; delete once we have DB set up
   const renderMovie = ({ item }) => (
@@ -15,36 +15,55 @@ export default function SearchScreen({ navigation }) {
       onPress={() =>
         navigation.navigate("About", {
           title: item.title,
-          poster: item.image,
+          poster: item.imageLink,
           course: item.course,
-          videoId: item.videoId,
+          videoId: item.vimeoKey,
           description: item.description,
         })
       }
     >
       <MovieBanner
         title={item.title}
-        poster={item.image}
+        poster={item.imageLink}
         description={item.description}
         course={item.course}
       />
     </TouchableOpacity>
   );
 
+  const fetchMovies = async () => {
+    try {
+      const response = await fetch(
+        "https://knightflix-service.herokuapp.com/movies"
+      );
+      const json = await response.json();
+      setMovies(json);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchMovies();
+  }, []);
+
   return (
     // Set up the search input
+
     <View style={styles.container}>
       <View style={styles.textInputContainer}>
-        <SearchBar placeholder="Search"></SearchBar>
+        <SearchBar placeholder="Search" onChangeText={(text) => {
+          setFilteredMovies(movies.filter((movie) => movie.title.toLowerCase().includes(text.toLowerCase())));
+        }}></SearchBar>
       </View>
       <SafeAreaView style={styles.container}>
         <FlatList
-          data={tempData}
+          data={filteredMovies}
           renderItem={renderMovie}
           keyExtractor={(item) => item.id}
         />
       </SafeAreaView>
-    </View>
+    </View >
   );
 }
 

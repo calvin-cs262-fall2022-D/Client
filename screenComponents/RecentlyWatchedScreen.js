@@ -109,16 +109,18 @@ export default function RecentlyWatchedScreen({ navigation }) {
 
   const processText = (text) => {
     // semester not specified
-    if (text === "null") {
-      return "Miscellaneous";
+    try {
+      const year = text.match(/\d+/g);
+      const seasonObj = text.match(/[a-zA-Z]+/g).toString();
+      const season = seasonObj.toUpperCase();
+
+      return `${season} ${year}`;
+    } catch (err) {
+      if (text === "null") {
+        return "Miscellaneous";
+      }
     }
-
-    const year = text.match(/\d+/g);
-    const seasonObj = text.match(/[a-zA-Z]+/g).toString();
-    const season = seasonObj.toUpperCase();
-
-    return `${season} ${year}`;
-  };
+  }
 
   useFocusEffect(
     // WHENEVER Favorites screen is focused, load Favorite movies from AsyncStorage

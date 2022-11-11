@@ -26,7 +26,7 @@ export default function HomeScreen() {
     let filteredBySem = {};
     sems.forEach((sem) => {
       const semesterMovies = data.filter((item) => item.semester === sem);
-      console.log(sem, semesterMovies);
+      // console.log(sem, semesterMovies);
       filteredBySem[sem] = semesterMovies;
     });
     setFilteredSemesters(filteredBySem);
