@@ -16,7 +16,11 @@ export default function AboutScreen({ route }) {
     const FAVORITES_KEY = "@favorites_Key";
     const RECENTS_KEY = "@recents_Key";
 
-    // Save what movies you favorite
+    /**
+     * Saves current favorited movies into the async storage.
+     *
+     * @param {*} movieObj the favorited movies to add into storage
+     */
     const saveFavorites = async (movieObj) => {
         try {
             const jsonValue = JSON.stringify(movieObj);
@@ -26,6 +30,11 @@ export default function AboutScreen({ route }) {
         }
     }
 
+    /**
+     * Adds a movie to favorites, ran when the favorite button is clicked.
+     * If a movie is in the favorites list, it plays the unfavoriting animation and deletes it from the favorite movies.
+     * Otherwise, it plays the favoriting animation and adds it to the favorite movies.
+     */
     const addFavorites = async () => {
         const favMovie = { title: title, poster: poster, videoId: videoId };
         // prevent duplicate favorites
@@ -49,7 +58,11 @@ export default function AboutScreen({ route }) {
         }
     }
 
-    // Save what movies you favorite
+    /**
+     * Saves recently watched movies into the async storage.
+     *
+     * @param {*} movieObj the movies to add into storage
+     */
     const saveRecents = async (movieObj) => {
         try {
             const jsonValue = JSON.stringify(movieObj);
@@ -59,20 +72,28 @@ export default function AboutScreen({ route }) {
         }
     }
 
+    /**
+     * Adds a movie to recently watched, ran when the movie is chosen to be watched.
+     *
+     * @param {*} movie the movie to add to recently watched
+     */
     const addRecents = async (movie) => {
         // prevent duplicate favorites
         const alreadyWatchedKey = Object.keys(recentlyWatched).find(key => recentlyWatched[key].title === title);
         console.log(alreadyWatchedKey)
-        let newRecents = {...recentlyWatched};
+        let newRecents = { ...recentlyWatched };
 
         if (alreadyWatchedKey) {
             delete newRecents[alreadyWatchedKey]
-        } 
+        }
         newRecents = { ...newRecents, [Date.now()]: movie };
         setRecentlyWatched(newRecents);
         await saveRecents(newRecents);
     }
 
+    /**
+     * Navigates to the display/view screen, ran when the play button is clicked.
+     */
     const playMovie = async () => {
         const recentMovie = { title: title, poster: poster, videoId: videoId };
 
@@ -99,14 +120,16 @@ export default function AboutScreen({ route }) {
                 } catch (e) {
                     alert(`${e}`);
                 }
-                
+
             }
             loadInfo();
         }, [])
     )
 
+    /**
+     * Place the poster, description, and buttons for adding to favorites and playing the video
+     */
     return (
-        // Place the poster, description, and buttons for adding to favorites and playing the video
         <View style={styles.container}>
             <View style={styles.imageWrapper}>
                 <Image style={styles.poster} source={{ uri: poster }} resizeMode="contain" />
@@ -152,6 +175,9 @@ export default function AboutScreen({ route }) {
     )
 }
 
+/**
+ * Styling for the About page
+ */
 const styles = StyleSheet.create({
     container: {
         flex: 1,
