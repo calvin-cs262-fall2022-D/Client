@@ -1,31 +1,32 @@
-import * as React from 'react';
-import { Image, StyleSheet } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './HomeScreen';
-import FavoritesScreen from './FavoritesScreen';
-import RecentlyWatchedScreen from './RecentlyWatchedScreen';
-import SearchScreen from './SearchScreen';
-import { Ionicons } from '@expo/vector-icons';
-import whiteLogo from '../assets/whiteLogo.png';
+import * as React from "react";
+import { Image, StyleSheet } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeScreen from "./HomeScreen";
+import FavoritesScreen from "./FavoritesScreen";
+import RecentlyWatchedScreen from "./RecentlyWatchedScreen";
+import SearchScreen from "./SearchScreen";
+import { Ionicons } from "@expo/vector-icons";
+import whiteLogo from "../assets/whiteLogo.png";
 
 const Tab = createBottomTabNavigator();
 
 const iconObj = {
-  'Home': ['home', 'home-outline'],
-  'Favorites': ['heart', 'heart-outline'],
-  'Recently Watched': ['time', 'time-outline'],
-  'Search': ['ios-search', 'ios-search-outline'],
-}
+  Home: ["home", "home-outline"],
+  Favorites: ["heart", "heart-outline"],
+  "Recently Watched": ["time", "time-outline"],
+  Search: ["ios-search", "ios-search-outline"],
+};
 
 export default function HomeTab() {
-
   const screenStyles = ({ route }) => ({
     tabBarIcon: ({ focused, color, size }) => {
-      const iconName = focused ? iconObj[route.name][0] : iconObj[route.name][1];
+      const iconName = focused
+        ? iconObj[route.name][0]
+        : iconObj[route.name][1];
       return <Ionicons name={iconName} size={size} color={color} />;
     },
-    tabBarActiveTintColor: '#f2cc00',
-    tabBarInactiveTintColor: '#f2cc00',
+    tabBarActiveTintColor: "#f2cc00",
+    tabBarInactiveTintColor: "#f2cc00",
     tabBarStyle: {
       backgroundColor: "#97252B",
       borderTopWidth: 0,
@@ -34,8 +35,7 @@ export default function HomeTab() {
       backgroundColor: "#97252B",
       borderTopWidth: 0,
     },
-  })
-
+  });
 
   const homeHeaderStyles = {
     headerStyle: {
@@ -45,15 +45,17 @@ export default function HomeTab() {
       },
     },
     // Put the Knightflix logo on the header
-    headerTitle: () => <Image source={whiteLogo} style={styles.whiteLogo}></Image>,
+    headerTitle: () => (
+      <Image source={whiteLogo} style={styles.whiteLogo}></Image>
+    ),
     title: "Home",
-  }
+  };
 
   const screenHeaderStyles = {
     headerTitleStyle: {
       color: "white",
       fontSize: 35,
-      fontFamily: 'BebasNeue',
+      fontFamily: "BebasNeue",
     },
     headerStyle: {
       backgroundColor: "#97252B",
@@ -61,23 +63,38 @@ export default function HomeTab() {
         height: 0,
       },
     },
-  }
+  };
 
   return (
-    <Tab.Navigator
-      screenOptions={screenStyles}>
-      <Tab.Screen name="Home" component={HomeScreen} options={homeHeaderStyles} />
-      <Tab.Screen name="Favorites" component={FavoritesScreen} options={screenHeaderStyles} />
-      <Tab.Screen name="Recently Watched" component={RecentlyWatchedScreen} options={screenHeaderStyles} />
-      <Tab.Screen name="Search" component={SearchScreen} options={screenHeaderStyles} />
+    <Tab.Navigator screenOptions={screenStyles}>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={homeHeaderStyles}
+      />
+      <Tab.Screen
+        name="Favorites"
+        component={FavoritesScreen}
+        options={screenHeaderStyles}
+      />
+      <Tab.Screen
+        name="Recently Watched"
+        component={RecentlyWatchedScreen}
+        options={screenHeaderStyles}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchScreen}
+        options={screenHeaderStyles}
+      />
     </Tab.Navigator>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   // Style the Knightflix logo
   whiteLogo: {
