@@ -10,7 +10,7 @@ export default function Movie(props) {
 
   const navigation = useNavigation();
 
-  console.log({ props });
+  //console.log({ props });
 
   const imageURI = props.poster;
   return (

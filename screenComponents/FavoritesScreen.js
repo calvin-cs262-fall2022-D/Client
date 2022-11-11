@@ -32,7 +32,7 @@ export default function FavoritesScreen({ navigation }) {
   };
 
   const deleteFavorite = async (movieKey) => {
-    Í;
+
     const newFavs = { ...favMovies };
     delete newFavs[movieKey];
     movieKey.favorited = false;
@@ -111,15 +111,17 @@ export default function FavoritesScreen({ navigation }) {
 
   const processText = (text) => {
     // semester not specified
-    if (text === "null") {
-      return "Miscellaneous";
+    try {
+      const year = text.match(/\d+/g);
+      const seasonObj = text.match(/[a-zA-Z]+/g).toString();
+      const season = seasonObj.toUpperCase();
+      return `${season} ${year}`;
+    } catch (err) {
+      if (text === "null") {
+        return "Miscellaneous";
+      }
     }
 
-    const year = text.match(/\d+/g);
-    const seasonObj = text.match(/[a-zA-Z]+/g).toString();
-    const season = seasonObj.toUpperCase();
-
-    return `${season} ${year}`;
   };
 
   useFocusEffect(
