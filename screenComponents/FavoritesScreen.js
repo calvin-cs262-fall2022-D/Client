@@ -163,7 +163,7 @@ export default function FavoritesScreen({ navigation }) {
                   poster: favMovies[movieKey].poster,
                   videoId: favMovies[movieKey].videoId,
                   description: favMovies[movieKey].description,
-                  class: favMovies[movieKey].class,
+                  class: favMovies[movieKey].course,
                 },
               });
             }}
