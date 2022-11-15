@@ -4,4 +4,4 @@ This is the client application for the [Knightflix Project](https://github.com/c
 
 This application is based on the standard network data service tutorial, converted to read (GET only) from the Knightflix data service. ReactNative supports the other CRUD operations (PUT, POST, DELETE).
 
-The data seravice is hosted on Azure.
+The data seravice is hosted on Heroku.
