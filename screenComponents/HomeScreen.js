@@ -1,9 +1,11 @@
 import Semester from "../components/Semester";
 import { useFonts } from "expo-font";
-import { StyleSheet, View, ScrollView } from "react-native";
+import { ActivityIndicator, StyleSheet, View, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 
+
 export default function HomeScreen() {
+  const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   const [filteredSemesters, setFilteredSemesters] = useState({});
   // Load in the fonts
@@ -40,6 +42,7 @@ export default function HomeScreen() {
       const json = await response.json();
       setMovies(json);
       getMoviesBySemesters(json);
+      setLoading(false);
     } catch (err) {
       alert(err);
     }
@@ -49,7 +52,11 @@ export default function HomeScreen() {
     fetchMovies();
   }, []);
 
-  return !fontsLoaded ? null : (
+  return loading && !fontsLoaded ? (
+    <View>
+      <ActivityIndicator size="large" color="#ffffff" />
+    </View>
+  ) : (
     <View style={styles.container}>
       <View style={styles.verticalScroll}>
         <ScrollView>
@@ -68,10 +75,6 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-  },
-  verticalScroll: {
     backgroundColor: "#141414",
-    flex: 10,
   },
 });

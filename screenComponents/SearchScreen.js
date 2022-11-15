@@ -16,7 +16,7 @@ export default function SearchScreen({ navigation }) {
         navigation.navigate("About", {
           title: item.title,
           poster: item.imageLink,
-          course: item.course,
+          course: item["class"],
           videoId: item.vimeoKey,
           description: item.description,
         })
@@ -26,7 +26,7 @@ export default function SearchScreen({ navigation }) {
         title={item.title}
         poster={item.imageLink}
         description={item.description}
-        course={item.course}
+        course={item["class"]}
       />
     </TouchableOpacity>
   );

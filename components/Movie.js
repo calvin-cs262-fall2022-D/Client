@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 15,
+    width: 230,
   },
   poster: {
     backgroundColor: "#fff",
@@ -56,6 +57,5 @@ const styles = StyleSheet.create({
     fontStyle: "italic",
     fontFamily: "Fjalla",
     color: "#fff",
-    overflow: "scroll",
   },
 });
