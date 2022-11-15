@@ -1,15 +1,13 @@
-import { View, StyleSheet, FlatList, SafeAreaView } from "react-native";
+import { View, StyleSheet, FlatList, SafeAreaView, Text } from "react-native";
 import SearchBar from "react-native-dynamic-search-bar";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MovieBanner from "../components/MovieBanner";
 import { useState, useEffect } from "react";
 
 export default function SearchScreen({ navigation }) {
-  // aellxx: this data is to implement a placeholder for the search function
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
 
-  // aellxx: temporary render function; delete once we have DB set up
   const renderMovie = ({ item }) => (
     <TouchableOpacity
       onPress={() =>
@@ -53,7 +51,11 @@ export default function SearchScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.textInputContainer}>
         <SearchBar placeholder="Search" onChangeText={(text) => {
-          setFilteredMovies(movies.filter((movie) => movie.title.toLowerCase().includes(text.toLowerCase())));
+          if (text === "") {
+            setFilteredMovies([]);
+          } else {
+            setFilteredMovies(movies.filter((movie) => movie.title.toLowerCase().includes(text.toLowerCase())));
+          }
         }}></SearchBar>
       </View>
       <SafeAreaView style={styles.container}>
