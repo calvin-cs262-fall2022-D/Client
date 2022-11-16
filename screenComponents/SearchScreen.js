@@ -21,10 +21,18 @@ export default function SearchScreen({ navigation }) {
       ],
       outputRange: [1, 1, 1, 0]
     })
+    const opacity = scrollY.interpolate({
+      inputRange: [
+        -1, 0,
+        ITEM_SIZE * index,
+        ITEM_SIZE * (index + 0.6)
+      ],
+      outputRange: [1, 1, 1, 0]
+    })
     return (
       <Animated.View style={[styles.item,
       {
-        transform: [{ scale }]
+        transform: [{ scale }], opacity
       }
       ]} >
         <TouchableOpacity
