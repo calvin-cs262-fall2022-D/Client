@@ -1,33 +1,53 @@
-import { View, StyleSheet, FlatList, SafeAreaView, Text } from "react-native";
+import { View, StyleSheet, FlatList, SafeAreaView, Text, Animated } from "react-native";
 import SearchBar from "react-native-dynamic-search-bar";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MovieBanner from "../components/MovieBanner";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+
+const ITEM_SIZE = 210;
 
 export default function SearchScreen({ navigation }) {
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
+  const scrollY = useRef(new Animated.Value(0)).current;
 
-  const renderMovie = ({ item }) => (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate("About", {
-          title: item.title,
-          poster: item.imageLink,
-          course: item["class"],
-          videoId: item.vimeoKey,
-          description: item.description,
-        })
+  const renderMovie = ({ item, index }) => {
+    // calculate scale for scrolling animation
+    const scale = scrollY.interpolate({
+      inputRange: [
+        -1, 0,
+        ITEM_SIZE * index,
+        ITEM_SIZE * (index + 2)
+      ],
+      outputRange: [1, 1, 1, 0]
+    })
+    return (
+      <Animated.View style={[styles.item,
+      {
+        transform: [{ scale }]
       }
-    >
-      <MovieBanner
-        title={item.title}
-        poster={item.imageLink}
-        description={item.description}
-        course={item["class"]}
-      />
-    </TouchableOpacity>
-  );
+      ]} >
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("About", {
+              title: item.title,
+              poster: item.imageLink,
+              course: item["class"],
+              videoId: item.vimeoKey,
+              description: item.description,
+            })
+          }
+        >
+          <MovieBanner
+            title={item.title}
+            poster={item.imageLink}
+            description={item.description}
+            course={item["class"]}
+          />
+        </TouchableOpacity>
+      </Animated.View >
+    )
+  };
 
   const fetchMovies = async () => {
     try {
@@ -59,13 +79,18 @@ export default function SearchScreen({ navigation }) {
         }}></SearchBar>
       </View>
       <SafeAreaView style={styles.container}>
-        <FlatList
+        <Animated.FlatList
           data={filteredMovies}
           renderItem={renderMovie}
           keyExtractor={(item) => item.id}
+          onScroll={Animated.event(
+            // Animate the movies shrinking/growing on scroll
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            { useNativeDriver: true }
+          )}
         />
       </SafeAreaView>
-    </View >
+    </View>
   );
 }
 
