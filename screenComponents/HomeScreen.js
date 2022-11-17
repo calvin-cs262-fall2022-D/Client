@@ -1,6 +1,12 @@
 import Semester from "../components/Semester";
 import { useFonts } from "expo-font";
-import { ActivityIndicator, StyleSheet, View, ScrollView, Button } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  View,
+  ScrollView,
+  Button,
+} from "react-native";
 import { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Text } from "react-native";
@@ -10,14 +16,24 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   const [filteredSemesters, setFilteredSemesters] = useState({});
+  const [filteredClasses, setFilteredClasses] = useState({});
   // Load in the fonts
   const [fontsLoaded] = useFonts({
     BebasNeue: require("../assets/fonts/BebasNeue-Regular.ttf"),
     Fjalla: require("../assets/fonts/FjallaOne-Regular.ttf"),
   });
+  global.filterType = "filterBySemester";
 
   const iconObj = {
     Filter: ["filter-sharp"],
+  };
+
+  const filter = (data) => {
+    if (filterType === "filterBySemester") {
+      getMoviesBySemesters(data);
+    } else if (filterType === "filterByClass") {
+      getMoviesByClass(data);
+    }
   };
 
   const getMoviesBySemesters = (data) => {
@@ -40,6 +56,26 @@ export default function HomeScreen() {
     setFilteredSemesters(filteredBySem);
   };
 
+  // const getMoviesByClass = (data) => {
+  //   // get list of all the semesters
+  //   const classes = [];
+  //   data.forEach((item) => {
+  //     // if the semester is not in the set
+  //     if (!classes.includes(item.class)) {
+  //       classes.push(item.class);
+  //     }
+  //   });
+
+  //   // filter movies by semesters
+  //   let filteredByClass = {};
+  //   classes.forEach((class) => {
+  //     const classMovies = data.filter((item) => item.class === class);
+  //     // console.log(sem, semesterMovies);
+  //     filteredByClass[class] = classMovies;
+  //   });
+  //   setFilteredClasses(filteredByClass);
+  // };
+
   const fetchMovies = async () => {
     try {
       const response = await fetch(
@@ -47,7 +83,9 @@ export default function HomeScreen() {
       );
       const json = await response.json();
       setMovies(json);
-      getMoviesBySemesters(json);
+      filter(json);
+
+      //getMoviesBySemesters(json);
       setLoading(false);
     } catch (err) {
       alert(err);
@@ -58,29 +96,29 @@ export default function HomeScreen() {
     fetchMovies();
   }, []);
 
-
-
   return loading && !fontsLoaded ? (
     <View>
       <ActivityIndicator size="large" color="#ffffff" />
     </View>
   ) : (
-
     <View style={styles.container}>
-
-
       <View style={styles.verticalScroll}>
         <ScrollView>
-        <View style={styles.filterButtons}>
-      <Ionicons style={styles.icons} name={iconObj["Filter"][0]} size={36} color={'#f2cc00'} />
-          <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>Semester</Text>
-          </TouchableOpacity>
+          <View style={styles.filterButtons}>
+            <Ionicons
+              style={styles.icons}
+              name={iconObj["Filter"][0]}
+              size={36}
+              color={"#f2cc00"}
+            />
+            <TouchableOpacity style={styles.buttonContainer}>
+              <Text style={styles.buttonText}>Semester</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>Class</Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity style={styles.buttonContainer}>
+              <Text style={styles.buttonText}>Class</Text>
+            </TouchableOpacity>
+          </View>
 
           {Object.keys(filteredSemesters).map((semester, idx) => (
             <Semester
@@ -99,12 +137,11 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#141414",
     flex: 1,
-    alignContent: 'center',
+    alignContent: "center",
   },
   filterButtons: {
     flexDirection: "row",
     padding: 10,
-
   },
   buttonContainer: {
     elevation: 8,
@@ -123,5 +160,5 @@ const styles = StyleSheet.create({
   },
   icons: {
     marginTop: -3,
-  }
+  },
 });
