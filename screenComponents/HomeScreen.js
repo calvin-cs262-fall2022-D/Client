@@ -1,6 +1,11 @@
 import Semester from "../components/Semester";
 import { useFonts } from "expo-font";
-import { ActivityIndicator, StyleSheet, View, ScrollView, Button } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  View,
+  ScrollView,
+} from "react-native";
 import { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Text } from "react-native";
@@ -46,7 +51,6 @@ export default function HomeScreen() {
   };
 
   const getMoviesByClass = (data) => {
-
     const classes = [];
     data.forEach((item) => {
       // if the semester is not in the set
@@ -60,7 +64,7 @@ export default function HomeScreen() {
       const classMovies = data.filter((item) => item.class === classes);
       //console.log(classes, classMovies);
       filteredByClass[classes] = classMovies;
-    })
+    });
     setFilteredClasses(filteredByClass);
   };
 
@@ -91,27 +95,33 @@ export default function HomeScreen() {
     fetchMovies();
   }, []);
 
-
-
   return loading && !fontsLoaded ? (
     <View>
       <ActivityIndicator size="large" color="#ffffff" />
     </View>
   ) : (
-
     <View style={styles.container}>
-
-
       <View style={styles.verticalScroll}>
         <ScrollView>
           <View style={styles.filterButtons}>
-            <Ionicons style={styles.icons} name={iconObj["Filter"][0]} size={36} color={'#f2cc00'} />
-            <TouchableOpacity style={styles.buttonContainer} onPress={filterBySemester}>
+            <Ionicons
+              style={styles.icons}
+              name={iconObj["Filter"][0]}
+              size={36}
+              color={"#f2cc00"}
+            />
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={filterBySemester}
+            >
               <Text style={styles.buttonText}>Semester</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buttonContainer} onPress={filterByClasses}>
-              <Text style={styles.buttonText} >Class</Text>
+            <TouchableOpacity
+              style={styles.buttonContainer}
+              onPress={filterByClasses}
+            >
+              <Text style={styles.buttonText}>Class</Text>
             </TouchableOpacity>
           </View>
 
@@ -133,12 +143,11 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#141414",
     flex: 1,
-    alignContent: 'center',
+    alignContent: "center",
   },
   filterButtons: {
     flexDirection: "row",
     padding: 10,
-
   },
   buttonContainer: {
     elevation: 8,
@@ -157,5 +166,5 @@ const styles = StyleSheet.create({
   },
   icons: {
     marginTop: -3,
-  }
+  },
 });
