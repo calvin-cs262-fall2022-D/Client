@@ -39,23 +39,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 15,
-    width: 230,
+    width: 225,
   },
   poster: {
     backgroundColor: "#fff",
     height: 285,
-    width: 225,
-    marginBottom: 15,
+    width: "100%",
   },
   titleContainer: {
-    height: 40,
-    justifyContent: "center",
+    height: 60,
+    padding: 5,
     alignItems: "center",
+    flexDirection: "row",
   },
   titleText: {
-    fontSize: 19,
+    fontSize: 18,
     fontStyle: "italic",
     fontFamily: "Fjalla",
     color: "#fff",
+    flex: 1,
+    flexWrap: "wrap",
+    textAlign: "center",
   },
 });

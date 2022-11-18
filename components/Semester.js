@@ -71,7 +71,7 @@ export default function Semester(props) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 400,
+    height: 410,
     backgroundColor: "12345",
   },
   sectionHeading: {

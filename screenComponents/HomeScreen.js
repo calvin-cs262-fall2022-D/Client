@@ -1,6 +1,12 @@
 import Semester from "../components/Semester";
 import { useFonts } from "expo-font";
-import { ActivityIndicator, StyleSheet, View, ScrollView, Button } from "react-native";
+import {
+  ActivityIndicator,
+  StyleSheet,
+  View,
+  ScrollView,
+  Button,
+} from "react-native";
 import { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Text } from "react-native";
@@ -58,29 +64,29 @@ export default function HomeScreen() {
     fetchMovies();
   }, []);
 
-
-
   return loading && !fontsLoaded ? (
     <View>
       <ActivityIndicator size="large" color="#ffffff" />
     </View>
   ) : (
-
     <View style={styles.container}>
-
-
       <View style={styles.verticalScroll}>
         <ScrollView>
-        <View style={styles.filterButtons}>
-      <Ionicons style={styles.icons} name={iconObj["Filter"][0]} size={36} color={'#f2cc00'} />
-          <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>Semester</Text>
-          </TouchableOpacity>
+          {/*<View style={styles.filterButtons}>
+            <Ionicons
+              style={styles.icons}
+              name={iconObj["Filter"][0]}
+              size={36}
+              color={"#f2cc00"}
+            />
+            <TouchableOpacity style={styles.buttonContainer}>
+              <Text style={styles.buttonText}>Semester</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>Class</Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity style={styles.buttonContainer}>
+              <Text style={styles.buttonText}>Class</Text>
+            </TouchableOpacity>
+  </View>*/}
 
           {Object.keys(filteredSemesters).map((semester, idx) => (
             <Semester
@@ -99,12 +105,11 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#141414",
     flex: 1,
-    alignContent: 'center',
+    alignContent: "center",
   },
   filterButtons: {
     flexDirection: "row",
     padding: 10,
-
   },
   buttonContainer: {
     elevation: 8,
@@ -123,5 +128,5 @@ const styles = StyleSheet.create({
   },
   icons: {
     marginTop: -3,
-  }
+  },
 });
