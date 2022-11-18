@@ -9,12 +9,12 @@ export default function Semester(props) {
   const processText = (text) => {
     // semester not specified
     if (text === "null") {
-      return "Miscellaneous";
+      return "MISCELLANEOUS";
     }
 
     const year = text.match(/\d+/g);
     const seasonObj = text.match(/[a-zA-Z]+/g).toString();
-    const season = seasonObj.charAt(0).toUpperCase() + seasonObj.slice(1);
+    const season = seasonObj.toUpperCase();
 
     return `${season} ${year}`;
   };
