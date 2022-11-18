@@ -10,6 +10,9 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   const [filteredSemesters, setFilteredSemesters] = useState({});
+  const [filteredClasses, setFilteredClasses] = useState({});
+  const [filteredMovies, setFilteredMovies] = useState({});
+  // const [class_or_sem, setText] = useState({});
   // Load in the fonts
   const [fontsLoaded] = useFonts({
     BebasNeue: require("../assets/fonts/BebasNeue-Regular.ttf"),
@@ -38,6 +41,35 @@ export default function HomeScreen() {
       filteredBySem[sem] = semesterMovies;
     });
     setFilteredSemesters(filteredBySem);
+    // start as semester on default
+    setFilteredMovies(filteredBySem);
+  };
+
+  const getMoviesByClass = (data) => {
+
+    const classes = [];
+    data.forEach((item) => {
+      // if the semester is not in the set
+      if (!classes.includes(item.class)) {
+        classes.push(item.class);
+      }
+    });
+
+    let filteredByClass = {};
+    classes.forEach((classes) => {
+      const classMovies = data.filter((item) => item.class === classes);
+      //console.log(classes, classMovies);
+      filteredByClass[classes] = classMovies;
+    })
+    setFilteredClasses(filteredByClass);
+  };
+
+  const filterBySemester = () => {
+    setFilteredMovies(filteredSemesters);
+  };
+
+  const filterByClasses = () => {
+    setFilteredMovies(filteredClasses);
   };
 
   const fetchMovies = async () => {
@@ -48,6 +80,7 @@ export default function HomeScreen() {
       const json = await response.json();
       setMovies(json);
       getMoviesBySemesters(json);
+      getMoviesByClass(json);
       setLoading(false);
     } catch (err) {
       alert(err);
@@ -71,22 +104,23 @@ export default function HomeScreen() {
 
       <View style={styles.verticalScroll}>
         <ScrollView>
-        <View style={styles.filterButtons}>
-      <Ionicons style={styles.icons} name={iconObj["Filter"][0]} size={36} color={'#f2cc00'} />
-          <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>Semester</Text>
-          </TouchableOpacity>
+          <View style={styles.filterButtons}>
+            <Ionicons style={styles.icons} name={iconObj["Filter"][0]} size={36} color={'#f2cc00'} />
+            <TouchableOpacity style={styles.buttonContainer} onPress={filterBySemester}>
+              <Text style={styles.buttonText}>Semester</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>Class</Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity style={styles.buttonContainer} onPress={filterByClasses}>
+              <Text style={styles.buttonText} >Class</Text>
+            </TouchableOpacity>
+          </View>
 
-          {Object.keys(filteredSemesters).map((semester, idx) => (
+          {Object.keys(filteredMovies).map((semester, idx) => (
             <Semester
               key={idx}
               text={semester}
-              movieData={filteredSemesters[semester]}
+              // start as semester on default
+              movieData={filteredMovies[semester]}
             />
           ))}
         </ScrollView>
