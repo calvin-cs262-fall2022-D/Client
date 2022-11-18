@@ -95,7 +95,7 @@ export default function HomeScreen() {
     fetchMovies();
   }, []);
 
-  return loading && !fontsLoaded ? (
+  return !fontsLoaded ? (
     <View>
       <ActivityIndicator size="large" color="#ffffff" />
     </View>
