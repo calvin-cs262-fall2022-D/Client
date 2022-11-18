@@ -16,7 +16,11 @@ export default function Semester(props) {
     const seasonObj = text.match(/[a-zA-Z]+/g).toString();
     const season = seasonObj.toUpperCase();
 
-    return `${season} ${year}`;
+    if (!year) {
+      return `${season}`
+    } else {
+      return `${season} ${year}`;
+    }
   };
 
   const getMovies = async () => {

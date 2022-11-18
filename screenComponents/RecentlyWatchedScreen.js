@@ -114,13 +114,17 @@ export default function RecentlyWatchedScreen({ navigation }) {
       const seasonObj = text.match(/[a-zA-Z]+/g).toString();
       const season = seasonObj.toUpperCase();
 
-      return `${season} ${year}`;
+      if (!year) {
+        return `${season}`;
+      } else {
+        return `${season} ${year}`;
+      }
     } catch (err) {
       if (text === "null") {
         return "Miscellaneous";
       }
     }
-  }
+  };
 
   useFocusEffect(
     // WHENEVER Favorites screen is focused, load Favorite movies from AsyncStorage

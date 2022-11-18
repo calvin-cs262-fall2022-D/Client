@@ -17,7 +17,7 @@ export default function MovieBanner(props) {
           <View style={styles.titleContainer}>
             <Text style={styles.titleText}>{props.title}</Text>
           </View>
-          <Text style={styles.directorText}>{props.course}</Text>
+          <Text style={styles.directorText}>{props.course.toUpperCase()}</Text>
           <Text style={styles.descriptionText}>{props.description}</Text>
         </View>
       </View>
