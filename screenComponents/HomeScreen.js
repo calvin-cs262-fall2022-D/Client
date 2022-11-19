@@ -15,9 +15,8 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   const [filteredSemesters, setFilteredSemesters] = useState({});
-  const [filteredClasses, setFilteredClasses] = useState({});
+  const [filteredCourses, setFilteredCourses] = useState({});
   const [filteredMovies, setFilteredMovies] = useState({});
-  // const [class_or_sem, setText] = useState({});
   // Load in the fonts
   const [fontsLoaded] = useFonts({
     BebasNeue: require("../assets/fonts/BebasNeue-Regular.ttf"),
@@ -50,31 +49,43 @@ export default function HomeScreen() {
     setFilteredMovies(filteredBySem);
   };
 
-  const getMoviesByClass = (data) => {
-    const classes = [];
+  const getMoviesByCourses = (data) => {
+    const courses = [];
     data.forEach((item) => {
       // if the semester is not in the set
-      if (!classes.includes(item.class)) {
-        classes.push(item.class);
+      if (!courses.includes(item.course)) {
+        courses.push(item.course);
       }
     });
 
-    let filteredByClass = {};
-    classes.forEach((classes) => {
-      const classMovies = data.filter((item) => item.class === classes);
-      //console.log(classes, classMovies);
-      filteredByClass[classes] = classMovies;
+    let filteredByCourse = {};
+    courses.forEach((course) => {
+      const courseMovies = data.filter((item) => item.course === course);
+      filteredByCourse[course] = courseMovies;
     });
-    setFilteredClasses(filteredByClass);
+    setFilteredCourses(filteredByCourse);
   };
 
   const filterBySemester = () => {
     setFilteredMovies(filteredSemesters);
   };
 
-  const filterByClasses = () => {
-    setFilteredMovies(filteredClasses);
+  const filterByCourses = () => {
+    setFilteredMovies(filteredCourses);
   };
+
+  // data wrangling 
+  const processMovies = (rawMovieData) => {
+    const processedMovies = rawMovieData.map((item) => {
+      const {semester, course, ...rest} = item;
+
+      const newSemester = !semester ? "MISCELLANEOUS" : semester.toUpperCase();
+      const newCourse = !course ? "MISCELLANEOUS" : course.toUpperCase();
+
+      return {semester: newSemester, course: newCourse, ...rest};
+    });
+    return processedMovies;
+  }
 
   const fetchMovies = async () => {
     try {
@@ -82,10 +93,10 @@ export default function HomeScreen() {
         "https://knightflix-service.herokuapp.com/movies"
       );
       const json = await response.json();
-      setMovies(json);
-      getMoviesBySemesters(json);
-      getMoviesByClass(json);
-      setLoading(false);
+      const processedMovies = processMovies(json);
+      setMovies(processedMovies);
+      getMoviesBySemesters(processedMovies);
+      getMoviesByCourses(processedMovies);
     } catch (err) {
       alert(err);
     }
@@ -93,6 +104,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     fetchMovies();
+    setLoading(false);
   }, []);
 
   return !fontsLoaded ? (
@@ -119,7 +131,7 @@ export default function HomeScreen() {
 
             <TouchableOpacity
               style={styles.buttonContainer}
-              onPress={filterByClasses}
+              onPress={filterByCourses}
             >
               <Text style={styles.buttonText}>Class</Text>
             </TouchableOpacity>

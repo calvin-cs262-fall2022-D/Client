@@ -107,25 +107,6 @@ export default function RecentlyWatchedScreen({ navigation }) {
     setPrevOpenedRow(selectedMovie[movieKey]);
   };
 
-  const processText = (text) => {
-    // semester not specified
-    try {
-      const year = text.match(/\d+/g);
-      const seasonObj = text.match(/[a-zA-Z]+/g).toString();
-      const season = seasonObj.toUpperCase();
-
-      if (!year) {
-        return `${season}`;
-      } else {
-        return `${season} ${year}`;
-      }
-    } catch (err) {
-      if (text === "null") {
-        return "Miscellaneous";
-      }
-    }
-  };
-
   useFocusEffect(
     // WHENEVER Favorites screen is focused, load Favorite movies from AsyncStorage
     useCallback(() => {
@@ -185,7 +166,7 @@ export default function RecentlyWatchedScreen({ navigation }) {
                 <MovieBanner
                   title={recentMovies[movieKey].title}
                   poster={recentMovies[movieKey].poster}
-                  course={processText(recentMovies[movieKey].course)}
+                  course={recentMovies[movieKey].course}
                   description={recentMovies[movieKey].description}
                 />
               </TouchableOpacity>

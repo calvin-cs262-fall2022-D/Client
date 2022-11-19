@@ -146,7 +146,7 @@ export default function AboutScreen({ route }) {
       </View>
       <View style={styles.textWrapper}>
         <Text style={styles.titleText}>{title}</Text>
-        <Text style={styles.courseText}>{course.toUpperCase()}</Text>
+        <Text style={styles.courseText}>{course}</Text>
         <Text style={styles.descriptionText}>{description}</Text>
       </View>
       <View style={styles.buttonsWrapper}>

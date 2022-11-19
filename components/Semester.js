@@ -3,19 +3,14 @@ import { StyleSheet, Text, View, SafeAreaView, FlatList } from "react-native";
 import { useEffect, useState } from "react";
 
 export default function Semester(props) {
-  const [isLoading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
 
   const processText = (text) => {
-    // semester not specified
-    if (text === "null") {
-      return "MISCELLANEOUS";
-    }
-
     const year = text.match(/\d+/g);
     const seasonObj = text.match(/[a-zA-Z]+/g).toString();
     const season = seasonObj.toUpperCase();
 
+    // without class number or miscellaneous
     if (!year) {
       return `${season}`
     } else {
@@ -33,8 +28,6 @@ export default function Semester(props) {
       setMovies(json);
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -52,7 +45,7 @@ export default function Semester(props) {
       title={item.title}
       videoId={item.vimeoKey}
       description={item.description}
-      course={item.class}
+      course={item.course}
     />
   );
 

@@ -108,24 +108,6 @@ export default function FavoritesScreen({ navigation }) {
     setPrevOpenedRow(selectedMovie[movieKey]);
   };
 
-  const processText = (text) => {
-    // semester not specified
-    try {
-      const year = text.match(/\d+/g);
-      const seasonObj = text.match(/[a-zA-Z]+/g).toString();
-      const season = seasonObj.toUpperCase();
-      if (!year) {
-        return `${season}`;
-      } else {
-        return `${season} ${year}`;
-      }
-    } catch (err) {
-      if (text === "null") {
-        return "Miscellaneous";
-      }
-    }
-  };
-
   useFocusEffect(
     // WHENEVER Favorites screen is focused, load Favorite movies from AsyncStorage
     useCallback(() => {
@@ -165,7 +147,7 @@ export default function FavoritesScreen({ navigation }) {
                   poster: favMovies[movieKey].poster,
                   videoId: favMovies[movieKey].videoId,
                   description: favMovies[movieKey].description,
-                  class: favMovies[movieKey].course,
+                  course: favMovies[movieKey].course,
                 },
               });
             }}
@@ -183,7 +165,7 @@ export default function FavoritesScreen({ navigation }) {
               <MovieBanner
                 title={favMovies[movieKey].title}
                 poster={favMovies[movieKey].poster}
-                course={processText(favMovies[movieKey].course)}
+                course={favMovies[movieKey].course}
                 description={favMovies[movieKey].description}
               />
             </Swipeable>

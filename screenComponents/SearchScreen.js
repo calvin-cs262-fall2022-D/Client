@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList, SafeAreaView, Text, Animated } from "react-native";
+import { View, StyleSheet, SafeAreaView, Animated } from "react-native";
 import SearchBar from "react-native-dynamic-search-bar";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import MovieBanner from "../components/MovieBanner";
@@ -40,7 +40,7 @@ export default function SearchScreen({ navigation }) {
             navigation.navigate("About", {
               title: item.title,
               poster: item.imageLink,
-              course: item["class"],
+              course: item.course,
               videoId: item.vimeoKey,
               description: item.description,
             })
@@ -50,12 +50,24 @@ export default function SearchScreen({ navigation }) {
             title={item.title}
             poster={item.imageLink}
             description={item.description}
-            course={item["class"]}
+            course={item.course}
           />
         </TouchableOpacity>
       </Animated.View >
     )
   };
+
+  const processMovies = (rawMovieData) => {
+    const processedMovies = rawMovieData.map((item) => {
+      const {semester, course, ...rest} = item;
+
+      const newSemester = !semester ? "MISCELLANEOUS" : semester.toUpperCase();
+      const newCourse = !course ? "MISCELLANEOUS" : course.toUpperCase();
+
+      return {semester: newSemester, course: newCourse, ...rest};
+    });
+    return processedMovies;
+  }
 
   const fetchMovies = async () => {
     try {
@@ -63,7 +75,8 @@ export default function SearchScreen({ navigation }) {
         "https://knightflix-service.herokuapp.com/movies"
       );
       const json = await response.json();
-      setMovies(json);
+      const processedMovies = processMovies(json);
+      setMovies(processedMovies);
     } catch (err) {
       alert(err);
     }
