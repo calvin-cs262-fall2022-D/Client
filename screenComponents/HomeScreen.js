@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Text } from "react-native";
+import { Text, Switch } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function HomeScreen() {
@@ -17,6 +17,8 @@ export default function HomeScreen() {
   const [filteredSemesters, setFilteredSemesters] = useState({});
   const [filteredCourses, setFilteredCourses] = useState({});
   const [filteredMovies, setFilteredMovies] = useState({});
+  const [semesterFiltered, setSemesterFiltered] = useState({});
+  const [classFiltered, setClassFiltered] = useState({});
   // Load in the fonts
   const [fontsLoaded] = useFonts({
     BebasNeue: require("../assets/fonts/BebasNeue-Regular.ttf"),
@@ -68,21 +70,25 @@ export default function HomeScreen() {
 
   const filterBySemester = () => {
     setFilteredMovies(filteredSemesters);
+    setSemesterFiltered(true);
+    setClassFiltered(false);
   };
 
   const filterByCourses = () => {
     setFilteredMovies(filteredCourses);
+    setSemesterFiltered(false);
+    setClassFiltered(true);
   };
 
-  // data wrangling 
+  // data wrangling
   const processMovies = (rawMovieData) => {
     const processedMovies = rawMovieData.map((item) => {
-      const {semester, course, ...rest} = item;
+      const { semester, course, ...rest } = item;
 
       const newSemester = !semester ? "MISCELLANEOUS" : semester.toUpperCase();
       const newCourse = !course ? "MISCELLANEOUS" : course.toUpperCase();
 
-      return {semester: newSemester, course: newCourse, ...rest};
+      return { semester: newSemester, course: newCourse, ...rest };
     });
     return processedMovies;
   }
@@ -97,6 +103,8 @@ export default function HomeScreen() {
       setMovies(processedMovies);
       getMoviesBySemesters(processedMovies);
       getMoviesByCourses(processedMovies);
+      setSemesterFiltered(true);
+      setClassFiltered(false);
     } catch (err) {
       alert(err);
     }
@@ -123,14 +131,28 @@ export default function HomeScreen() {
               color={"#f2cc00"}
             />
             <TouchableOpacity
-              style={styles.buttonContainer}
+              style={{
+                elevation: 8,
+                borderRadius: 16,
+                paddingVertical: 6,
+                paddingHorizontal: 14,
+                marginHorizontal: 6,
+                backgroundColor: semesterFiltered ? "#7c6800" : "#f2cc00",
+              }}
               onPress={filterBySemester}
             >
               <Text style={styles.buttonText}>Semester</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={styles.buttonContainer}
+              style={{
+                elevation: 8,
+                borderRadius: 16,
+                paddingVertical: 6,
+                paddingHorizontal: 14,
+                marginHorizontal: 6,
+                backgroundColor: classFiltered ? "#7c6800" : "#f2cc00",
+              }}
               onPress={filterByCourses}
             >
               <Text style={styles.buttonText}>Class</Text>
@@ -161,14 +183,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 10,
   },
-  buttonContainer: {
-    elevation: 8,
-    backgroundColor: "#f2cc00",
-    borderRadius: 16,
-    paddingVertical: 6,
-    paddingHorizontal: 14,
-    marginHorizontal: 6,
-  },
+  // buttonContainer: {
+  //   elevation: 8,
+  //   borderRadius: 16,
+  //   paddingVertical: 6,
+  //   paddingHorizontal: 14,
+  //   marginHorizontal: 6,
+  //   backgroundColor: semesterFiltered ? "#f2cc00" : "black",
+  // },
   buttonText: {
     fontSize: 16,
     fontFamily: "Fjalla",
