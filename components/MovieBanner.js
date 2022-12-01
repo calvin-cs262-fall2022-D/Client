@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "700",
   },
-  directorText: {
+  directionText: {
     flex: 1,
     fontSize: 18,
     fontWeight: "600",

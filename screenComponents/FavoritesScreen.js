@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Button,
+  Text,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
@@ -13,6 +14,7 @@ import MovieBanner from "../components/MovieBanner";
 import { useState, useCallback } from "react";
 import { Swipeable } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
+import { withSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function FavoritesScreen({ navigation }) {
   const [loading, setLoading] = useState(true);
@@ -172,7 +174,8 @@ export default function FavoritesScreen({ navigation }) {
           </TouchableOpacity>
         ))}
       </ScrollView>
-      <View style={styles.clearButtonContainer}>
+      <View style={styles.clearContainer}>
+        <Text style={styles.instructionText}>swipe left to delete, tap to view details</Text>
         <Button
           style={styles.clearButton}
           title="clear"
@@ -202,7 +205,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  clearButtonContainer: {
-    marginBottom: 15,
+  clearContainer: {
+    marginVertical: 10,
+    alignItems: "center",
   },
+  instructionText: {
+    color: "grey",
+  }
 });

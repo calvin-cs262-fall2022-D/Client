@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Button,
+  Text,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
@@ -173,7 +174,8 @@ export default function RecentlyWatchedScreen({ navigation }) {
             </Swipeable>
           ))}
       </ScrollView>
-      <View style={styles.clearButtonContainer}>
+      <View style={styles.clearContainer}>
+        <Text style={styles.instructionText}>swipe left to delete, tap to view details</Text>
         <Button
           style={styles.clearButton}
           title="clear"
@@ -203,7 +205,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  clearButtonContainer: {
-    marginBottom: 15,
+  clearContainer: {
+    marginVertical: 10,
+    alignItems: "center",
   },
+  instructionText: {
+    color: "grey",
+  }
 });
