@@ -1,17 +1,15 @@
 import * as React from "react";
-import { Image, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "./HomeScreen";
+import HomeStack from "./HomeStack";
 import FavoritesScreen from "./FavoritesScreen";
 import RecentlyWatchedScreen from "./RecentlyWatchedScreen";
 import SearchScreen from "./SearchScreen";
 import { Ionicons } from "@expo/vector-icons";
-import whiteLogo from "../assets/whiteLogo.png";
 
 const Tab = createBottomTabNavigator();
 
 const iconObj = {
-  Home: ["home", "home-outline"],
+  HomeStack: ["home", "home-outline"],
   Favorites: ["heart", "heart-outline"],
   "Recently Watched": ["time", "time-outline"],
   Search: ["ios-search", "ios-search-outline"],
@@ -37,20 +35,6 @@ export default function HomeTab() {
     },
   });
 
-  const homeHeaderStyles = {
-    headerStyle: {
-      backgroundColor: "#97252B",
-      shadowOffset: {
-        height: 0,
-      },
-    },
-    // Put the Knightflix logo on the header
-    headerTitle: () => (
-      <Image source={whiteLogo} style={styles.whiteLogo}></Image>
-    ),
-    title: "Home",
-  };
-
   const screenHeaderStyles = {
     headerTitleStyle: {
       color: "white",
@@ -68,9 +52,9 @@ export default function HomeTab() {
   return (
     <Tab.Navigator screenOptions={screenStyles}>
       <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={homeHeaderStyles}
+        name="HomeStack"
+        component={HomeStack}
+        options={{ headerShown: false }}
       />
       <Tab.Screen
         name="Favorites"
@@ -90,15 +74,3 @@ export default function HomeTab() {
     </Tab.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  // Style the Knightflix logo
-  whiteLogo: {
-    width: 120,
-    height: 32,
-  },
-});
