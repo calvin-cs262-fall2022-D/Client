@@ -3,11 +3,11 @@ import { View, Text, StyleSheet } from "react-native";
 export default function DocumentationScreen() {
   return (
     <View styles={styles.container}>
-      <View style={styles.headerContainer}>
-        <Text styles={styles.headerText}>How to Use KnightFlix:</Text>
-      </View>
       <View style={styles.bodyContainer}>
-        <View style={styles.instructionList}>
+        <View>
+        <View style={styles.headerContainer}>
+            <Text style={styles.headerText}>How to Use KnightFlix</Text>
+          </View>
           <View style={styles.instructionContainer}>
             <Text style={styles.instructionHeader}>1. Watching a movie:</Text>
             <Text style={styles.instruction}>a. Click on movie</Text>
@@ -75,21 +75,32 @@ export default function DocumentationScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: "100%",
+    width: "100%",
+    backgroundColor: "blue",
   },
   headerContainer: {
     alignItems: "center",
+    marginVertical: 15,
   },
   headerText: {
+    fontSize: 25,
+    fontWeight: "bold",
   },
   bodyContainer: {
     justifyContent: "center",
     alignContent: "center",
     marginHorizontal: 15,
   },
-  instructionList: {},
-  instructionHeader: {},
+  instructionContainer: {
+    marginBottom: 10,
+  },
+  instructionHeader: {
+    fontSize: 20,
+  },
   instruction: {
     marginLeft: 20,
+    fontSize: 16,
   },
   subinstruction: {
     marginLeft: 40,
