@@ -1,6 +1,6 @@
 import { View, StyleSheet, SafeAreaView, Animated } from "react-native";
 import SearchBar from "react-native-dynamic-search-bar";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import MovieBanner from "../components/MovieBanner";
 import { useState, useEffect, useRef } from "react";
 
@@ -59,12 +59,12 @@ export default function SearchScreen({ navigation }) {
 
   const processMovies = (rawMovieData) => {
     const processedMovies = rawMovieData.map((item) => {
-      const {semester, course, ...rest} = item;
+      const { semester, course, ...rest } = item;
 
       const newSemester = !semester ? "MISCELLANEOUS" : semester.toUpperCase();
       const newCourse = !course ? "MISCELLANEOUS" : course.toUpperCase();
 
-      return {semester: newSemester, course: newCourse, ...rest};
+      return { semester: newSemester, course: newCourse, ...rest };
     });
     return processedMovies;
   }
