@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useState, useEffect } from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import { Text, Switch } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 

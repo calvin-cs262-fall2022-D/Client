@@ -1,11 +1,11 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 
 export default function DocumentationScreen() {
   return (
-    <View styles={styles.container}>
+    <ScrollView styles={styles.container}>
       <View style={styles.bodyContainer}>
         <View>
-        <View style={styles.headerContainer}>
+          <View style={styles.headerContainer}>
             <Text style={styles.headerText}>How to Use KnightFlix</Text>
           </View>
           <View style={styles.instructionContainer}>
@@ -68,7 +68,7 @@ export default function DocumentationScreen() {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
   },
   instructionContainer: {
     marginBottom: 10,
+    marginTop: -10,
   },
   instructionHeader: {
     fontSize: 20,

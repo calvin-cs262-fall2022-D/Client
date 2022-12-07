@@ -60,9 +60,9 @@ export default function HomeStack() {
   return (
     // Link each screen to its corrosponding component
     <Stack.Navigator>
-      <Stack.Screen 
-        name="Home" 
-        component={HomeScreen} 
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
         options={homeHeader} />
       <Stack.Screen
         name="Documentation"
@@ -77,6 +77,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    justifyContent: "center",
+    textAlign: "center",
   },
   // Style the Knightflix logo
   whiteLogo: {
