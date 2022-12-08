@@ -54,7 +54,7 @@ export default function HomeTab() {
       <Tab.Screen
         name="HomeStack"
         component={HomeStack}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, tabBarLabel: "Home" }}
       />
       <Tab.Screen
         name="Favorites"
