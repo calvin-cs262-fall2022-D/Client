@@ -17,7 +17,7 @@ export default function MovieBanner(props) {
           <View style={styles.titleContainer}>
             <Text style={styles.titleText}>{props.title}</Text>
           </View>
-          <Text style={styles.directorText}>{props.course}</Text>
+          <Text style={styles.classText}>{props.course}</Text>
           <Text style={styles.descriptionText}>{props.description}</Text>
         </View>
       </View>
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "700",
   },
-  directionText: {
+  classText: {
     flex: 1,
     fontSize: 18,
     fontWeight: "600",
