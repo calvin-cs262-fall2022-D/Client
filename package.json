@@ -1,8 +1,11 @@
 {
-  "name": "prototype",
+  "name": "Knightflix",
   "version": "1.0.0",
+  "homepage": "https://samhoog.github.io/calvin-cs262-fall2022-D/Client",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -32,7 +35,8 @@
     "yarn": "^1.22.19"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "gh-pages": "^6.1.1"
   },
   "private": true
 }
